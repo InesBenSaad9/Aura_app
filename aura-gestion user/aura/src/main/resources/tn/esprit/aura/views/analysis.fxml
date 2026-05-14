@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+
+<HBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.aura.controllers.AIAnalysisController"
+      style="-fx-background-color: #0A0C0F; -fx-padding: 28 32;"
+      spacing="28">
+
+    <!-- ══════════════════════════════════════════════
+         COLONNE GAUCHE — fixe, pas de scroll
+         ══════════════════════════════════════════════ -->
+    <VBox spacing="16" prefWidth="420" minWidth="420">
+
+        <Label text="Analyse IA"
+               style="-fx-text-fill: white; -fx-font-size: 28; -fx-font-weight: bold;"/>
+
+        <!-- Orbe -->
+        <StackPane alignment="CENTER" prefHeight="360">
+            <Circle radius="170" fill="transparent" stroke="#1BBFA8" strokeWidth="1" opacity="0.08"/>
+            <Circle radius="145" fill="#0A0C0F" opacity="0.5" stroke="#1BBFA8" strokeWidth="1"/>
+            <Circle fx:id="orbCircle" radius="120" fill="#6B5FD4"/>
+            <VBox alignment="CENTER" spacing="6">
+                <Label fx:id="orbEmoji" text="😊" style="-fx-font-size: 32;"/>
+                <Label fx:id="orbMoodText" text="Comment tu te sens ?"
+                       style="-fx-text-fill: white; -fx-font-size: 15; -fx-font-weight: bold;"/>
+                <Label fx:id="orbSubText" text="Clique sur le micro"
+                       style="-fx-text-fill: rgba(255,255,255,0.6); -fx-font-size: 12;"/>
+            </VBox>
+        </StackPane>
+
+        <!-- Micro card -->
+        <VBox spacing="12" alignment="CENTER"
+              style="-fx-background-color: #111418;
+                     -fx-background-radius: 16;
+                     -fx-border-color: rgba(27,191,168,0.15);
+                     -fx-border-radius: 16;
+                     -fx-border-width: 1;
+                     -fx-padding: 24;">
+            <Label text="Analyse vocale"
+                   style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+            <StackPane alignment="CENTER">
+                <Circle fx:id="pulseRing" radius="40" fill="transparent"
+                        stroke="#1BBFA8" strokeWidth="2" opacity="0.3"/>
+                <Button fx:id="micButton" text="Mic" onAction="#onMicClick"
+                        style="-fx-background-color: #1BBFA8; -fx-text-fill: white;
+                               -fx-background-radius: 40; -fx-padding: 16 20;
+                               -fx-font-size: 13; -fx-cursor: hand;"/>
+            </StackPane>
+            <Label fx:id="statusLabel" text="Pret"
+                   style="-fx-text-fill: #A8B4C0; -fx-font-size: 13;"/>
+        </VBox>
+
+        <!-- Résultats vocaux -->
+        <HBox spacing="10" fx:id="resultsBox" visible="false" managed="false">
+            <VBox spacing="6" alignment="CENTER" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: #111418; -fx-background-radius: 12;
+                         -fx-border-color: rgba(27,191,168,0.15); -fx-border-radius: 12;
+                         -fx-border-width: 1; -fx-padding: 14;">
+                <Label text="Humeur" style="-fx-text-fill: #A8B4C0; -fx-font-size: 11;"/>
+                <Label fx:id="moodLabel" text="—"
+                       style="-fx-text-fill: white; -fx-font-size: 15; -fx-font-weight: bold;"/>
+            </VBox>
+            <VBox spacing="6" alignment="CENTER" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: #111418; -fx-background-radius: 12;
+                         -fx-border-color: rgba(27,191,168,0.15); -fx-border-radius: 12;
+                         -fx-border-width: 1; -fx-padding: 14;">
+                <Label text="Energie" style="-fx-text-fill: #A8B4C0; -fx-font-size: 11;"/>
+                <ProgressBar fx:id="energyBar" progress="0"
+                             style="-fx-accent: #1BBFA8;" prefWidth="80"/>
+                <Label fx:id="energyLabel" text="—%"
+                       style="-fx-text-fill: #1BBFA8; -fx-font-size: 14; -fx-font-weight: bold;"/>
+            </VBox>
+            <VBox spacing="6" alignment="CENTER" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: #111418; -fx-background-radius: 12;
+                         -fx-border-color: rgba(27,191,168,0.15); -fx-border-radius: 12;
+                         -fx-border-width: 1; -fx-padding: 14;">
+                <Label text="Pitch" style="-fx-text-fill: #A8B4C0; -fx-font-size: 11;"/>
+                <Label fx:id="pitchLabel" text="—"
+                       style="-fx-text-fill: #1BBFA8; -fx-font-size: 22; -fx-font-weight: bold;"/>
+                <Label text="Hz" style="-fx-text-fill: #A8B4C0; -fx-font-size: 11;"/>
+            </VBox>
+        </HBox>
+
+        <!-- Transcription -->
+        <VBox spacing="6" fx:id="transcriptionBox" visible="false" managed="false"
+              style="-fx-background-color: #111418; -fx-background-radius: 12;
+                     -fx-border-color: rgba(27,191,168,0.15); -fx-border-radius: 12;
+                     -fx-border-width: 1; -fx-padding: 16;">
+            <Label text="Tu as dit :"
+                   style="-fx-text-fill: #A8B4C0; -fx-font-size: 12; -fx-font-weight: bold;"/>
+            <Label fx:id="transcriptionLabel" text="" wrapText="true"
+                   style="-fx-text-fill: white; -fx-font-size: 13; -fx-font-style: italic;"/>
+        </VBox>
+
+    </VBox>
+
+    <!-- ══════════════════════════════════════════════
+         COLONNE DROITE — ScrollPane complet
+         Toutes les cards défilent ensemble
+         ══════════════════════════════════════════════ -->
+    <ScrollPane fitToWidth="true"
+                HBox.hgrow="ALWAYS"
+                VBox.vgrow="ALWAYS"
+                style="-fx-background: #0A0C0F;
+                       -fx-background-color: #0A0C0F;
+                       -fx-border-width: 0;">
+
+        <VBox spacing="16"
+              style="-fx-background-color: #0A0C0F; -fx-padding: 0 4 24 0;">
+
+            <!-- ── Score émotionnel (Métier #1) ── -->
+            <VBox fx:id="emotionalPanel"
+                  spacing="12" visible="false" managed="false"
+                  style="-fx-background-color: #111418;
+                         -fx-background-radius: 16;
+                         -fx-border-color: rgba(107,95,212,0.4);
+                         -fx-border-radius: 16;
+                         -fx-border-width: 1;
+                         -fx-padding: 22;">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="" style="-fx-font-size: 20;"/>
+                    <VBox spacing="1">
+                        <Label text="Intelligence emotionnelle"
+                               style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                        <Label text="AURA adapte ta journee selon ton etat"
+                               style="-fx-text-fill: rgba(255,255,255,0.4); -fx-font-size: 11;"/>
+                    </VBox>
+                </HBox>
+                <Region prefHeight="1" style="-fx-background-color: rgba(107,95,212,0.2);"/>
+                <Label fx:id="emotionalScoreLabel"
+                       text="Score emotionnel : —/100"
+                       style="-fx-text-fill: #6B5FD4; -fx-font-size: 22; -fx-font-weight: bold;"/>
+                <Label fx:id="recommandationLabel" text="" wrapText="true"
+                       visible="false" managed="false"
+                       style="-fx-text-fill: rgba(255,255,255,0.85);
+                              -fx-font-size: 13;
+                              -fx-background-color: rgba(107,95,212,0.10);
+                              -fx-background-radius: 10;
+                              -fx-padding: 14;
+                              -fx-border-color: rgba(107,95,212,0.2);
+                              -fx-border-radius: 10;
+                              -fx-border-width: 1;"/>
+            </VBox>
+
+            <!-- ── Chat AURA ── -->
+            <VBox fx:id="chatPanel"
+                  spacing="12" visible="false" managed="false"
+                  style="-fx-background-color: #111418;
+                         -fx-background-radius: 16;
+                         -fx-border-color: rgba(107,95,212,0.25);
+                         -fx-border-radius: 16;
+                         -fx-border-width: 1;
+                         -fx-padding: 22;">
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Circle radius="6" fill="#6B5FD4"/>
+                    <Label text="Parle a AURA"
+                           style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                </HBox>
+                <ScrollPane fx:id="chatScrollPane" fitToWidth="true" prefHeight="200"
+                            style="-fx-background: #111418;
+                                   -fx-background-color: #111418;
+                                   -fx-border-width: 0;">
+                    <VBox fx:id="chatMessagesBox" spacing="10"
+                          style="-fx-background-color: #111418; -fx-padding: 4;"/>
+                </ScrollPane>
+                <HBox spacing="8" alignment="CENTER">
+                    <TextField fx:id="chatInput"
+                               promptText="Dis quelque chose a AURA..."
+                               HBox.hgrow="ALWAYS"
+                               onAction="#onChatSend"
+                               style="-fx-background-color: #1E2329;
+                                      -fx-text-fill: white;
+                                      -fx-prompt-text-fill: rgba(255,255,255,0.3);
+                                      -fx-background-radius: 10;
+                                      -fx-border-width: 0;
+                                      -fx-padding: 10 14;
+                                      -fx-font-size: 13;"/>
+                    <Button fx:id="chatSendBtn" text="→" onAction="#onChatSend"
+                            style="-fx-background-color: #6B5FD4;
+                                   -fx-text-fill: white;
+                                   -fx-background-radius: 10;
+                                   -fx-padding: 10 16;
+                                   -fx-font-size: 14;
+                                   -fx-cursor: hand;"/>
+                </HBox>
+            </VBox>
+
+            <!-- ── Réorganisation tâches (Métier #1 suite) ── -->
+            <VBox fx:id="reorganisationPanel"
+                  spacing="12" visible="false" managed="false"
+                  style="-fx-background-color: #111418;
+                         -fx-background-radius: 16;
+                         -fx-border-color: rgba(232,93,58,0.3);
+                         -fx-border-radius: 16;
+                         -fx-border-width: 1;
+                         -fx-padding: 22;">
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <Label text="📋" style="-fx-font-size: 20;"/>
+                    <VBox spacing="1">
+                        <Label text="Taches reorganisees par AURA"
+                               style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                        <Label fx:id="reorganisationConseil" text=""
+                               style="-fx-text-fill: rgba(255,255,255,0.45); -fx-font-size: 11;"/>
+                    </VBox>
+                </HBox>
+                <Region prefHeight="1" style="-fx-background-color: rgba(232,93,58,0.2);"/>
+                <Label fx:id="reorganisationMessage" text="" wrapText="true"
+                       style="-fx-text-fill: rgba(255,255,255,0.85); -fx-font-size: 13;"/>
+                <VBox fx:id="tachesRecommandeesBox" spacing="8"/>
+            </VBox>
+
+            <!-- ── Historique 7 jours ── -->
+            <VBox spacing="14"
+                  style="-fx-background-color: #111418;
+                         -fx-background-radius: 16;
+                         -fx-border-color: rgba(27,191,168,0.15);
+                         -fx-border-radius: 16;
+                         -fx-border-width: 1;
+                         -fx-padding: 22;">
+                <Label text="Historique des humeurs (7 derniers jours)"
+                       style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                <HBox fx:id="chartBox" spacing="8" alignment="BOTTOM_CENTER" prefHeight="160"/>
+                <HBox fx:id="daysBox" spacing="8" alignment="CENTER"/>
+            </VBox>
+
+            <!-- ── Dernières analyses ── -->
+            <VBox spacing="10"
+                  style="-fx-background-color: #111418;
+                         -fx-background-radius: 16;
+                         -fx-border-color: rgba(27,191,168,0.15);
+                         -fx-border-radius: 16;
+                         -fx-border-width: 1;
+                         -fx-padding: 22;">
+                <Label text="Dernieres analyses"
+                       style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                <ScrollPane fitToWidth="true"
+                            prefHeight="260"
+                            minHeight="120"
+                            style="-fx-background: #111418;
+                                   -fx-background-color: #111418;
+                                   -fx-border-width: 0;
+                                   -fx-padding: 0;">
+                    <VBox fx:id="historyList" spacing="8"
+                          style="-fx-background-color: #111418; -fx-padding: 2 6 2 2;"/>
+                </ScrollPane>
+            </VBox>
+
+        </VBox>
+    </ScrollPane>
+
+</HBox>

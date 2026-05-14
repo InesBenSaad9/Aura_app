@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.shape.*?>
+
+<!-- background transparent — le thème vient de MainController via rootHBox -->
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="tn.esprit.aura.controllers.TasksController"
+      style="-fx-background-color: transparent; -fx-padding: 32;"
+      spacing="16">
+
+    <!-- HEADER -->
+    <HBox alignment="CENTER_LEFT">
+        <Label text="Mes Tâches"
+               style="-fx-text-fill: white; -fx-font-size: 32; -fx-font-weight: bold;"/>
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="+ Nouvelle tâche" onAction="#onNewTask"
+                style="-fx-background-color: #1BBFA8; -fx-text-fill: black; -fx-font-weight: bold;
+                       -fx-background-radius: 12; -fx-padding: 12 24; -fx-font-size: 14; -fx-cursor: hand;"/>
+    </HBox>
+
+    <!-- BARRE VUES + FILTRES -->
+    <HBox spacing="8" alignment="CENTER_LEFT">
+        <Label text="Vue :" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 13;"/>
+        <Button fx:id="btnKanban" text="Tableau" onAction="#showKanban"
+                style="-fx-background-color: #1BBFA8; -fx-text-fill: black; -fx-font-weight: bold; -fx-background-radius: 20; -fx-padding: 6 16; -fx-cursor: hand;"/>
+        <Button fx:id="btnTable" text="Liste" onAction="#showTable"
+                style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 20; -fx-padding: 6 16; -fx-cursor: hand;"/>
+        <Button fx:id="btnCalendar" text="Calendrier" onAction="#showCalendar"
+                style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 20; -fx-padding: 6 16; -fx-cursor: hand;"/>
+        <Button fx:id="btnStats" text="Statistiques" onAction="#showStats"
+                style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 20; -fx-padding: 6 16; -fx-cursor: hand;"/>
+        <Region prefWidth="20"/>
+        <Label text="Priorité :" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 13;"/>
+        <Button fx:id="btnToutes" text="Toutes" onAction="#filterToutes"
+                style="-fx-background-color: #6B5FD4; -fx-text-fill: white; -fx-background-radius: 20; -fx-padding: 6 16; -fx-cursor: hand; -fx-font-weight: bold;"/>
+        <Button fx:id="btnHaute" text="Haute" onAction="#filterHaute"
+                style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 20; -fx-padding: 6 16; -fx-cursor: hand;"/>
+        <Button fx:id="btnMoyenne" text="Moyenne" onAction="#filterMoyenne"
+                style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 20; -fx-padding: 6 16; -fx-cursor: hand;"/>
+        <Button fx:id="btnBasse" text="Basse" onAction="#filterBasse"
+                style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 20; -fx-padding: 6 16; -fx-cursor: hand;"/>
+    </HBox>
+
+    <!-- ZONE CONTENU -->
+    <StackPane fx:id="viewContainer" VBox.vgrow="ALWAYS">
+
+        <!-- KANBAN -->
+        <HBox fx:id="kanbanView" spacing="20">
+
+            <!-- Colonne À faire -->
+            <VBox spacing="12" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                         -fx-padding: 20; -fx-border-color: rgba(107,95,212,0.3);
+                         -fx-border-radius: 16; -fx-border-width: 1;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Circle radius="6" fill="#6B5FD4"/>
+                    <Label fx:id="todoTitle" text="À faire"
+                           style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="todoCount" text="0"
+                           style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 10; -fx-padding: 2 8;"/>
+                    <Button fx:id="todoMenuBtn" text="⋯" onAction="#onTodoMenu"
+                            style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 18; -fx-cursor: hand; -fx-padding: 0 6;"/>
+                </HBox>
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                            style="-fx-background: transparent; -fx-background-color: transparent;">
+                    <VBox fx:id="todoList" spacing="10" style="-fx-padding: 4;"/>
+                </ScrollPane>
+                <Button text="+ Ajouter une carte" onAction="#onNewTask" maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.4);
+                               -fx-background-radius: 10; -fx-padding: 10; -fx-cursor: hand;
+                               -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 10; -fx-border-width: 1;"/>
+            </VBox>
+
+            <!-- Colonne En cours -->
+            <VBox spacing="12" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                         -fx-padding: 20; -fx-border-color: rgba(239,159,39,0.3);
+                         -fx-border-radius: 16; -fx-border-width: 1;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Circle radius="6" fill="#EF9F27"/>
+                    <Label fx:id="inProgressTitle" text="En cours"
+                           style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="inProgressCount" text="0"
+                           style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 10; -fx-padding: 2 8;"/>
+                    <Button fx:id="inProgressMenuBtn" text="⋯" onAction="#onInProgressMenu"
+                            style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 18; -fx-cursor: hand; -fx-padding: 0 6;"/>
+                </HBox>
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                            style="-fx-background: transparent; -fx-background-color: transparent;">
+                    <VBox fx:id="inProgressList" spacing="10" style="-fx-padding: 4;"/>
+                </ScrollPane>
+                <Button text="+ Ajouter une carte" onAction="#onNewTask" maxWidth="Infinity"
+                        style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.4);
+                               -fx-background-radius: 10; -fx-padding: 10; -fx-cursor: hand;
+                               -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 10; -fx-border-width: 1;"/>
+            </VBox>
+
+            <!-- Colonne Terminé -->
+            <VBox spacing="12" HBox.hgrow="ALWAYS"
+                  style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                         -fx-padding: 20; -fx-border-color: rgba(27,191,168,0.3);
+                         -fx-border-radius: 16; -fx-border-width: 1;">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Circle radius="6" fill="#1BBFA8"/>
+                    <Label fx:id="doneTitle" text="Terminé"
+                           style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label fx:id="doneCount" text="0"
+                           style="-fx-background-color: rgba(255,255,255,0.08); -fx-text-fill: rgba(255,255,255,0.6); -fx-background-radius: 10; -fx-padding: 2 8;"/>
+                    <Button fx:id="doneMenuBtn" text="⋯" onAction="#onDoneMenu"
+                            style="-fx-background-color: transparent; -fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 18; -fx-cursor: hand; -fx-padding: 0 6;"/>
+                </HBox>
+                <ScrollPane fitToWidth="true" VBox.vgrow="ALWAYS"
+                            style="-fx-background: transparent; -fx-background-color: transparent;">
+                    <VBox fx:id="doneList" spacing="10" style="-fx-padding: 4;"/>
+                </ScrollPane>
+            </VBox>
+        </HBox>
+
+        <!-- PREDICTIVE STATS VIEW -->
+        <VBox fx:id="statsView" spacing="20" visible="false" managed="false"
+              style="-fx-background-color: transparent;">
+
+            <HBox alignment="CENTER_LEFT" spacing="12">
+                <Label text="📊" style="-fx-font-size: 24;"/>
+                <VBox spacing="2">
+                    <Label text="Predictive Task Intelligence"
+                           style="-fx-text-fill: white; -fx-font-size: 20; -fx-font-weight: bold;"/>
+                    <Label fx:id="predResume" text="Analyse en cours..."
+                           style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 13;"/>
+                </VBox>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button text="🔄 Analyser" onAction="#onAnalyserTaches"
+                        style="-fx-background-color: #6B5FD4; -fx-text-fill: white;
+                               -fx-background-radius: 12; -fx-padding: 10 20;
+                               -fx-font-size: 13; -fx-font-weight: bold; -fx-cursor: hand;"/>
+            </HBox>
+
+            <HBox spacing="16">
+                <VBox spacing="8" alignment="CENTER" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                             -fx-border-color: rgba(107,95,212,0.3); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20;">
+                    <Label text="Charge de travail" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 12;"/>
+                    <Label fx:id="predScoreLabel" text="—/100" style="-fx-text-fill: #6B5FD4; -fx-font-size: 32; -fx-font-weight: bold;"/>
+                    <ProgressBar fx:id="predScoreBar" progress="0" prefWidth="120" style="-fx-accent: #6B5FD4;"/>
+                </VBox>
+                <VBox spacing="8" alignment="CENTER" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                             -fx-border-color: rgba(232,93,58,0.3); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20;">
+                    <Label text="Critiques / En retard" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 12;"/>
+                    <Label fx:id="predCritiqueLabel" text="—" style="-fx-text-fill: #E85D3A; -fx-font-size: 32; -fx-font-weight: bold;"/>
+                    <Label text="tâches" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 11;"/>
+                </VBox>
+                <VBox spacing="8" alignment="CENTER" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                             -fx-border-color: rgba(239,159,39,0.3); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20;">
+                    <Label text="À surveiller" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 12;"/>
+                    <Label fx:id="predRisqueLabel" text="—" style="-fx-text-fill: #EF9F27; -fx-font-size: 32; -fx-font-weight: bold;"/>
+                    <Label text="tâches" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 11;"/>
+                </VBox>
+                <VBox spacing="8" alignment="CENTER" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                             -fx-border-color: rgba(27,191,168,0.3); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20;">
+                    <Label text="Sous contrôle" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 12;"/>
+                    <Label fx:id="predOkLabel" text="—" style="-fx-text-fill: #1BBFA8; -fx-font-size: 32; -fx-font-weight: bold;"/>
+                    <Label text="tâches" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 11;"/>
+                </VBox>
+                <VBox spacing="8" alignment="CENTER" HBox.hgrow="ALWAYS"
+                      style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                             -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20;">
+                    <Label text="⏰ Heure optimale" style="-fx-text-fill: rgba(255,255,255,0.5); -fx-font-size: 12;"/>
+                    <Label fx:id="predHeureLabel" text="—" style="-fx-text-fill: white; -fx-font-size: 16; -fx-font-weight: bold;"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="8"
+                  style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                         -fx-border-color: rgba(107,95,212,0.25); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20;">
+                <HBox spacing="8" alignment="CENTER_LEFT">
+                    <Label text="🧠" style="-fx-font-size: 16;"/>
+                    <Label text="Recommandation AURA" style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                </HBox>
+                <Label fx:id="predRecommandationLabel" text="Clique sur Analyser pour obtenir une recommandation."
+                       wrapText="true"
+                       style="-fx-text-fill: rgba(255,255,255,0.8); -fx-font-size: 13;
+                              -fx-background-color: rgba(107,95,212,0.08); -fx-background-radius: 10;
+                              -fx-padding: 14; -fx-border-color: rgba(107,95,212,0.15);
+                              -fx-border-radius: 10; -fx-border-width: 1;"/>
+            </VBox>
+
+            <VBox spacing="10"
+                  style="-fx-background-color: rgba(255,255,255,0.05); -fx-background-radius: 16;
+                         -fx-border-color: rgba(255,255,255,0.1); -fx-border-radius: 16; -fx-border-width: 1; -fx-padding: 20;">
+                <Label text="Analyse par tâche" style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;"/>
+                <ScrollPane fitToWidth="true" prefHeight="250"
+                            style="-fx-background: transparent; -fx-background-color: transparent; -fx-border-width: 0;">
+                    <VBox fx:id="predTaskList" spacing="8"
+                          style="-fx-background-color: transparent; -fx-padding: 2;"/>
+                </ScrollPane>
+            </VBox>
+
+        </VBox>
+    </StackPane>
+
+    <!-- POPUP OVERLAY -->
+    <StackPane fx:id="popupOverlay"/>
+</VBox>

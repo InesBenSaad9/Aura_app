@@ -34,14 +34,15 @@
             <Region prefHeight="16" />
 
             <VBox spacing="4" style="-fx-padding: 0 8;" VBox.vgrow="ALWAYS">
-                <Button alignment="CENTER_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Taches" />
-                <Button fx:id="userBtnAnalysis" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleDashboard" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="AI Analysis" />
+                <Button fx:id="userBtnTasks" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleTasks" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Taches" />
+                <Button fx:id="userBtnAnalysis" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleAnalysis" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="AI Analysis" />
                 <Button fx:id="userBtnActivities" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleActivities" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Activities" />
                 <Button fx:id="userBtnMedical" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleMedical" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Medical" />
                 <Button fx:id="userBtnMessages" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleMessages" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Messages" />
                 <Button fx:id="userBtnEvents" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleEvents" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Evenement" />
                 <Button fx:id="userBtnProfile" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleProfile" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Profile" />
             </VBox>
+
 
             <VBox spacing="4" style="-fx-padding: 8;">
                 <Button alignment="CENTER_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 13; -fx-alignment: CENTER_LEFT; -fx-padding: 10 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Light Mode" />
