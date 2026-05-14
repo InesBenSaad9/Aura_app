@@ -15,6 +15,37 @@ public class UserService implements IService<User> {
         this.connection = DBConnection.getInstance().getConnection();
     }
 
+    private static String normalizeRole(String role) {
+        if (role == null) return "USER";
+        String r = role.trim();
+        if (r.isEmpty()) return "USER";
+
+        String lower = r.toLowerCase();
+        // UI labels (FR) -> DB codes
+        if (lower.equals("utilisateur") || lower.equals("user")) return "USER";
+        if (lower.equals("admin") || lower.equals("administrator")) return "ADMIN";
+        if (lower.equals("medecin") || lower.equals("médecin") || lower.equals("doctor")) return "MEDECIN";
+        if (lower.equals("organisateur d'evenement") || lower.equals("organizateur d'evenement")
+                || lower.equals("organisateur d'évènement") || lower.equals("organizateur d'évènement")
+                || lower.equals("organisateur evenement") || lower.equals("organisateur evenements")
+                || lower.equals("event organizer")) {
+            return "ORGANIZER";
+        }
+
+        // Fallback: make it DB-safe (avoid "Data too long" errors).
+        String code = r.toUpperCase()
+                .replace('É', 'E').replace('È', 'E').replace('Ê', 'E')
+                .replace('À', 'A').replace('Â', 'A')
+                .replace('Ù', 'U').replace('Û', 'U')
+                .replace('Ï', 'I').replace('Î', 'I')
+                .replace('Ô', 'O')
+                .replaceAll("[^A-Z0-9]+", "_")
+                .replaceAll("^_+|_+$", "");
+        if (code.isEmpty()) code = "USER";
+        if (code.length() > 50) code = code.substring(0, 50);
+        return code;
+    }
+
     @Override
     public void add(User user) throws SQLException {
         String sql = "INSERT INTO utilisateurs (nom, prenom, email, mot_de_passe, photo_profil, telephone, date_naissance, genre, ville, bio, role, face_data) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -33,7 +64,7 @@ public class UserService implements IService<User> {
             ps.setString(8, user.getGenre());
             ps.setString(9, user.getVille());
             ps.setString(10, user.getBio());
-            ps.setString(11, user.getRole() != null ? user.getRole() : "USER");
+            ps.setString(11, normalizeRole(user.getRole()));
             ps.setString(12, user.getFaceData());
             ps.executeUpdate();
 
@@ -63,7 +94,7 @@ public class UserService implements IService<User> {
             ps.setString(8, user.getGenre());
             ps.setString(9, user.getVille());
             ps.setString(10, user.getBio());
-            ps.setString(11, user.getRole());
+            ps.setString(11, normalizeRole(user.getRole()));
             ps.setString(12, user.getFaceData());
             ps.setBoolean(13, user.isActive());
             ps.setInt(14, user.getId());

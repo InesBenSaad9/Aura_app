@@ -27,7 +27,7 @@ public class DBInitializer {
                         genre VARCHAR(20),
                         ville VARCHAR(100),
                         bio VARCHAR(255),
-                        role VARCHAR(20) NOT NULL DEFAULT 'USER',
+                        role VARCHAR(50) NOT NULL DEFAULT 'USER',
                         active TINYINT(1) NOT NULL DEFAULT 1,
                         created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
                         updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -43,11 +43,18 @@ public class DBInitializer {
             stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS genre VARCHAR(20) AFTER date_naissance");
             stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS ville VARCHAR(100) AFTER genre");
             stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS bio VARCHAR(255) AFTER ville");
-            stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS role VARCHAR(20) NOT NULL DEFAULT 'USER' AFTER bio");
+            stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS role VARCHAR(50) NOT NULL DEFAULT 'USER' AFTER bio");
             stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS face_data TEXT AFTER role");
             stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS active TINYINT(1) NOT NULL DEFAULT 1 AFTER face_data");
             stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP");
             stmt.execute("ALTER TABLE utilisateurs ADD COLUMN IF NOT EXISTS updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP");
+
+            // Ensure column width for existing databases (older schema used VARCHAR(20)).
+            try {
+                stmt.execute("ALTER TABLE utilisateurs MODIFY role VARCHAR(50) NOT NULL DEFAULT 'USER'");
+            } catch (SQLException ignored) {
+                // Some MySQL versions/permissions may reject MODIFY; code-level normalization still prevents truncation.
+            }
 
             System.out.println("Table utilisateurs initialized successfully.");
         } catch (SQLException e) {

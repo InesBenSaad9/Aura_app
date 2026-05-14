@@ -71,7 +71,7 @@ public class UserDashboardController {
             role = SessionManager.getCurrentUser().getRole();
         }
         
-        if ("organizateur d'evenement".equalsIgnoreCase(role)) {
+        if ("ORGANIZER".equalsIgnoreCase(role)) {
             loadView("/tn/esprit/aura/views/EventsView.fxml");
         } else {
             tn.esprit.aura.controllers.UserEventsView userEventsView = new tn.esprit.aura.controllers.UserEventsView();
