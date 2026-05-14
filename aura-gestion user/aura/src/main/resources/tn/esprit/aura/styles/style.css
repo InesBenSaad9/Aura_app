@@ -1,0 +1,981 @@
+/* ═══════════════════════════════════════════════════════════════
+   AURA — Premium Dark Theme Stylesheet
+   Inspired by the AURA Presentation Design System
+   Colors: Teal #1BBFA8 · Purple #6B5FD4 · Coral #E85D3A
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ──── ROOT & GLOBAL ──── */
+.root-pane {
+    -fx-background-color: #0A0C0F;
+}
+
+* {
+    -fx-font-family: "Segoe UI", "SF Pro Display", system;
+}
+
+.home-bg, .auth-bg, .user-dash-bg, .admin-home, .users-page {
+    -fx-background-color: #0A0C0F;
+}
+
+/* ──── SCROLLBAR STYLING ──── */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+.scroll-bar .thumb {
+    -fx-background-color: rgba(27, 191, 168, 0.25);
+    -fx-background-radius: 10;
+}
+.scroll-bar .track {
+    -fx-background-color: transparent;
+}
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+.scroll-bar .increment-arrow,
+.scroll-bar .decrement-arrow {
+    -fx-shape: "";
+    -fx-padding: 0;
+}
+
+/* ═══════════════════════════════════════
+   NAVBAR
+   ═══════════════════════════════════════ */
+.navbar {
+    -fx-background-color: rgba(10, 12, 15, 0.92);
+    -fx-border-color: rgba(27, 191, 168, 0.12);
+    -fx-border-width: 0 0 0.5 0;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 12, 0, 0, 2);
+}
+
+.logo-icon {
+    -fx-font-size: 28px;
+    -fx-text-fill: #1BBFA8;
+    -fx-font-weight: 800;
+}
+
+.logo-text {
+    -fx-font-size: 22px;
+    -fx-text-fill: #1BBFA8;
+    -fx-font-weight: 800;
+}
+
+.nav-link {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+    -fx-padding: 6 14;
+    -fx-background-radius: 8;
+    -fx-border-color: transparent;
+}
+.nav-link:hover {
+    -fx-text-fill: #F0F4F8;
+    -fx-background-color: rgba(255,255,255,0.06);
+}
+.nav-link-active {
+    -fx-text-fill: #1BBFA8;
+}
+
+/* ═══════════════════════════════════════
+   BUTTONS
+   ═══════════════════════════════════════ */
+.btn-primary {
+    -fx-background-color: linear-gradient(to right, #1BBFA8, #0D8A7A);
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-padding: 8 22;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(27,191,168,0.25), 8, 0, 0, 2);
+}
+.btn-primary:hover {
+    -fx-background-color: linear-gradient(to right, #22D4BA, #1BBFA8);
+    -fx-effect: dropshadow(gaussian, rgba(27,191,168,0.4), 14, 0, 0, 3);
+}
+.btn-primary:pressed {
+    -fx-background-color: #0D8A7A;
+}
+
+.btn-primary-full {
+    -fx-background-color: linear-gradient(to right, #1BBFA8, #0D8A7A);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-padding: 12 24;
+    -fx-background-radius: 10;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(27,191,168,0.3), 10, 0, 0, 2);
+}
+.btn-primary-full:hover {
+    -fx-background-color: linear-gradient(to right, #22D4BA, #1BBFA8);
+    -fx-effect: dropshadow(gaussian, rgba(27,191,168,0.5), 16, 0, 0, 3);
+}
+
+.btn-ghost {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 13px;
+    -fx-padding: 8 18;
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 8;
+    -fx-border-width: 0.5;
+    -fx-cursor: hand;
+}
+.btn-ghost:hover {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: #F0F4F8;
+    -fx-border-color: rgba(27, 191, 168, 0.3);
+}
+
+.btn-hero {
+    -fx-background-color: linear-gradient(to right, #1BBFA8, #6B5FD4);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+    -fx-padding: 14 40;
+    -fx-background-radius: 12;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-effect: dropshadow(gaussian, rgba(27,191,168,0.35), 16, 0, 0, 4);
+}
+.btn-hero:hover {
+    -fx-background-color: linear-gradient(to right, #22D4BA, #7B6FE4);
+    -fx-effect: dropshadow(gaussian, rgba(107,95,212,0.45), 22, 0, 0, 5);
+}
+
+.btn-google {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 13px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 10;
+    -fx-border-width: 0.5;
+    -fx-cursor: hand;
+}
+.btn-google:hover {
+    -fx-background-color: rgba(255,255,255,0.1);
+    -fx-text-fill: #F0F4F8;
+}
+
+.btn-faceid {
+    -fx-background-color: rgba(107, 95, 212, 0.08);
+    -fx-text-fill: #C4BEFF;
+    -fx-font-size: 13px;
+    -fx-padding: 10 20;
+    -fx-background-radius: 10;
+    -fx-border-color: rgba(107, 95, 212, 0.15);
+    -fx-border-radius: 10;
+    -fx-border-width: 0.5;
+    -fx-cursor: hand;
+}
+.btn-faceid:hover {
+    -fx-background-color: rgba(107, 95, 212, 0.15);
+    -fx-text-fill: #F0F4F8;
+    -fx-border-color: rgba(107, 95, 212, 0.35);
+}
+.btn-faceid:pressed {
+    -fx-background-color: rgba(107, 95, 212, 0.25);
+}
+
+.btn-icon-inside {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 14px;
+    -fx-padding: 0 10 0 0;
+    -fx-cursor: hand;
+    -fx-min-width: 30;
+    -fx-max-width: 30;
+}
+.btn-icon-inside:hover {
+    -fx-text-fill: #1BBFA8;
+}
+
+/* ═══════════════════════════════════════
+   HERO SECTION
+   ═══════════════════════════════════════ */
+.hero-badge {
+    -fx-text-fill: #1BBFA8;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-padding: 6 16;
+    -fx-background-color: rgba(27,191,168,0.1);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(27,191,168,0.2);
+    -fx-border-radius: 20;
+    -fx-border-width: 0.5;
+}
+
+.hero-title {
+    -fx-text-fill: #1BBFA8;
+    -fx-font-size: 72px;
+    -fx-font-weight: 800;
+}
+
+.hero-subtitle {
+    -fx-text-fill: #C4BEFF;
+    -fx-font-size: 20px;
+    -fx-font-weight: 400;
+}
+
+.hero-description {
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 15px;
+    -fx-line-spacing: 4;
+}
+
+.footer-text {
+    -fx-text-fill: rgba(168, 180, 192, 0.5);
+    -fx-font-size: 11px;
+}
+
+/* ──── Tags ──── */
+.tag {
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-padding: 6 14;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+.tag-teal {
+    -fx-background-color: rgba(27,191,168,0.12);
+    -fx-text-fill: #1BBFA8;
+    -fx-border-color: rgba(27,191,168,0.25);
+    -fx-border-width: 0.5;
+}
+.tag-purple {
+    -fx-background-color: rgba(107,95,212,0.12);
+    -fx-text-fill: #C4BEFF;
+    -fx-border-color: rgba(107,95,212,0.25);
+    -fx-border-width: 0.5;
+}
+.tag-coral {
+    -fx-background-color: rgba(232,93,58,0.12);
+    -fx-text-fill: #F0A07B;
+    -fx-border-color: rgba(232,93,58,0.25);
+    -fx-border-width: 0.5;
+}
+
+/* ═══════════════════════════════════════
+   GLASS CARD (Login / Register)
+   ═══════════════════════════════════════ */
+.glass-card {
+    -fx-background-color: rgba(17, 20, 24, 0.85);
+    -fx-background-radius: 16;
+    -fx-border-color: rgba(27, 191, 168, 0.15);
+    -fx-border-radius: 16;
+    -fx-border-width: 0.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 30, 0, 0, 8);
+}
+
+.card-title {
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 24px;
+    -fx-font-weight: 700;
+}
+
+.card-subtitle {
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 13px;
+}
+
+/* ──── Form Fields ──── */
+.field-label {
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+}
+
+.text-input {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-text-fill: #F0F4F8;
+    -fx-prompt-text-fill: rgba(168, 180, 192, 0.5);
+    -fx-font-size: 13px;
+    -fx-padding: 10 14;
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 8;
+    -fx-border-width: 0.5;
+}
+.text-input:focused {
+    -fx-border-color: #1BBFA8;
+    -fx-background-color: rgba(27,191,168,0.05);
+    -fx-effect: dropshadow(gaussian, rgba(27,191,168,0.15), 8, 0, 0, 0);
+}
+
+.combo-input {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-border-width: 0.5;
+    -fx-padding: 6 10;
+}
+.combo-input .list-cell {
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 13px;
+    -fx-background-color: transparent;
+}
+.combo-input .arrow-button {
+    -fx-background-color: transparent;
+}
+.combo-input .arrow {
+    -fx-background-color: #A8B4C0;
+}
+.combo-input:focused {
+    -fx-border-color: #1BBFA8;
+}
+.combo-box-popup .list-view {
+    -fx-background-color: #111418;
+    -fx-border-color: rgba(27,191,168,0.2);
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+}
+.combo-box-popup .list-view .list-cell {
+    -fx-text-fill: #F0F4F8;
+    -fx-background-color: #111418;
+    -fx-padding: 8 12;
+}
+.combo-box-popup .list-view .list-cell:hover {
+    -fx-background-color: rgba(27,191,168,0.15);
+}
+
+/* ──── Labels & Links ──── */
+.error-label {
+    -fx-text-fill: #E85D3A;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+}
+
+.success-label {
+    -fx-text-fill: #1BBFA8;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+}
+
+.link-text {
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 12px;
+    -fx-border-color: transparent;
+}
+.link-text:hover {
+    -fx-text-fill: #1BBFA8;
+}
+
+.link-teal {
+    -fx-text-fill: #1BBFA8;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+    -fx-border-color: transparent;
+}
+.link-teal:hover {
+    -fx-text-fill: #22D4BA;
+}
+
+.divider-line {
+    -fx-background-color: transparent;
+}
+.divider-line .line {
+    -fx-border-color: rgba(255,255,255,0.08);
+    -fx-border-width: 0.5 0 0 0;
+}
+.divider-text {
+    -fx-text-fill: rgba(168,180,192,0.4);
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+}
+
+/* ═══════════════════════════════════════
+   SIDEBAR
+   ═══════════════════════════════════════ */
+.sidebar {
+    -fx-background-color: #0D1014;
+    -fx-border-color: rgba(27,191,168,0.1);
+    -fx-border-width: 0 0.5 0 0;
+}
+
+.sidebar-logo-icon {
+    -fx-font-size: 26px;
+    -fx-text-fill: #1BBFA8;
+    -fx-font-weight: 800;
+}
+
+.sidebar-logo-text {
+    -fx-font-size: 20px;
+    -fx-text-fill: #1BBFA8;
+    -fx-font-weight: 800;
+}
+
+.sidebar-section-label {
+    -fx-text-fill: rgba(168,180,192,0.4);
+    -fx-font-size: 10px;
+    -fx-font-weight: 700;
+    -fx-padding: 8 8 6 8;
+}
+
+.sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 13px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 16;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+    -fx-alignment: CENTER_LEFT;
+}
+.sidebar-btn:hover {
+    -fx-background-color: rgba(27,191,168,0.08);
+    -fx-text-fill: #F0F4F8;
+}
+
+.sidebar-btn-active {
+    -fx-background-color: rgba(27,191,168,0.12) !important;
+    -fx-text-fill: #1BBFA8 !important;
+    -fx-border-color: rgba(27,191,168,0.3);
+    -fx-border-radius: 8;
+    -fx-border-width: 0.5;
+}
+
+.sidebar-btn-danger:hover {
+    -fx-background-color: rgba(232,93,58,0.12);
+    -fx-text-fill: #F0A07B;
+}
+
+.sidebar-divider {
+    -fx-background-color: transparent;
+}
+.sidebar-divider .line {
+    -fx-border-color: rgba(255,255,255,0.06);
+    -fx-border-width: 0.5 0 0 0;
+}
+
+/* ═══════════════════════════════════════
+   TOPBAR
+   ═══════════════════════════════════════ */
+.topbar {
+    -fx-background-color: rgba(13, 16, 20, 0.95);
+    -fx-border-color: rgba(27,191,168,0.08);
+    -fx-border-width: 0 0 0.5 0;
+}
+
+.topbar-title {
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 18px;
+    -fx-font-weight: 700;
+}
+
+.topbar-admin-name {
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 13px;
+    -fx-font-weight: 600;
+}
+
+.topbar-admin-role {
+    -fx-text-fill: #1BBFA8;
+    -fx-font-size: 11px;
+    -fx-font-weight: 500;
+}
+
+/* ═══════════════════════════════════════
+   MAIN CONTENT AREA
+   ═══════════════════════════════════════ */
+.main-content-area {
+    -fx-background-color: #0A0C0F;
+}
+
+.content-stack {
+    -fx-background-color: #0A0C0F;
+}
+
+/* ═══════════════════════════════════════
+   PAGE TITLES
+   ═══════════════════════════════════════ */
+.page-title {
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 22px;
+    -fx-font-weight: 700;
+}
+
+.page-subtitle {
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 13px;
+}
+
+.users-page {
+    -fx-background-color: #0A0C0F;
+}
+
+/* ═══════════════════════════════════════
+   STAT CARDS (Dashboard)
+   ═══════════════════════════════════════ */
+.stat-card {
+    -fx-background-color: #111418;
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(255,255,255,0.06);
+    -fx-border-radius: 14;
+    -fx-border-width: 0.5;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 3);
+}
+.stat-card:hover {
+    -fx-border-color: rgba(27,191,168,0.25);
+    -fx-effect: dropshadow(gaussian, rgba(27,191,168,0.12), 16, 0, 0, 4);
+}
+
+.stat-card-label {
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+}
+
+.stat-card-value {
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+}
+
+.stat-card-desc {
+    -fx-text-fill: rgba(168,180,192,0.5);
+    -fx-font-size: 11px;
+}
+
+.stat-card-accent {
+    -fx-min-height: 3;
+    -fx-max-height: 3;
+    -fx-background-radius: 2;
+}
+.stat-card-accent-teal {
+    -fx-background-color: linear-gradient(to right, #1BBFA8, rgba(27,191,168,0.2));
+}
+.stat-card-accent-purple {
+    -fx-background-color: linear-gradient(to right, #6B5FD4, rgba(107,95,212,0.2));
+}
+.stat-card-accent-coral {
+    -fx-background-color: linear-gradient(to right, #E85D3A, rgba(232,93,58,0.2));
+}
+
+/* ──── Welcome Card ──── */
+.welcome-card {
+    -fx-background-color: rgba(27,191,168,0.05);
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(27,191,168,0.12);
+    -fx-border-radius: 14;
+    -fx-border-width: 0.5;
+}
+
+.welcome-title {
+    -fx-text-fill: #1BBFA8;
+    -fx-font-size: 16px;
+    -fx-font-weight: 700;
+}
+
+.welcome-desc {
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 13px;
+    -fx-line-spacing: 3;
+}
+
+/* ──── Coming Soon Badge ──── */
+.badge-coming-soon {
+    -fx-text-fill: #E8943A;
+    -fx-font-size: 11px;
+    -fx-font-weight: 600;
+    -fx-padding: 4 12;
+    -fx-background-color: rgba(232,148,58,0.12);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(232,148,58,0.25);
+    -fx-border-radius: 20;
+    -fx-border-width: 0.5;
+}
+
+/* ═══════════════════════════════════════
+   TABLE (Users Management)
+   ═══════════════════════════════════════ */
+.table-card {
+    -fx-background-color: #111418;
+    -fx-background-radius: 14;
+    -fx-border-color: rgba(255,255,255,0.06);
+    -fx-border-radius: 14;
+    -fx-border-width: 0.5;
+}
+
+.dark-table {
+    -fx-background-color: transparent;
+    -fx-table-cell-border-color: rgba(255,255,255,0.04);
+    -fx-border-color: transparent;
+}
+
+.dark-table .column-header-background {
+    -fx-background-color: rgba(27,191,168,0.06);
+}
+
+.dark-table .column-header {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(255,255,255,0.06) transparent;
+}
+
+.dark-table .column-header .label {
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-padding: 8 12;
+}
+
+.dark-table .table-row-cell {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent rgba(255,255,255,0.03) transparent;
+}
+.dark-table .table-row-cell:hover {
+    -fx-background-color: rgba(27,191,168,0.05);
+}
+.dark-table .table-row-cell:selected {
+    -fx-background-color: rgba(27,191,168,0.1);
+}
+.dark-table .table-row-cell:empty {
+    -fx-background-color: transparent;
+}
+
+.dark-table .table-cell {
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 13px;
+    -fx-padding: 10 12;
+}
+
+.dark-table .table-row-cell:selected .table-cell {
+    -fx-text-fill: #F0F4F8;
+}
+
+.dark-table .placeholder .label {
+    -fx-text-fill: #A8B4C0;
+}
+
+.dark-table .filler {
+    -fx-background-color: transparent;
+}
+
+/* ──── Role Badges ──── */
+.badge-admin {
+    -fx-text-fill: #C4BEFF;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-padding: 3 12;
+    -fx-background-color: rgba(107,95,212,0.18);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(107,95,212,0.3);
+    -fx-border-radius: 20;
+    -fx-border-width: 0.5;
+}
+
+.badge-user {
+    -fx-text-fill: #1BBFA8;
+    -fx-font-size: 11px;
+    -fx-font-weight: 700;
+    -fx-padding: 3 12;
+    -fx-background-color: rgba(27,191,168,0.12);
+    -fx-background-radius: 20;
+    -fx-border-color: rgba(27,191,168,0.25);
+    -fx-border-radius: 20;
+    -fx-border-width: 0.5;
+}
+
+/* ──── Action Buttons ──── */
+.action-btn {
+    -fx-background-color: rgba(255,255,255,0.06);
+    -fx-text-fill: #A8B4C0;
+    -fx-font-size: 13px;
+    -fx-padding: 4 10;
+    -fx-background-radius: 6;
+    -fx-cursor: hand;
+    -fx-border-color: transparent;
+}
+
+.edit-btn:hover {
+    -fx-background-color: rgba(27,191,168,0.15);
+    -fx-text-fill: #1BBFA8;
+}
+
+.delete-btn:hover {
+    -fx-background-color: rgba(232,93,58,0.15);
+    -fx-text-fill: #E85D3A;
+}
+
+/* ═══════════════════════════════════════
+   USER DASHBOARD PROFILE
+   ═══════════════════════════════════════ */
+.profile-value {
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+}
+
+/* Profile editor dark controls */
+.dark-scroll-pane {
+    -fx-background: #0A0C0F; /* Important for background inheritance */
+    -fx-background-color: #0A0C0F;
+    -fx-border-color: rgba(255,255,255,0.06);
+}
+.dark-scroll-pane > .viewport {
+    -fx-background-color: #0A0C0F;
+}
+.dark-scroll-pane .content {
+    -fx-background-color: transparent !important;
+}
+/* Ensure the inner containers don't have default backgrounds */
+.dark-scroll-pane .content > VBox, 
+.dark-scroll-pane .content > TilePane,
+.dark-scroll-pane .content > FlowPane {
+    -fx-background-color: transparent !important;
+}
+
+.text-area-input {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 8;
+    -fx-border-width: 0.5;
+    -fx-text-fill: #F0F4F8;
+    -fx-prompt-text-fill: rgba(168,180,192,0.5);
+}
+.text-area-input .content {
+    -fx-background-color: #111418 !important;
+    -fx-text-fill: #F0F4F8 !important;
+}
+.text-area-input .viewport {
+    -fx-background-color: transparent !important;
+}
+.text-area-input:focused {
+    -fx-border-color: #1BBFA8;
+}
+
+.date-input {
+    -fx-background-color: rgba(255,255,255,0.05);
+    -fx-background-radius: 8;
+    -fx-border-color: rgba(255,255,255,0.1);
+    -fx-border-radius: 8;
+    -fx-border-width: 0.5;
+}
+.date-input .text-field {
+    -fx-background-color: transparent;
+    -fx-text-fill: #F0F4F8;
+    -fx-prompt-text-fill: rgba(168,180,192,0.5);
+}
+.date-input .arrow-button {
+    -fx-background-color: rgba(255,255,255,0.07);
+}
+.date-input .arrow {
+    -fx-background-color: #A8B4C0;
+}
+
+/* ═══════════════════════════════════════
+   TOOLTIP
+   ═══════════════════════════════════════ */
+.tooltip {
+    -fx-background-color: #1E2329;
+    -fx-text-fill: #F0F4F8;
+    -fx-font-size: 12px;
+    -fx-background-radius: 6;
+    -fx-border-color: rgba(27,191,168,0.15);
+    -fx-border-radius: 6;
+    -fx-padding: 6 10;
+}
+
+/* ═══════════════════════════════════════
+   DIALOG STYLING
+   ═══════════════════════════════════════ */
+.dialog-pane {
+    -fx-background-color: #111418;
+    -fx-border-color: rgba(27,191,168,0.15);
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+}
+.dialog-pane .header-panel {
+    -fx-background-color: rgba(27,191,168,0.06);
+}
+.dialog-pane .content {
+    -fx-text-fill: #F0F4F8;
+}
+.dialog-pane .label {
+    -fx-text-fill: #A8B4C0;
+}
+.dialog-pane .button {
+    -fx-background-color: rgba(255,255,255,0.08);
+    -fx-text-fill: #F0F4F8;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+}
+.dialog-pane .button:hover {
+    -fx-background-color: rgba(27,191,168,0.15);
+}
+.dialog-pane .button.ok {
+    -fx-background-color: #1BBFA8;
+    -fx-text-fill: white;
+}
+
+/* User sidebar matching the post-login mockup */
+.user-sidebar {
+    -fx-background-color: #101419;
+    -fx-border-color: rgba(255,255,255,0.04);
+    -fx-border-width: 0 1 0 0;
+    -fx-min-width: 400;
+    -fx-pref-width: 400;
+    -fx-max-width: 400;
+}
+
+.sidebar-brand-block {
+    -fx-background-color: #101419;
+    -fx-min-height: 200;
+    -fx-pref-height: 200;
+    -fx-max-height: 200;
+    -fx-padding: 60 32 60 32;
+}
+
+.sidebar-avatar {
+    -fx-background-color: #27C4B3;
+    -fx-background-radius: 999;
+    -fx-min-width: 64;
+    -fx-min-height: 64;
+    -fx-pref-width: 64;
+    -fx-pref-height: 64;
+    -fx-max-width: 64;
+    -fx-max-height: 64;
+}
+
+.sidebar-brand-avatar,
+.sidebar-user-avatar {
+    -fx-min-width: 80;
+    -fx-min-height: 80;
+    -fx-pref-width: 80;
+    -fx-pref-height: 80;
+    -fx-max-width: 80;
+    -fx-max-height: 80;
+}
+
+.sidebar-brand-title {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 31px;
+    -fx-font-weight: 800;
+}
+
+.sidebar-brand-subtitle {
+    -fx-text-fill: #C8D4E2;
+    -fx-font-size: 20px;
+    -fx-font-weight: 400;
+}
+
+.sidebar-user-card {
+    -fx-background-color: #0F2224;
+    -fx-min-height: 144;
+    -fx-pref-height: 144;
+    -fx-max-height: 144;
+    -fx-padding: 32 32 32 32;
+}
+
+.sidebar-user-name {
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 27px;
+    -fx-font-weight: 800;
+}
+
+.sidebar-user-status {
+    -fx-text-fill: #20DBC5;
+    -fx-font-size: 20px;
+    -fx-font-weight: 800;
+}
+
+.sidebar-nav-block {
+    -fx-padding: 60 16 24 16;
+}
+
+.sidebar-nav-title {
+    -fx-text-fill: #D6E0EB;
+    -fx-font-size: 25px;
+    -fx-font-weight: 400;
+    -fx-padding: 0 0 18 32;
+}
+
+.user-sidebar-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #D6E0EB;
+    -fx-font-size: 25px;
+    -fx-font-weight: 400;
+    -fx-min-height: 89;
+    -fx-pref-height: 89;
+    -fx-max-height: 89;
+    -fx-padding: 0 28 0 32;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.user-sidebar-btn:hover {
+    -fx-background-color: rgba(27,191,168,0.08);
+    -fx-text-fill: #20DBC5;
+}
+
+.user-sidebar-btn-active {
+    -fx-background-color: #123832 !important;
+    -fx-text-fill: #20DBC5 !important;
+    -fx-background-radius: 0 18 18 0;
+    -fx-border-color: #20DBC5;
+    -fx-border-width: 0 0 0 6;
+    -fx-border-radius: 0;
+}
+
+.sidebar-bottom-block {
+    -fx-padding: 26 16 28 16;
+}
+
+.sidebar-mode-btn {
+    -fx-background-color: #123832;
+    -fx-text-fill: #20DBC5;
+    -fx-font-size: 23px;
+    -fx-font-weight: 400;
+    -fx-min-height: 82;
+    -fx-pref-height: 82;
+    -fx-max-height: 82;
+    -fx-padding: 0 28 0 32;
+    -fx-background-radius: 18;
+    -fx-border-color: #20DBC5;
+    -fx-border-radius: 18;
+    -fx-border-width: 2;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.sidebar-settings-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #D6E0EB;
+    -fx-font-size: 23px;
+    -fx-font-weight: 400;
+    -fx-padding: 18 28 18 32;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.sidebar-settings-btn:hover {
+    -fx-text-fill: #20DBC5;
+}
+
+.sidebar-logout-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FF623B;
+    -fx-font-size: 23px;
+    -fx-font-weight: 500;
+    -fx-padding: 18 28 18 32;
+    -fx-border-color: transparent;
+    -fx-cursor: hand;
+    -fx-alignment: CENTER_LEFT;
+}
+
+.sidebar-logout-btn:hover {
+    -fx-background-color: rgba(255,98,59,0.08);
+}

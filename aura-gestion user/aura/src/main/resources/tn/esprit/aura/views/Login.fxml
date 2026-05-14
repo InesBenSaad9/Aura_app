@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane prefHeight="800" prefWidth="1280" styleClass="root-pane" stylesheets="@../styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="tn.esprit.aura.controllers.LoginController">
+
+    <VBox alignment="CENTER" spacing="0" styleClass="auth-bg">
+
+        <!-- Retour to home -->
+        <HBox alignment="TOP_LEFT">
+            <padding><Insets left="30" top="20" /></padding>
+            <Button onAction="#handleGoHome" styleClass="nav-link" text="← Retour a l accueil" />
+        </HBox>
+
+        <VBox alignment="CENTER" VBox.vgrow="ALWAYS">
+            <!-- Connexion Card -->
+            <VBox fx:id="loginCard" alignment="CENTER" maxHeight="520" maxWidth="420" spacing="18" styleClass="glass-card">
+                <padding><Insets bottom="40" left="40" right="40" top="40" /></padding>
+
+                <!-- Logo -->
+                <HBox alignment="CENTER" spacing="8">
+                    <Label styleClass="logo-icon" text="△" />
+                    <Label styleClass="logo-text" text="AURA" />
+                </HBox>
+
+                <Label styleClass="card-title" text="Bon retour" />
+                <Label styleClass="card-subtitle" text="Connectez-vous a votre compte" />
+
+                <!-- Erreur Label -->
+                <Label fx:id="errorLabel" styleClass="error-label" text="" wrapText="true" />
+
+                <!-- Email -->
+                <VBox spacing="6">
+                    <Label styleClass="field-label" text="Email" />
+                    <TextField fx:id="emailField" promptText="you@example.com" styleClass="text-input" />
+                    <Label fx:id="emailErrorLabel" styleClass="error-label" text="" visible="false" managed="false" />
+                </VBox>
+
+                <!-- Mot de passe -->
+                <VBox spacing="6">
+                    <Label styleClass="field-label" text="Mot de passe" />
+                    <StackPane alignment="CENTER_RIGHT">
+                        <PasswordField fx:id="passwordField" promptText="••••••••" styleClass="text-input" />
+                        <TextField fx:id="passwordTextField" managed="false" promptText="••••••••" styleClass="text-input" visible="false" />
+                        <Button onAction="#togglePasswordVisibility" styleClass="btn-icon-inside" text="👁" />
+                    </StackPane>
+                    <Label fx:id="passwordErrorLabel" styleClass="error-label" text="" visible="false" managed="false" />
+                </VBox>
+
+                <!-- Forgot Mot de passe -->
+                <HBox alignment="CENTER_RIGHT">
+                    <Hyperlink onAction="#handleForgotPassword" styleClass="link-text" text="Mot de passe oublie ?" />
+                </HBox>
+
+                <!-- Connexion Button -->
+                <Button maxWidth="Infinity" onAction="#handleLogin" styleClass="btn-primary-full" text="Se connecter" />
+
+                <!-- Divider -->
+                <HBox alignment="CENTER" spacing="10">
+                    <Separator styleClass="divider-line" HBox.hgrow="ALWAYS" />
+                    <Label styleClass="divider-text" text="OU" />
+                    <Separator styleClass="divider-line" HBox.hgrow="ALWAYS" />
+                </HBox>
+
+                <!-- Google & FaceID -->
+                <HBox spacing="10">
+                    <Button maxWidth="Infinity" onAction="#handleGoogleLogin" styleClass="btn-google" text="🔗 Google" HBox.hgrow="ALWAYS" />
+                    <Button maxWidth="Infinity" onAction="#handleFaceIdLogin" styleClass="btn-faceid" text="👤 Face ID" HBox.hgrow="ALWAYS" />
+                </HBox>
+
+                <!-- Inscription Link -->
+                <HBox alignment="CENTER" spacing="5">
+                    <Label styleClass="card-subtitle" text="Vous n'avez pas de compte ?" />
+                    <Hyperlink onAction="#handleGoToRegister" styleClass="link-teal" text="Inscription" />
+                </HBox>
+            </VBox>
+        </VBox>
+    </VBox>
+</StackPane>

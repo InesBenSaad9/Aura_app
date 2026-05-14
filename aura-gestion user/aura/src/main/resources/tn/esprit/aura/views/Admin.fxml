@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.aura.controllers.AdminController"
+            stylesheets="@../styles/style.css"
+            styleClass="root-pane" prefWidth="1280" prefHeight="800">
+
+    <!-- ═══ LEFT SIDEBAR ═══ -->
+    <left>
+        <VBox fx:id="sidebar" styleClass="sidebar" spacing="4" prefWidth="240" alignment="TOP_CENTER">
+            <padding><Insets top="20" bottom="20" left="12" right="12"/></padding>
+
+            <!-- Logo -->
+            <HBox alignment="CENTER" spacing="8">
+                <padding><Insets bottom="30"/></padding>
+                <Label text="△" styleClass="sidebar-logo-icon"/>
+                <Label text="AURA" styleClass="sidebar-logo-text"/>
+            </HBox>
+
+            <Label text="MENU PRINCIPAL" styleClass="sidebar-section-label"/>
+
+            <!-- Navigation Buttons -->
+            <Button fx:id="btnDashboard" text="📊  Tableau de bord" styleClass="sidebar-btn"
+                    onAction="#handleDashboard" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+
+            <Button fx:id="btnUsers" text="👥  Utilisateurs" styleClass="sidebar-btn"
+                    onAction="#handleUsers" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+
+            <Button fx:id="btnProfile" text="🧑‍💼  Profil" styleClass="sidebar-btn"
+                    onAction="#handleProfile" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+
+            <Button fx:id="btnSettings" text="⚙  Parametres" styleClass="sidebar-btn"
+                    onAction="#handleSettings" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+
+            <!-- Spacer -->
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- Deconnexion -->
+            <Separator styleClass="sidebar-divider"/>
+            <Button text="🚪  Deconnexion" styleClass="sidebar-btn sidebar-btn-danger"
+                    onAction="#handleLogout" maxWidth="Infinity" alignment="CENTER_LEFT"/>
+        </VBox>
+    </left>
+
+    <!-- ═══ CENTER (Top bar + Content) ═══ -->
+    <center>
+        <VBox styleClass="main-content-area">
+
+            <!-- ═══ TOP NAVBAR ═══ -->
+            <HBox styleClass="topbar" alignment="CENTER_LEFT" spacing="16">
+                <padding><Insets top="14" bottom="14" left="24" right="24"/></padding>
+
+                <Label text="Panneau admin" styleClass="topbar-title"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <!-- Admin profile -->
+                <HBox alignment="CENTER_RIGHT" spacing="10">
+                    <Label text="🛡" style="-fx-font-size: 18px;"/>
+                    <VBox alignment="CENTER_LEFT" spacing="1">
+                        <Label fx:id="adminNameLabel" text="Admin" styleClass="topbar-admin-name"/>
+                        <Label text="Administrateur" styleClass="topbar-admin-role"/>
+                    </VBox>
+                </HBox>
+            </HBox>
+
+            <!-- ═══ DYNAMIC CONTENT AREA ═══ -->
+            <StackPane fx:id="contentArea" VBox.vgrow="ALWAYS" styleClass="content-stack">
+                <padding><Insets top="24" bottom="24" left="24" right="24"/></padding>
+            </StackPane>
+
+        </VBox>
+    </center>
+</BorderPane>

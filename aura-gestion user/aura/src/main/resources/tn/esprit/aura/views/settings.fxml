@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.Insets?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.aura.controllers.SettingsController"
+      spacing="20" alignment="TOP_LEFT">
+
+    <!-- Page Header -->
+    <VBox spacing="4">
+        <Label fx:id="settingsTitle" text="Parametres" styleClass="page-title"/>
+        <Label text="Configuration et preferences de la plateforme" styleClass="page-subtitle"/>
+    </VBox>
+
+    <!-- Parametres Cards -->
+    <HBox spacing="18">
+        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" spacing="12">
+            <padding><Insets top="24" bottom="24" left="24" right="24"/></padding>
+            <Label text="🔔" style="-fx-font-size: 28px;"/>
+            <Label text="Notifications" styleClass="stat-card-label" style="-fx-font-size: 15px;"/>
+            <Label text="Configurez les preferences et alertes de notification" styleClass="stat-card-desc" wrapText="true"/>
+            <Label text="Bientot disponible" styleClass="badge-coming-soon"/>
+        </VBox>
+
+        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" spacing="12">
+            <padding><Insets top="24" bottom="24" left="24" right="24"/></padding>
+            <Label text="🎨" style="-fx-font-size: 28px;"/>
+            <Label text="Apparence" styleClass="stat-card-label" style="-fx-font-size: 15px;"/>
+            <Label text="Personnalisez l apparence d AURA" styleClass="stat-card-desc" wrapText="true"/>
+            <Label text="Bientot disponible" styleClass="badge-coming-soon"/>
+        </VBox>
+
+        <VBox styleClass="stat-card" HBox.hgrow="ALWAYS" spacing="12">
+            <padding><Insets top="24" bottom="24" left="24" right="24"/></padding>
+            <Label text="🔐" style="-fx-font-size: 28px;"/>
+            <Label text="Securite" styleClass="stat-card-label" style="-fx-font-size: 15px;"/>
+            <Label text="Gerez les regles de securite et les acces" styleClass="stat-card-desc" wrapText="true"/>
+            <Label text="Bientot disponible" styleClass="badge-coming-soon"/>
+        </VBox>
+    </HBox>
+
+    <VBox styleClass="welcome-card" spacing="10">
+        <padding><Insets top="20" bottom="20" left="24" right="24"/></padding>
+        <Label text="🚧 Module en construction" styleClass="welcome-title"/>
+        <Label text="Parametres modules will be available in the next release. This section is designed to be modular — chaque carte chargera sa propre vue de configuration."
+               styleClass="welcome-desc" wrapText="true"/>
+    </VBox>
+</VBox>

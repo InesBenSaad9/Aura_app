@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="24" styleClass="admin-home" stylesheets="@../styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="tn.esprit.aura.controllers.AdminHomeController">
+
+    <!-- Page Header -->
+    <VBox spacing="4">
+        <Label styleClass="page-title" text="Vue d ensemble" />
+        <Label styleClass="page-subtitle" text="Statistiques en temps reel de votre plateforme AURA" />
+    </VBox>
+
+    <!-- ═══ STATS CARDS ═══ -->
+    <HBox spacing="18">
+
+        <!-- Card 1 — Total utilisateurs -->
+        <VBox spacing="10" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="22" left="22" right="22" top="22" /></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 26px;" text="👤" />
+                <VBox spacing="2">
+                    <Label styleClass="stat-card-label" text="Total utilisateurs" />
+                    <Label fx:id="totalUsersCount" styleClass="stat-card-value" text="—" />
+                </VBox>
+            </HBox>
+            <Label styleClass="stat-card-desc" text="Tous les comptes inscrits" />
+            <Region styleClass="stat-card-accent stat-card-accent-teal" />
+        </VBox>
+
+        <!-- Card 2 — Admins -->
+        <VBox spacing="10" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="22" left="22" right="22" top="22" /></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 26px;" text="🛡" />
+                <VBox spacing="2">
+                    <Label styleClass="stat-card-label" text="Admins" />
+                    <Label fx:id="adminsCount" styleClass="stat-card-value" text="—" />
+                </VBox>
+            </HBox>
+            <Label styleClass="stat-card-desc" text="Comptes administrateur" />
+            <Region styleClass="stat-card-accent stat-card-accent-purple" />
+        </VBox>
+
+        <!-- Card 3 — Actifs Utilisateurs -->
+        <VBox spacing="10" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="22" left="22" right="22" top="22" /></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 26px;" text="📈" />
+                <VBox spacing="2">
+                    <Label styleClass="stat-card-label" text="Actif" />
+                    <Label fx:id="activeCount" styleClass="stat-card-value" text="—" />
+                </VBox>
+            </HBox>
+            <Label styleClass="stat-card-desc" text="Comptes actuellement actifs" />
+            <Region styleClass="stat-card-accent stat-card-accent-teal" />
+        </VBox>
+
+        <!-- Card 4 — Nouveaux aujourd hui -->
+        <VBox spacing="10" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="22" left="22" right="22" top="22" /></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 26px;" text="🆕" />
+                <VBox spacing="2">
+                    <Label styleClass="stat-card-label" text="Nouveaux aujourd hui" />
+                    <Label fx:id="newTodayCount" styleClass="stat-card-value" text="—" />
+                </VBox>
+            </HBox>
+            <Label styleClass="stat-card-desc" text="Inscrits aujourd hui" />
+            <Region styleClass="stat-card-accent stat-card-accent-coral" />
+        </VBox>
+
+    </HBox>
+
+    <!-- Bienvenue section -->
+    <VBox spacing="10" styleClass="welcome-card">
+        <padding><Insets bottom="24" left="24" right="24" top="24" /></padding>
+        <Label styleClass="welcome-title" text="Bienvenue dans le panneau admin AURA" />
+        <Label styleClass="welcome-desc" text="Gerez vos utilisateurs, suivez l activite et configurez votre plateforme depuis ce tableau de bord. Utilisez la barre laterale pour naviguer entre les sections." wrapText="true" />
+    </VBox>
+
+</VBox>

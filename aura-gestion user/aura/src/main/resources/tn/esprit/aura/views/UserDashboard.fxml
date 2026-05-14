@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+
+<BorderPane prefHeight="800" prefWidth="1280" styleClass="root-pane" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.aura.controllers.UserDashboardController">
+
+    <left>
+        <VBox fx:id="userSidebar" maxWidth="200" minWidth="200" prefWidth="200" style="-fx-background-color: #111418; -fx-border-width: 0;">
+
+            <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding: 28 16;">
+                <Circle fill="#1BBFA8" radius="20" />
+                <VBox spacing="2">
+                    <Label style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;" text="AURA" />
+                    <Label style="-fx-text-fill: #A8B4C0; -fx-font-size: 10;" text="AI Life Companion" />
+                </VBox>
+            </HBox>
+
+            <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 16; -fx-background-color: rgba(27,191,168,0.05);">
+                <Circle fill="#1BBFA8" radius="20" />
+                <VBox spacing="2">
+                    <Label fx:id="userSidebarNameLabel" style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;" text="Ines" />
+                    <Label style="-fx-text-fill: #1BBFA8; -fx-font-size: 10; -fx-font-weight: bold;" text="ACTIVE" />
+                </VBox>
+            </HBox>
+
+            <Region prefHeight="16" />
+
+            <VBox spacing="4" style="-fx-padding: 0 8;" VBox.vgrow="ALWAYS">
+                <Button alignment="CENTER_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Taches" />
+                <Button fx:id="userBtnAnalysis" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleDashboard" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="AI Analysis" />
+                <Button fx:id="userBtnActivities" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleActivities" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Activities" />
+                <Button fx:id="userBtnMedical" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleMedical" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Medical" />
+                <Button fx:id="userBtnMessages" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleMessages" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Messages" />
+                <Button fx:id="userBtnEvents" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleEvents" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Evenement" />
+                <Button fx:id="userBtnProfile" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleProfile" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Profile" />
+            </VBox>
+
+            <VBox spacing="4" style="-fx-padding: 8;">
+                <Button alignment="CENTER_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 13; -fx-alignment: CENTER_LEFT; -fx-padding: 10 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Light Mode" />
+                <Button alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleSettings" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 13; -fx-alignment: CENTER_LEFT; -fx-padding: 10 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Parametres" />
+                <Button alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleLogout" style="-fx-background-color: transparent; -fx-text-fill: #E85D3A; -fx-font-size: 13; -fx-alignment: CENTER_LEFT; -fx-padding: 10 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Deconnecter" />
+            </VBox>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox styleClass="main-content-area">
+            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="topbar">
+                <padding><Insets bottom="14" left="24" right="24" top="14" /></padding>
+                <Label styleClass="topbar-title" text="Tableau de bord utilisateur" />
+                <Region HBox.hgrow="ALWAYS" />
+                <VBox alignment="CENTER_RIGHT" spacing="1">
+                    <Label fx:id="userWelcomeLabel" styleClass="topbar-admin-name" text="Bienvenue" />
+                    <Label styleClass="topbar-admin-role" text="Utilisateur standard" />
+                </VBox>
+            </HBox>
+
+            <StackPane fx:id="userContentArea" styleClass="content-stack" VBox.vgrow="ALWAYS">
+                <padding><Insets bottom="24" left="24" right="24" top="24" /></padding>
+            </StackPane>
+        </VBox>
+    </center>
+</BorderPane>

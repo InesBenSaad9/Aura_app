@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox spacing="24" styleClass="admin-home" stylesheets="@../styles/style.css" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.aura.controllers.UserHomeController">
+
+    <!-- Page Header -->
+    <HBox alignment="CENTER_LEFT">
+        <VBox spacing="4">
+            <Label styleClass="page-title" text="Mon tableau de bord" />
+            <Label fx:id="dateLabel" styleClass="page-subtitle" text="Date du jour" />
+        </VBox>
+    </HBox>
+
+    <!-- Bienvenue section -->
+    <VBox spacing="10" styleClass="welcome-card" style="-fx-background-color: linear-gradient(to right, #1BBFA8, #159986);">
+        <padding><Insets bottom="32" left="32" right="32" top="32" /></padding>
+        <Label fx:id="welcomeNameLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;" text="Bonjour, utilisateur !" />
+        <Label style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.9);" text="Bienvenue dans votre tableau de bord personnel AURA. Vous pouvez y consulter votre profil et acceder aux parametres de votre compte." wrapText="true" />
+    </VBox>
+
+    <!-- ═══ QUICK INFO CARDS ═══ -->
+    <HBox spacing="18">
+
+        <!-- Card 1 — Email -->
+        <VBox spacing="10" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="22" left="22" right="22" top="22" /></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 26px;" text="📧" />
+                <VBox spacing="2">
+                    <Label styleClass="stat-card-label" text="Adresse email" />
+                    <Label fx:id="emailLabel" styleClass="stat-card-value" style="-fx-font-size: 16px;" text="user@example.com" />
+                </VBox>
+            </HBox>
+            <Region styleClass="stat-card-accent stat-card-accent-teal" />
+        </VBox>
+
+        <!-- Card 2 — Location -->
+        <VBox spacing="10" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="22" left="22" right="22" top="22" /></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 26px;" text="📍" />
+                <VBox spacing="2">
+                    <Label styleClass="stat-card-label" text="Ville / Location" />
+                    <Label fx:id="cityLabel" styleClass="stat-card-value" style="-fx-font-size: 16px;" text="Tunis" />
+                </VBox>
+            </HBox>
+            <Region styleClass="stat-card-accent stat-card-accent-purple" />
+        </VBox>
+
+        <!-- Card 3 — Telephone -->
+        <VBox spacing="10" styleClass="stat-card" HBox.hgrow="ALWAYS">
+            <padding><Insets bottom="22" left="22" right="22" top="22" /></padding>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+                <Label style="-fx-font-size: 26px;" text="📱" />
+                <VBox spacing="2">
+                    <Label styleClass="stat-card-label" text="Numero de telephone" />
+                    <Label fx:id="phoneLabel" styleClass="stat-card-value" style="-fx-font-size: 16px;" text="+216 12345678" />
+                </VBox>
+            </HBox>
+            <Region styleClass="stat-card-accent stat-card-accent-coral" />
+        </VBox>
+
+    </HBox>
+
+    <!-- Additional Content Placeholder -->
+    <VBox spacing="10" styleClass="stat-card" VBox.vgrow="ALWAYS">
+        <padding><Insets bottom="24" left="24" right="24" top="24" /></padding>
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;" text="Activite recente" />
+        <Label style="-fx-text-fill: #9CA3AF;" text="Vos interactions recentes et notifications apparaitront ici." />
+    </VBox>
+
+</VBox>

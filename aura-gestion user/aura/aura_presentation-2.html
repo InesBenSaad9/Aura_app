@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AURA — Présentation</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --teal: #1BBFA8;
+    --teal-dim: #0D8A7A;
+    --teal-light: rgba(27,191,168,0.15);
+    --purple: #6B5FD4;
+    --purple-light: #C4BEFF;
+    --purple-area: rgba(107,95,212,0.15);
+    --coral: #E85D3A;
+    --coral-light: rgba(232,93,58,0.18);
+    --orange: #E8943A;
+    --orange-light: rgba(232,148,58,0.18);
+    --dark: #0A0C0F;
+    --dark2: #111418;
+    --dark3: #181C22;
+    --dark4: #1E2329;
+    --text: #F0F4F8;
+    --text-muted: #A8B4C0;
+    --border: rgba(27,191,168,0.15);
+    --border-dim: rgba(255,255,255,0.08);
+  }
+  html, body { width:100%; height:100%; background:var(--dark); font-family:'DM Sans',sans-serif; color:var(--text); overflow:hidden; }
+  .presentation { width:100%; height:100vh; position:relative; }
+  .slide { position:absolute; inset:0; display:flex; flex-direction:column; justify-content:center; align-items:center; padding:48px 60px; opacity:0; transform:translateY(28px); pointer-events:none; transition:opacity 0.45s ease, transform 0.45s ease; }
+  .slide.active { opacity:1; transform:translateY(0); pointer-events:all; }
+  .slide.exit { opacity:0; transform:translateY(-28px); }
+  .orb { position:absolute; border-radius:50%; filter:blur(90px); pointer-events:none; z-index:0; }
+  .nav { position:fixed; bottom:24px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:14px; z-index:100; background:rgba(10,12,15,0.88); border:0.5px solid var(--border); border-radius:50px; padding:9px 18px; backdrop-filter:blur(16px); }
+  .nav button { background:none; border:0.5px solid var(--border-dim); color:var(--text-muted); padding:5px 14px; border-radius:20px; cursor:pointer; font-family:'DM Sans',sans-serif; font-size:13px; transition:all 0.2s; }
+  .nav button:hover { background:var(--dark4); color:var(--text); }
+  .slide-counter { font-size:12px; color:var(--text-muted); min-width:46px; text-align:center; font-family:'Syne',sans-serif; }
+  .dots { display:flex; gap:5px; }
+  .dot { width:5px; height:5px; border-radius:50%; background:var(--border-dim); cursor:pointer; transition:all 0.3s; }
+  .dot.active { background:var(--teal); width:16px; border-radius:3px; }
+  .slide-inner { position:relative; z-index:1; width:100%; max-width:980px; }
+  .slide-tag { font-size:11px; font-weight:500; letter-spacing:0.14em; text-transform:uppercase; color:var(--teal); margin-bottom:14px; font-family:'Syne',sans-serif; }
+  h1 { font-family:'Syne',sans-serif; font-size:clamp(44px,6vw,72px); font-weight:800; line-height:1.05; letter-spacing:-0.02em; }
+  h2 { font-family:'Syne',sans-serif; font-size:clamp(28px,4vw,48px); font-weight:700; line-height:1.1; letter-spacing:-0.02em; margin-bottom:26px; }
+  .subtitle { font-size:19px; color:var(--text-muted); margin-top:14px; font-weight:300; line-height:1.6; }
+  .accent { color:var(--teal); }
+  .accent-purple { color:var(--purple-light); }
+  .accent-coral { color:#F0A07B; }
+  table { width:100%; border-collapse:collapse; font-size:14px; }
+  th { font-family:'Syne',sans-serif; font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); padding:10px 14px; text-align:left; border-bottom:0.5px solid var(--border-dim); }
+  td { padding:10px 14px; border-bottom:0.5px solid var(--border-dim); color:var(--text); vertical-align:middle; font-size:14px; }
+  tr:last-child td { border-bottom:none; }
+  tr.highlight td { background:rgba(27,191,168,0.07); }
+  tr.highlight td:first-child { border-left:2px solid var(--teal); }
+  .check { color:var(--teal); font-size:15px; }
+  .cross { color:#E24B4A; font-size:15px; }
+  .table-wrap { background:var(--dark2); border:0.5px solid var(--border-dim); border-radius:12px; overflow:hidden; }
+  .cards { display:grid; gap:14px; }
+  .cards-3 { grid-template-columns:repeat(3,1fr); }
+  .cards-4 { grid-template-columns:repeat(4,1fr); }
+  .cards-2 { grid-template-columns:repeat(2,1fr); }
+  .card { background:var(--dark2); border:0.5px solid var(--border-dim); border-radius:12px; padding:20px; }
+  .card-icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; font-size:18px; margin-bottom:12px; }
+  .card h3 { font-family:'Syne',sans-serif; font-size:14px; font-weight:600; margin-bottom:6px; }
+  .card p { font-size:13px; color:var(--text-muted); line-height:1.55; }
+  .badge { display:inline-block; font-size:11px; font-weight:500; padding:3px 10px; border-radius:20px; font-family:'Syne',sans-serif; }
+  .badge-teal { background:var(--teal-light); color:var(--teal); }
+  .badge-purple { background:var(--purple-area); color:var(--purple-light); }
+  .badge-coral { background:var(--coral-light); color:#F0A07B; }
+  .badge-orange { background:var(--orange-light); color:#F0B87B; }
+  .badge-gray { background:rgba(255,255,255,0.08); color:var(--text-muted); }
+  .ref { display:inline-block; font-size:11px; font-weight:600; padding:2px 8px; border-radius:20px; font-family:'Syne',sans-serif; background:var(--teal-light); color:var(--teal); }
+  .flow { display:flex; align-items:center; gap:8px; margin-top:28px; }
+  .flow-step { background:var(--dark2); border:0.5px solid var(--border-dim); border-radius:10px; padding:14px 20px; text-align:center; flex:1; }
+  .flow-step .step-label { font-family:'Syne',sans-serif; font-size:13px; font-weight:600; color:var(--teal); }
+  .flow-step .step-sub { font-size:11.5px; color:var(--text-muted); margin-top:3px; }
+  .flow-arrow { color:var(--text-muted); font-size:18px; flex-shrink:0; }
+  .tagline { display:flex; gap:8px; margin-top:24px; flex-wrap:wrap; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:22px; align-items:start; }
+  .section-label { font-size:11px; font-weight:500; letter-spacing:0.08em; text-transform:uppercase; color:var(--text-muted); margin-bottom:10px; font-family:'Syne',sans-serif; }
+  .member-row { display:flex; align-items:center; gap:12px; padding:12px 15px; border-bottom:0.5px solid var(--border-dim); }
+  .member-row:last-child { border-bottom:none; }
+  .avatar { width:36px; height:36px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:11px; font-weight:600; font-family:'Syne',sans-serif; flex-shrink:0; }
+  .member-info { flex:1; }
+  .member-name { font-size:13px; font-weight:500; font-family:'Syne',sans-serif; }
+  .member-role { font-size:12px; color:var(--text-muted); margin-top:2px; }
+  .quote-block { background:var(--dark2); border-left:3px solid var(--teal); border-radius:0 10px 10px 0; padding:16px 20px; font-size:15px; color:var(--text); line-height:1.6; margin-top:24px; font-style:italic; }
+  .swatches { display:flex; gap:10px; flex-wrap:wrap; margin-top:16px; }
+  .swatch { border-radius:10px; padding:14px 16px; font-size:12px; font-weight:500; min-width:100px; }
+  .logo-variants { display:flex; gap:20px; align-items:center; margin-bottom:20px; }
+  .logo-variant { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .logo-variant-label { font-size:10px; color:var(--text-muted); font-family:'Syne',sans-serif; letter-spacing:0.06em; text-transform:uppercase; }
+
+  /* existant app mockups */
+  .app-slide { display:grid; grid-template-columns:1fr 1fr; gap:20px; align-items:center; }
+  .app-info { display:flex; flex-direction:column; gap:16px; }
+  .app-screens { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
+  .app-screen { border-radius:14px; overflow:hidden; border:0.5px solid var(--border-dim); background:var(--dark3); aspect-ratio:9/16; display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px; padding:12px; }
+  .app-screen-label { font-size:10px; color:var(--text-muted); font-family:'Syne',sans-serif; letter-spacing:0.06em; text-transform:uppercase; margin-top:6px; text-align:center; }
+  .stat-row { display:flex; align-items:center; gap:10px; margin-top:4px; }
+  .stat-label { font-size:12px; color:var(--text-muted); width:130px; flex-shrink:0; }
+  .stat-bar { flex:1; height:6px; border-radius:3px; background:rgba(255,255,255,0.08); overflow:hidden; }
+  .stat-fill { height:100%; border-radius:3px; transition:width 0.8s ease; }
+  .app-name-badge { display:inline-flex; align-items:center; gap:8px; }
+  .screen-icon { font-size:28px; }
+  .screen-title { font-size:11px; color:var(--text-muted); text-align:center; font-family:'Syne',sans-serif; }
+  .screenshot-grid {
+    display: grid;
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .screenshot-frame {
+    background: var(--dark3);
+    border: 0.5px solid var(--border-dim);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .screenshot-frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .screenshot-label {
+    position: absolute;
+    bottom: 14px;
+    left: 14px;
+    font-size: 10px;
+    color: var(--text-muted);
+    font-family: 'Syne', sans-serif;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background: rgba(10, 12, 15, 0.8);
+    padding: 5px 10px;
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+    border: 0.5px solid rgba(27, 191, 168, 0.15);
+  }
+</style>
+</head>
+<body>
+<div class="presentation" id="pres">
+
+<!-- ══ SLIDE 1 — TITRE ══ -->
+<div class="slide active" id="slide-1">
+  <div class="orb" style="width:420px;height:420px;background:rgba(27,191,168,0.08);top:-120px;right:-100px;"></div>
+  <div class="orb" style="width:260px;height:260px;background:rgba(107,95,212,0.07);bottom:-60px;left:-60px;"></div>
+  <div class="slide-inner" style="text-align:center;">
+    <div style="display:flex;justify-content:center;margin-bottom:30px;">
+      <svg width="90" height="90" viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect width="90" height="90" rx="22" fill="#0A0C0F"/>
+        <defs>
+          <radialGradient id="lg1" cx="45%" cy="40%" r="60%">
+            <stop offset="0%" stop-color="#1BBFA8"/>
+            <stop offset="55%" stop-color="#6B5FD4"/>
+            <stop offset="100%" stop-color="#0D1520"/>
+          </radialGradient>
+        </defs>
+        <path d="M45 14 C46.5 14 47.8 14.8 48.6 16L74 60 C75.6 62.6 73.8 66 70.8 66L19.2 66 C16.2 66 14.4 62.6 16 60L41.4 16 C42.2 14.8 43.5 14 45 14Z" fill="url(#lg1)"/>
+        <path d="M45 31 L46.4 39 L54 40.5 L46.4 42 L45 50 L43.6 42 L36 40.5 L43.6 39 Z" fill="white" opacity="0.95"/>
+      </svg>
+    </div>
+    <div class="slide-tag">Projet Java S2 — 2025</div>
+    <h1><span class="accent">AURA</span></h1>
+    <p class="subtitle">Adaptive Urban Relationship Assistant</p>
+    <div class="tagline" style="justify-content:center;margin-top:24px;">
+      <span class="badge badge-teal">Ton ami</span>
+      <span class="badge badge-purple">Ton thérapeute</span>
+      <span class="badge badge-coral">Ton manager</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 2 — PROBLÉMATIQUE ══ -->
+<div class="slide" id="slide-2">
+  <div class="orb" style="width:300px;height:300px;background:rgba(232,93,58,0.07);top:-80px;left:-80px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">01 — Problématique</div>
+    <h2>Un monde qui ignore<br>comment tu te sens</h2>
+    <div class="cards cards-3">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;margin-bottom:14px;">📅</div>
+        <h3 style="font-size:16px;margin-bottom:8px;">Plannings rigides</h3>
+        <p style="font-size:14px;">Les apps ignorent ton état émotionnel. Même planning chaque jour, quelle que soit ton humeur.</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;margin-bottom:14px;">🔌</div>
+        <h3 style="font-size:16px;margin-bottom:8px;">Isolement social</h3>
+        <p style="font-size:14px;">Hyperconnecté mais seul. Aucun outil pour se connecter autour d'activités réelles spontanées.</p>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:48px;margin-bottom:14px;">🔗</div>
+        <h3 style="font-size:16px;margin-bottom:8px;">Aucun lien</h3>
+        <p style="font-size:14px;">Bien-être personnel et vie sociale ne sont jamais connectés. L'intelligence contextuelle n'existe pas.</p>
+      </div>
+    </div>
+    <div class="quote-block" style="font-size:16px;">Comment concevoir un assistant qui s'adapte à l'humeur de l'utilisateur tout en favorisant des connexions sociales authentiques ?</div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 3 — EXISTANT: DAYLIO ══ -->
+<div class="slide" id="slide-3">
+  <div class="orb" style="width:280px;height:280px;background:rgba(27,191,168,0.07);bottom:-60px;right:-60px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">02 — Étude de l'existant · 1/4</div>
+    <div class="app-slide">
+      <div class="app-info">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#FF6B9D,#FF4757);display:flex;align-items:center;justify-content:center;font-size:24px;">😊</div>
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;">Daylio</div>
+              <div style="font-size:13px;color:var(--text-muted);">Mobile · Gratuit + Premium</div>
+            </div>
+            <span class="badge badge-coral" style="margin-left:8px;">Concurrent direct</span>
+          </div>
+          <p style="font-size:15px;color:var(--text);line-height:1.6;margin-bottom:20px;">Journal d'humeur rapide avec statistiques visuelles. L'utilisateur log son humeur en quelques secondes avec des emojis et des activités associées.</p>
+        </div>
+        <div>
+          <div class="section-label">Analyse comparative</div>
+          <div class="stat-row"><span class="stat-label">Détection humeur</span><div class="stat-bar"><div class="stat-fill" style="width:90%;background:var(--teal);"></div></div><span style="font-size:13px;color:var(--text);margin-left:8px;">90%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">IA adaptative</span><div class="stat-bar"><div class="stat-fill" style="width:10%;background:var(--coral);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">10%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">Planning</span><div class="stat-bar"><div class="stat-fill" style="width:0%;background:var(--coral);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">0%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">Social</span><div class="stat-bar"><div class="stat-fill" style="width:0%;background:var(--coral);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">0%</span></div>
+        </div>
+        <div class="card" style="padding:14px;border-color:var(--coral-light);">
+          <p style="font-size:13px;color:var(--text-muted);">Pas de conseils IA réels, aucun lien avec la planification du quotidien. L'app observe sans jamais agir.</p>
+        </div>
+      </div>
+      <div class="app-screens">
+        <div class="app-screen">
+          <div class="screen-icon">📊</div>
+          <div class="screen-title">Statistiques humeur</div>
+          <div style="width:100%;margin-top:8px;">
+            <div style="height:4px;border-radius:2px;background:#FF6B9D;width:80%;margin:3px auto;opacity:0.8;"></div>
+            <div style="height:4px;border-radius:2px;background:#FF6B9D;width:60%;margin:3px auto;opacity:0.6;"></div>
+            <div style="height:4px;border-radius:2px;background:#FF6B9D;width:90%;margin:3px auto;opacity:0.9;"></div>
+            <div style="height:4px;border-radius:2px;background:#FF6B9D;width:50%;margin:3px auto;opacity:0.5;"></div>
+          </div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-icon">😊</div>
+          <div class="screen-title">Check-in humeur</div>
+          <div style="display:flex;gap:4px;margin-top:6px;flex-wrap:wrap;justify-content:center;">
+            <span style="font-size:16px;">😴</span><span style="font-size:16px;">😔</span><span style="font-size:16px;">😐</span><span style="font-size:16px;">😊</span><span style="font-size:16px;">😄</span>
+          </div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-icon">📅</div>
+          <div class="screen-title">Journal activités</div>
+          <div style="width:100%;margin-top:6px;">
+            <div style="height:3px;border-radius:2px;background:var(--border-dim);width:85%;margin:4px auto;"></div>
+            <div style="height:3px;border-radius:2px;background:var(--border-dim);width:70%;margin:4px auto;"></div>
+            <div style="height:3px;border-radius:2px;background:var(--border-dim);width:90%;margin:4px auto;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 4 — EXISTANT: YOUPER ══ -->
+<div class="slide" id="slide-4">
+  <div class="orb" style="width:280px;height:280px;background:rgba(107,95,212,0.07);top:-60px;left:-60px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">02 — Étude de l'existant · 2/4</div>
+    <div class="app-slide">
+      <div class="app-info">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#667EEA,#764BA2);display:flex;align-items:center;justify-content:center;font-size:24px;">🧠</div>
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;">Youper</div>
+              <div style="font-size:13px;color:var(--text-muted);">Mobile · Freemium · CBT + IA</div>
+            </div>
+            <span class="badge badge-purple" style="margin-left:8px;">Concurrent partiel</span>
+          </div>
+          <p style="font-size:15px;color:var(--text);line-height:1.6;margin-bottom:20px;">Chatbot IA basé sur la thérapie cognitive (TCC). Conversations intelligentes pour améliorer la santé mentale. Très orienté thérapie clinique.</p>
+        </div>
+        <div>
+          <div class="section-label">Analyse comparative</div>
+          <div class="stat-row"><span class="stat-label">Détection humeur</span><div class="stat-bar"><div class="stat-fill" style="width:85%;background:var(--teal);"></div></div><span style="font-size:13px;color:var(--text);margin-left:8px;">85%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">IA adaptative</span><div class="stat-bar"><div class="stat-fill" style="width:70%;background:#667EEA;"></div></div><span style="font-size:13px;color:var(--text);margin-left:8px;">70%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">Planning</span><div class="stat-bar"><div class="stat-fill" style="width:5%;background:var(--coral);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">5%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">Social</span><div class="stat-bar"><div class="stat-fill" style="width:0%;background:var(--coral);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">0%</span></div>
+        </div>
+        <div class="card" style="padding:14px;border-color:rgba(107,95,212,0.3);">
+          <p style="font-size:13px;color:var(--text-muted);">Très orienté thérapie clinique — pas du tout la vie quotidienne. Aucune dimension sociale ou planning.</p>
+        </div>
+      </div>
+      <div class="app-screens">
+        <div class="app-screen">
+          <div class="screen-icon">💬</div>
+          <div class="screen-title">Chat thérapeutique</div>
+          <div style="width:100%;margin-top:8px;">
+            <div style="background:rgba(107,95,212,0.3);border-radius:8px 8px 8px 2px;padding:5px 8px;font-size:10px;color:var(--text-muted);margin-bottom:4px;">Comment tu te sens ?</div>
+            <div style="background:rgba(27,191,168,0.15);border-radius:8px 8px 2px 8px;padding:5px 8px;font-size:10px;color:var(--text-muted);text-align:right;">Un peu anxieux...</div>
+          </div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-icon">📈</div>
+          <div class="screen-title">Suivi émotionnel</div>
+          <div style="display:flex;gap:3px;align-items:flex-end;height:40px;margin-top:8px;">
+            <div style="width:12px;background:#667EEA;border-radius:2px;height:60%;opacity:0.6;"></div>
+            <div style="width:12px;background:#667EEA;border-radius:2px;height:80%;opacity:0.7;"></div>
+            <div style="width:12px;background:#667EEA;border-radius:2px;height:50%;opacity:0.5;"></div>
+            <div style="width:12px;background:#667EEA;border-radius:2px;height:90%;opacity:0.9;"></div>
+            <div style="width:12px;background:#667EEA;border-radius:2px;height:70%;opacity:0.7;"></div>
+          </div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-icon">🎯</div>
+          <div class="screen-title">Exercices TCC</div>
+          <div style="width:100%;margin-top:6px;">
+            <div style="height:3px;border-radius:2px;background:rgba(107,95,212,0.4);width:85%;margin:4px auto;"></div>
+            <div style="height:3px;border-radius:2px;background:rgba(107,95,212,0.3);width:70%;margin:4px auto;"></div>
+            <div style="height:3px;border-radius:2px;background:rgba(107,95,212,0.2);width:90%;margin:4px auto;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 5 — EXISTANT: EARKICK ══ -->
+<div class="slide" id="slide-5">
+  <div class="orb" style="width:280px;height:280px;background:rgba(27,191,168,0.08);top:-60px;right:-60px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">02 — Étude de l'existant · 3/4</div>
+    <div class="app-slide">
+      <div class="app-info">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#1BBFA8,#0D8A7A);display:flex;align-items:center;justify-content:center;font-size:24px;">🎙️</div>
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;">Earkick</div>
+              <div style="font-size:13px;color:var(--text-muted);">Mobile · Gratuit · Companion IA</div>
+            </div>
+            <span class="badge badge-teal" style="margin-left:8px;">Le plus proche</span>
+          </div>
+          <p style="font-size:15px;color:var(--text);line-height:1.6;margin-bottom:20px;">IA temps réel qui détecte l'état émotionnel et suggère des pauses. L'app la plus proche d'AURA — mais sans planning structuré ni dimension sociale.</p>
+        </div>
+        <div>
+          <div class="section-label">Analyse comparative</div>
+          <div class="stat-row"><span class="stat-label">Détection humeur</span><div class="stat-bar"><div class="stat-fill" style="width:80%;background:var(--teal);"></div></div><span style="font-size:13px;color:var(--text);margin-left:8px;">80%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">IA adaptative</span><div class="stat-bar"><div class="stat-fill" style="width:75%;background:var(--teal);"></div></div><span style="font-size:13px;color:var(--text);margin-left:8px;">75%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">Planning</span><div class="stat-bar"><div class="stat-fill" style="width:20%;background:var(--orange);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">20%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">Social</span><div class="stat-bar"><div class="stat-fill" style="width:0%;background:var(--coral);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">0%</span></div>
+        </div>
+        <div class="card" style="padding:14px;border-color:rgba(27,191,168,0.3);">
+          <p style="font-size:13px;color:var(--text-muted);">Inspirant mais incomplet — détection vocale sans planning structuré, sans matching social, sans communauté.</p>
+        </div>
+      </div>
+      <div class="app-screens">
+        <div class="app-screen">
+          <div class="screen-icon">🎙️</div>
+          <div class="screen-title">Détection vocale</div>
+          <div style="width:36px;height:36px;border-radius:50%;border:2px solid var(--teal);display:flex;align-items:center;justify-content:center;margin-top:8px;animation:pulse 2s infinite;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--teal);"></div>
+          </div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-icon">🧘</div>
+          <div class="screen-title">Suggestions pause</div>
+          <div style="width:100%;margin-top:6px;">
+            <div style="height:3px;border-radius:2px;background:rgba(27,191,168,0.4);width:85%;margin:4px auto;"></div>
+            <div style="height:3px;border-radius:2px;background:rgba(27,191,168,0.3);width:60%;margin:4px auto;"></div>
+          </div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-icon">📊</div>
+          <div class="screen-title">Analyse temps réel</div>
+          <div style="display:flex;gap:2px;align-items:flex-end;height:35px;margin-top:8px;">
+            <div style="width:10px;background:var(--teal);border-radius:2px;height:40%;opacity:0.5;"></div>
+            <div style="width:10px;background:var(--teal);border-radius:2px;height:70%;opacity:0.7;"></div>
+            <div style="width:10px;background:var(--teal);border-radius:2px;height:55%;opacity:0.6;"></div>
+            <div style="width:10px;background:var(--teal);border-radius:2px;height:90%;opacity:1;"></div>
+            <div style="width:10px;background:var(--teal);border-radius:2px;height:65%;opacity:0.7;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 6 — EXISTANT: MOODFIT ══ -->
+<div class="slide" id="slide-6">
+  <div class="orb" style="width:280px;height:280px;background:rgba(232,148,58,0.07);bottom:-60px;left:-60px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">02 — Étude de l'existant · 4/4</div>
+    <div class="app-slide">
+      <div class="app-info">
+        <div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+            <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#E8943A,#C96A1A);display:flex;align-items:center;justify-content:center;font-size:24px;">💪</div>
+            <div>
+              <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:700;">Moodfit</div>
+              <div style="font-size:13px;color:var(--text-muted);">Mobile · Freemium</div>
+            </div>
+            <span class="badge badge-orange" style="margin-left:8px;">Concurrent direct</span>
+          </div>
+          <p style="font-size:15px;color:var(--text);line-height:1.6;margin-bottom:20px;">Tracking humeur + habitudes + intégration wearables. Bonnes statistiques visuelles mais aucune couche sociale ni planning adaptatif intelligent.</p>
+        </div>
+        <div>
+          <div class="section-label">Analyse comparative</div>
+          <div class="stat-row"><span class="stat-label">Détection humeur</span><div class="stat-bar"><div class="stat-fill" style="width:85%;background:var(--orange);"></div></div><span style="font-size:13px;color:var(--text);margin-left:8px;">85%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">IA adaptative</span><div class="stat-bar"><div class="stat-fill" style="width:30%;background:var(--orange);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">30%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">Planning</span><div class="stat-bar"><div class="stat-fill" style="width:10%;background:var(--coral);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">10%</span></div>
+          <div class="stat-row" style="margin-top:8px;"><span class="stat-label">Social</span><div class="stat-bar"><div class="stat-fill" style="width:0%;background:var(--coral);"></div></div><span style="font-size:13px;color:var(--text-muted);margin-left:8px;">0%</span></div>
+        </div>
+        <div class="card" style="padding:14px;border-color:var(--orange-light);">
+          <p style="font-size:13px;color:var(--text-muted);">Bonnes stats mais passif — aucune couche sociale, aucun planning adaptatif réel. L'app observe sans connecter.</p>
+        </div>
+      </div>
+      <div class="app-screens">
+        <div class="app-screen">
+          <div class="screen-icon">📊</div>
+          <div class="screen-title">Dashboard humeur</div>
+          <div style="display:flex;gap:2px;align-items:flex-end;height:35px;margin-top:8px;">
+            <div style="width:10px;background:var(--orange);border-radius:2px;height:60%;opacity:0.6;"></div>
+            <div style="width:10px;background:var(--orange);border-radius:2px;height:85%;opacity:0.8;"></div>
+            <div style="width:10px;background:var(--orange);border-radius:2px;height:45%;opacity:0.5;"></div>
+            <div style="width:10px;background:var(--orange);border-radius:2px;height:100%;opacity:1;"></div>
+            <div style="width:10px;background:var(--orange);border-radius:2px;height:70%;opacity:0.7;"></div>
+          </div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-icon">⌚</div>
+          <div class="screen-title">Wearables sync</div>
+          <div style="width:100%;margin-top:6px;">
+            <div style="height:3px;border-radius:2px;background:rgba(232,148,58,0.5);width:90%;margin:4px auto;"></div>
+            <div style="height:3px;border-radius:2px;background:rgba(232,148,58,0.3);width:60%;margin:4px auto;"></div>
+            <div style="height:3px;border-radius:2px;background:rgba(232,148,58,0.4);width:80%;margin:4px auto;"></div>
+          </div>
+        </div>
+        <div class="app-screen">
+          <div class="screen-icon">🏃</div>
+          <div class="screen-title">Suivi habitudes</div>
+          <div style="display:flex;gap:3px;flex-wrap:wrap;justify-content:center;margin-top:8px;">
+            <div style="width:10px;height:10px;border-radius:2px;background:rgba(232,148,58,0.7);"></div>
+            <div style="width:10px;height:10px;border-radius:2px;background:rgba(232,148,58,0.5);"></div>
+            <div style="width:10px;height:10px;border-radius:2px;background:rgba(232,148,58,0.3);"></div>
+            <div style="width:10px;height:10px;border-radius:2px;background:rgba(232,148,58,0.8);"></div>
+            <div style="width:10px;height:10px;border-radius:2px;background:rgba(232,148,58,0.4);"></div>
+            <div style="width:10px;height:10px;border-radius:2px;background:rgba(232,148,58,0.6);"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 7 — CRITIQUE ══ -->
+<div class="slide" id="slide-7">
+  <div class="orb" style="width:260px;height:260px;background:rgba(27,191,168,0.06);top:-60px;right:-60px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">03 — Critique de l'existant</div>
+    <h2>Ce qui manque à tous</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Fonctionnalité</th>
+            <th style="text-align:center;">Daylio</th>
+            <th style="text-align:center;">Youper</th>
+            <th style="text-align:center;">Earkick</th>
+            <th style="text-align:center;">Moodfit</th>
+            <th style="text-align:center;">AURA</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Détection humeur</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="check">✓</td></tr>
+          <tr><td>Companion vocal IA</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="check">✓</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="check">✓</td></tr>
+          <tr><td>Planning adaptatif</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="check">✓</td></tr>
+          <tr><td>Activités sociales</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="check">✓</td></tr>
+          <tr class="highlight"><td>Matching par humeur</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="check">✓</td></tr>
+          <tr class="highlight"><td>Desktop multi-clients</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="cross">✗</td><td style="text-align:center;" class="check">✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="quote-block" style="font-size:15px;margin-top:18px;">Aucune solution ne combine détection émotionnelle vocale, planning adaptatif et connexion sociale. C'est le vide qu'AURA comble.</div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 8 — SOLUTION ══ -->
+<div class="slide" id="slide-8">
+  <div class="orb" style="width:350px;height:350px;background:rgba(27,191,168,0.07);top:-100px;right:-100px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">04 — Solution proposée</div>
+    <h2>AURA — <span class="accent">Ton compagnon intelligent</span></h2>
+    <div class="cards cards-3" style="margin-bottom:22px;">
+      <div class="card" style="border-color:rgba(27,191,168,0.35);text-align:center;">
+        <div style="font-size:40px;margin-bottom:12px;">🤝</div>
+        <h3 style="color:var(--teal);font-size:16px;">Ton ami</h3>
+        <p style="font-size:14px;">T'écoute n'importe quand. Te connaît. Répond avec chaleur et bienveillance.</p>
+      </div>
+      <div class="card" style="border-color:rgba(107,95,212,0.35);text-align:center;">
+        <div style="font-size:40px;margin-bottom:12px;">🧠</div>
+        <h3 style="color:var(--purple-light);font-size:16px;">Ton thérapeute</h3>
+        <p style="font-size:14px;">Détecte les vibrations de ta voix. Comprend ton état même sans que tu le dises.</p>
+      </div>
+      <div class="card" style="border-color:rgba(232,93,58,0.35);text-align:center;">
+        <div style="font-size:40px;margin-bottom:12px;">⚡</div>
+        <h3 style="color:#F0A07B;font-size:16px;">Ton manager</h3>
+        <p style="font-size:14px;">Organise ta journée, priorise tes tâches, suggère des activités selon ton humeur.</p>
+      </div>
+    </div>
+    <div class="flow">
+      <div class="flow-step"><div class="step-label">Parler</div><div class="step-sub">voix naturelle</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-label">Détecter</div><div class="step-sub">humeur + vibrations</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-label">Organiser</div><div class="step-sub">planning adaptatif</div></div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-step"><div class="step-label">Connecter</div><div class="step-sub">activités sociales</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 9 — ACTEURS ══ -->
+<div class="slide" id="slide-9">
+  <div class="orb" style="width:280px;height:280px;background:rgba(232,93,58,0.06);bottom:-60px;left:-60px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">05 — Identification des acteurs</div>
+    <h2>Qui interagit avec AURA ?</h2>
+    <div class="cards-2" style="display:grid;grid-template-columns:1fr 1fr;gap:22px;">
+      <div>
+        <div class="section-label">Acteurs principaux</div>
+        <div class="table-wrap">
+          <div class="member-row">
+            <div class="avatar" style="background:var(--teal-light);color:var(--teal);">UP</div>
+            <div class="member-info"><div class="member-name">Utilisateur personnel</div><div class="member-role">Conversation vocale · tâches · planning</div></div>
+          </div>
+          <div class="member-row">
+            <div class="avatar" style="background:var(--purple-area);color:var(--purple-light);">US</div>
+            <div class="member-info"><div class="member-name">Utilisateur social</div><div class="member-role">Activités · matching · chat</div></div>
+          </div>
+          <div class="member-row">
+            <div class="avatar" style="background:rgba(255,255,255,0.06);color:var(--text-muted);">AD</div>
+            <div class="member-info"><div class="member-name">Administrateur</div><div class="member-role">Modération · gestion des comptes</div></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Systèmes externes</div>
+        <div class="table-wrap">
+          <div class="member-row">
+            <div class="avatar" style="background:var(--teal-light);color:var(--teal);">AI</div>
+            <div class="member-info"><div class="member-name">Claude AI</div><div class="member-role">Analyse humeur · organisation · matching</div></div>
+          </div>
+          <div class="member-row">
+            <div class="avatar" style="background:var(--purple-area);color:var(--purple-light);">WH</div>
+            <div class="member-info"><div class="member-name">Whisper API</div><div class="member-role">Transcription voix → texte</div></div>
+          </div>
+          <div class="member-row">
+            <div class="avatar" style="background:var(--coral-light);color:#F0A07B;">DB</div>
+            <div class="member-info"><div class="member-name">PostgreSQL</div><div class="member-role">Persistance des données</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 10 — SPECS FONCTIONNELLES ══ -->
+<div class="slide" id="slide-10">
+  <div class="orb" style="width:260px;height:260px;background:rgba(27,191,168,0.07);top:-60px;left:-60px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">06 — Spécifications fonctionnelles</div>
+    <h2>Ce qu'AURA fait</h2>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Fonctionnalité</th><th>Description</th></tr></thead>
+        <tbody>
+          <tr><td style="font-weight:500;">Inscription / Connexion</td><td style="color:var(--text-muted);">Création de compte et authentification sécurisée</td></tr>
+          <tr><td style="font-weight:500;">Gestion du profil</td><td style="color:var(--text-muted);">Nom, ville, bio, photo, centres d'intérêt</td></tr>
+          <tr><td style="font-weight:500;">Conversation vocale</td><td style="color:var(--text-muted);">Parler à AURA n'importe quand, n'importe quel sujet</td></tr>
+          <tr><td style="font-weight:500;">Détection d'humeur</td><td style="color:var(--text-muted);">Analyse des vibrations vocales via Whisper + Claude</td></tr>
+          <tr><td style="font-weight:500;">Gestion des tâches</td><td style="color:var(--text-muted);">Créer, modifier, supprimer des tâches personnelles</td></tr>
+          <tr><td style="font-weight:500;">Planning adaptatif</td><td style="color:var(--text-muted);">Organisation automatique selon l'humeur détectée</td></tr>
+          <tr><td style="font-weight:500;">Créer / rejoindre activité</td><td style="color:var(--text-muted);">Proposer ou participer à des sorties réelles</td></tr>
+          <tr><td style="font-weight:500;">Matching intelligent</td><td style="color:var(--text-muted);">Suggestions compatibles selon humeur + intérêts</td></tr>
+          <tr><td style="font-weight:500;">Chat & messagerie</td><td style="color:var(--text-muted);">Chat de groupe par activité + messagerie privée</td></tr>
+          <tr><td style="font-weight:500;">Notifications</td><td style="color:var(--text-muted);">Alertes temps réel : activités, tâches, suggestions</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 11 — SPECS NON FONCTIONNELLES ══ -->
+<div class="slide" id="slide-11">
+  <div class="orb" style="width:260px;height:260px;background:rgba(107,95,212,0.07);bottom:-60px;right:-60px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">07 — Spécifications non fonctionnelles</div>
+    <h2>Les contraintes techniques</h2>
+    <div class="cards cards-3">
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">⚡</div>
+        <h3 style="font-size:15px;">Performance</h3>
+        <p style="font-size:13px;">UI &lt; 100ms. Appels Claude et Whisper en thread background — jamais de gel d'interface.</p>
+        <span class="badge badge-teal" style="margin-top:10px;">BNF-01</span>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">🔒</div>
+        <h3 style="font-size:15px;">Sécurité</h3>
+        <p style="font-size:13px;">Mots de passe hashés BCrypt. Clés API stockées côté serveur uniquement.</p>
+        <span class="badge badge-coral" style="margin-top:10px;">BNF-02</span>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">🖥️</div>
+        <h3 style="font-size:15px;">Compatibilité</h3>
+        <p style="font-size:13px;">Java 17+. Fonctionne sur Windows, macOS et Linux sans configuration.</p>
+        <span class="badge badge-purple" style="margin-top:10px;">BNF-03</span>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">🛡️</div>
+        <h3 style="font-size:15px;">Fiabilité</h3>
+        <p style="font-size:13px;">Gestion des erreurs API. Fallback si Claude ou Whisper est indisponible.</p>
+        <span class="badge badge-teal" style="margin-top:10px;">BNF-04</span>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">🤫</div>
+        <h3 style="font-size:15px;">Confidentialité</h3>
+        <p style="font-size:13px;">Données vocales et émotionnelles jamais partagées sans consentement.</p>
+        <span class="badge badge-coral" style="margin-top:10px;">BNF-05</span>
+      </div>
+      <div class="card" style="text-align:center;">
+        <div style="font-size:36px;margin-bottom:12px;">🔧</div>
+        <h3 style="font-size:15px;">Maintenabilité</h3>
+        <p style="font-size:13px;">Architecture MVC stricte. Séparation DAO / Controller / View.</p>
+        <span class="badge badge-purple" style="margin-top:10px;">BNF-06</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 12 — MODULES ══ -->
+<div class="slide" id="slide-12">
+  <div class="orb" style="width:300px;height:300px;background:rgba(27,191,168,0.07);top:-80px;right:-80px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">08 — Modules & Répartition des tâches</div>
+    <h2>L'équipe AURA</h2>
+    <div class="table-wrap">
+      <div class="member-row" style="padding:15px;">
+        <div class="avatar" style="background:var(--teal-light);color:var(--teal);font-size:11px;">FI</div>
+        <div class="member-info" style="flex:1;"><div class="member-name">Fatnassi Ines</div><div class="member-role">Auth & Utilisateurs</div></div>
+        <div style="flex:2;font-size:13px;color:var(--text-muted);">Inscription · Connexion · Profil · Intérêts · Historique humeurs</div>
+        <div><span class="badge badge-gray">users · moods · interests</span></div>
+      </div>
+      <div class="member-row" style="padding:15px;">
+        <div class="avatar" style="background:var(--purple-area);color:var(--purple-light);font-size:11px;">BI</div>
+        <div class="member-info" style="flex:1;"><div class="member-name">Ben Saad Ines</div><div class="member-role">Tâches & IA</div></div>
+        <div style="flex:2;font-size:13px;color:var(--text-muted);">Voix · Whisper · Claude API · Planning adaptatif · Tâches</div>
+        <div><span class="badge badge-teal">tasks · planning_sessions</span></div>
+      </div>
+      <div class="member-row" style="padding:15px;">
+        <div class="avatar" style="background:var(--coral-light);color:#F0A07B;font-size:11px;">MR</div>
+        <div class="member-info" style="flex:1;"><div class="member-name">Mahmoudi Rayen</div><div class="member-role">Activités sociales</div></div>
+        <div style="flex:2;font-size:13px;color:var(--text-muted);">Créer · Rejoindre · Matching IA · Notifications activités</div>
+        <div><span class="badge badge-coral">activities · participations</span></div>
+      </div>
+      <div class="member-row" style="padding:15px;">
+        <div class="avatar" style="background:var(--orange-light);color:#F0B87B;font-size:11px;">AR</div>
+        <div class="member-info" style="flex:1;"><div class="member-name">Atouani Rayen</div><div class="member-role">Communication & UI</div></div>
+        <div style="flex:2;font-size:13px;color:var(--text-muted);">Chat · Messagerie privée · Notifications · Navigation globale</div>
+        <div><span class="badge badge-gray">messages · notifications</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 13 — CHARTE GRAPHIQUE ══ -->
+<div class="slide" id="slide-13">
+  <div class="orb" style="width:350px;height:350px;background:rgba(27,191,168,0.07);bottom:-100px;right:-100px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">09 — Charte graphique</div>
+    <h2>L'identité visuelle d'AURA</h2>
+    <div class="two-col">
+      <div>
+        <div class="section-label">Logo</div>
+        <div class="logo-variants">
+          <div class="logo-variant">
+            <div style="background:#0A0C0F;border-radius:12px;padding:14px;border:0.5px solid var(--border-dim);display:flex;align-items:center;gap:10px;">
+              <svg width="36" height="36" viewBox="0 0 90 90" fill="none">
+                <rect width="90" height="90" rx="22" fill="#111418"/>
+                <defs><radialGradient id="lg2" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#1BBFA8"/><stop offset="55%" stop-color="#6B5FD4"/><stop offset="100%" stop-color="#0D1520"/></radialGradient></defs>
+                <path d="M45 14 C46.5 14 47.8 14.8 48.6 16L74 60 C75.6 62.6 73.8 66 70.8 66L19.2 66 C16.2 66 14.4 62.6 16 60L41.4 16 C42.2 14.8 43.5 14 45 14Z" fill="url(#lg2)"/>
+                <path d="M45 31 L46.4 39 L54 40.5 L46.4 42 L45 50 L43.6 42 L36 40.5 L43.6 39 Z" fill="white" opacity="0.95"/>
+              </svg>
+              <span style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--teal);">AURA</span>
+            </div>
+            <span class="logo-variant-label">Fond sombre</span>
+          </div>
+          <div class="logo-variant">
+            <div style="background:#111418;border-radius:12px;padding:14px;border:0.5px solid var(--border-dim);">
+              <svg width="36" height="36" viewBox="0 0 90 90" fill="none">
+                <rect width="90" height="90" rx="22" fill="#0A0C0F"/>
+                <defs><radialGradient id="lg3" cx="45%" cy="40%" r="60%"><stop offset="0%" stop-color="#1BBFA8"/><stop offset="55%" stop-color="#6B5FD4"/><stop offset="100%" stop-color="#0D1520"/></radialGradient></defs>
+                <path d="M45 14 C46.5 14 47.8 14.8 48.6 16L74 60 C75.6 62.6 73.8 66 70.8 66L19.2 66 C16.2 66 14.4 62.6 16 60L41.4 16 C42.2 14.8 43.5 14 45 14Z" fill="url(#lg3)"/>
+                <path d="M45 31 L46.4 39 L54 40.5 L46.4 42 L45 50 L43.6 42 L36 40.5 L43.6 39 Z" fill="white" opacity="0.95"/>
+              </svg>
+            </div>
+            <span class="logo-variant-label">Icône seule</span>
+          </div>
+        </div>
+        <div class="section-label">Palette</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#1BBFA8;color:#0A2520;">#1BBFA8<br><span style="font-size:10px;opacity:0.8;">Principal</span></div>
+          <div class="swatch" style="background:#6B5FD4;color:#E8EDF2;">#6B5FD4<br><span style="font-size:10px;opacity:0.8;">Mood</span></div>
+          <div class="swatch" style="background:#E85D3A;color:#FAE8E4;">#E85D3A<br><span style="font-size:10px;opacity:0.8;">Activités</span></div>
+          <div class="swatch" style="background:#111418;color:#A8B4C0;border:0.5px solid rgba(27,191,168,0.2);">#111418<br><span style="font-size:10px;opacity:0.7;">Fond</span></div>
+        </div>
+      </div>
+      <div>
+        <div class="section-label">Typographie</div>
+        <div style="margin-bottom:18px;">
+          <div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;margin-bottom:4px;">Syne — Titres</div>
+          <div style="font-size:13px;color:var(--text-muted);">Bold 700/800 · Headings · Labels</div>
+        </div>
+        <div style="margin-bottom:18px;">
+          <div style="font-family:'DM Sans',sans-serif;font-size:16px;font-weight:400;margin-bottom:4px;">DM Sans — Corps</div>
+          <div style="font-size:13px;color:var(--text-muted);">Regular 400 · Medium 500</div>
+        </div>
+        <div class="section-label" style="margin-top:18px;">Humeurs</div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;">
+          <span class="badge badge-teal">calme</span>
+          <span class="badge badge-purple">énergisé</span>
+          <span class="badge badge-coral">stressé</span>
+          <span class="badge badge-orange">focalisé</span>
+          <span class="badge badge-gray">fatigué</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- ══ SLIDE 14 — ÉCRAN PRINCIPAL ══ -->
+<div class="slide" id="slide-14">
+  <div class="orb" style="width:300px;height:300px;background:rgba(27,191,168,0.07);top:-80px;right:-80px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">14 — ÉCRAN PRINCIPAL</div>
+    <h2>Dashboard principal & Notifications</h2>
+    <div class="screenshot-grid" style="grid-template-columns:1.6fr 1fr;">
+      <div class="screenshot-frame" style="height:340px;">
+        <img src="PiJava/auratalk.png" alt="AURA Dashboard"/>
+        <span class="screenshot-label">DASHBOARD PRINCIPAL</span>
+      </div>
+      <div class="screenshot-frame" style="height:340px;">
+        <img src="PiJava/notif.png" alt="Notifications"/>
+        <span class="screenshot-label">NOTIFICATIONS</span>
+      </div>
+    </div>
+    <div class="cards cards-2" style="margin-top:14px;">
+      <div class="card" style="padding:12px 16px;">
+        <p style="font-size:11.5px;"><span style="color:var(--teal);font-weight:600;">Détection d'humeur en temps réel</span> — L'orbe central affiche l'état émotionnel détecté avec les métriques Énergie et Focus.</p>
+      </div>
+      <div class="card" style="padding:12px 16px;">
+        <p style="font-size:11.5px;"><span style="color:var(--teal);font-weight:600;">Notifications intelligentes</span> — Alertes contextuelles : nouvelles activités, matches, pics d'énergie détectés, planning optimisé.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ SLIDE 15 — ACTIVITÉS & CHAT ══ -->
+<div class="slide" id="slide-15">
+  <div class="orb" style="width:300px;height:300px;background:rgba(107,95,212,0.07);bottom:-80px;left:-80px;"></div>
+  <div class="slide-inner">
+    <div class="slide-tag">15 — ACTIVITÉS & CHAT</div>
+    <h2>Activités sociales & Messagerie</h2>
+    <div class="screenshot-grid" style="grid-template-columns:1.3fr 1fr;">
+      <div class="screenshot-frame" style="height:340px;">
+        <img src="PiJava/activity.png" alt="Nearby Activities"/>
+        <span class="screenshot-label">ACTIVITÉS & MATCHING</span>
+      </div>
+      <div class="screenshot-frame" style="height:340px;">
+        <img src="PiJava/chat.png" alt="Chat"/>
+        <span class="screenshot-label">MESSAGERIE GROUPE</span>
+      </div>
+    </div>
+    <div class="cards cards-2" style="margin-top:14px;">
+      <div class="card" style="padding:12px 16px;">
+        <p style="font-size:11.5px;"><span style="color:var(--teal);font-weight:600;">Smart Matches</span> — L'IA suggère des profils compatibles (94%, 87%) selon l'humeur et les intérêts communs, avec vue cartographique des activités proches.</p>
+      </div>
+      <div class="card" style="padding:12px 16px;">
+        <p style="font-size:11.5px;"><span style="color:var(--teal);font-weight:600;">Chat de groupe</span> — Messagerie intégrée par activité, permettant aux participants de se coordonner en temps réel.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div><!-- end .presentation -->
+
+
+<div class="nav">
+  <button onclick="prevSlide()">← Préc.</button>
+  <div class="dots" id="dots"></div>
+  <span class="slide-counter" id="counter">1 / 15</span>
+  <button onclick="nextSlide()">Suiv. →</button>
+</div>
+
+<script>
+  const total = 15;
+  let current = 1;
+  const dotsEl = document.getElementById('dots');
+  for (let i = 1; i <= total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i === 1 ? ' active' : '');
+    d.onclick = () => goTo(i);
+    dotsEl.appendChild(d);
+  }
+  function goTo(n) {
+    const prev = document.getElementById('slide-' + current);
+    prev.classList.remove('active'); prev.classList.add('exit');
+    setTimeout(() => prev.classList.remove('exit'), 450);
+    current = n;
+    document.getElementById('slide-' + current).classList.add('active');
+    document.getElementById('counter').textContent = current + ' / ' + total;
+    document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i + 1 === current));
+  }
+  function nextSlide() { if (current < total) goTo(current + 1); }
+  function prevSlide() { if (current > 1) goTo(current - 1); }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') nextSlide();
+    if (e.key === 'ArrowLeft') prevSlide();
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.SVGPath?>
+
+<StackPane prefHeight="800" prefWidth="1280" styleClass="root-pane" stylesheets="@../styles/style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/20.0.1" fx:controller="tn.esprit.aura.controllers.HomeController">
+
+    <!-- ═══ BACKGROUND OUBS (Animated in Controller) ═══ -->
+    <Circle fx:id="orb1" fill="#1BBFA8" opacity="0.12" radius="250" translateX="100" translateY="-100" StackPane.alignment="TOP_RIGHT">
+        <effect><GaussianBlur radius="100" /></effect>
+    </Circle>
+    <Circle fx:id="orb2" fill="#6B5FD4" opacity="0.12" radius="300" translateX="-100" translateY="100" StackPane.alignment="BOTTOM_LEFT">
+        <effect><GaussianBlur radius="120" /></effect>
+    </Circle>
+    <Circle fx:id="orb3" fill="#E85D3A" opacity="0.08" radius="200" translateX="300" translateY="150" StackPane.alignment="CENTER">
+        <effect><GaussianBlur radius="90" /></effect>
+    </Circle>
+
+    <!-- Main Content Layer -->
+    <ScrollPane fx:id="homeScroll" fitToWidth="true" hbarPolicy="NEVER" styleClass="dark-scroll-pane" vbarPolicy="AS_NEEDED">
+    <content>
+    <VBox alignment="TOP_CENTER" style="-fx-background-color: transparent;">
+
+        <!-- ═══ TOP NAVBAR ═══ -->
+        <HBox fx:id="navbar" alignment="CENTER_LEFT" spacing="20" styleClass="navbar">
+            <padding><Insets bottom="12" left="30" right="30" top="12" /></padding>
+
+            <!-- Logo -->
+            <HBox alignment="CENTER_LEFT" spacing="10" HBox.hgrow="NEVER">
+                <!-- Using an SVG path for a more modern logo -->
+                <SVGPath content="M45 14 C46.5 14 47.8 14.8 48.6 16L74 60 C75.6 62.6 73.8 66 70.8 66L19.2 66 C16.2 66 14.4 62.6 16 60L41.4 16 C42.2 14.8 43.5 14 45 14Z M45 31 L46.4 39 L54 40.5 L46.4 42 L45 50 L43.6 42 L36 40.5 L43.6 39 Z" fill="#1BBFA8" scaleX="0.4" scaleY="0.4" />
+                <Label styleClass="logo-text" text="AURA" />
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Nav Links -->
+            <HBox alignment="CENTER" spacing="24">
+                <Button styleClass="nav-link, nav-link-active" text="Accueil" />
+                <Button styleClass="nav-link" text="A propos" />
+                <Button styleClass="nav-link" text="Fonctionnalites" />
+                <Button styleClass="nav-link" text="Communaute" />
+            </HBox>
+
+            <Region HBox.hgrow="ALWAYS" />
+
+            <!-- Auth Buttons -->
+            <HBox alignment="CENTER_RIGHT" spacing="12">
+                <Button onAction="#handleLogin" styleClass="btn-ghost" text="Connexion" />
+                <Button onAction="#handleRegister" styleClass="btn-primary" text="Inscription" />
+            </HBox>
+        </HBox>
+
+        <!-- ═══ HERO SECTION ═══ -->
+        <VBox alignment="CENTER" spacing="20" VBox.vgrow="ALWAYS">
+            <padding><Insets bottom="60" left="60" right="60" top="60" /></padding>
+
+            <!-- Decorative badge -->
+            <HBox fx:id="heroBadge" alignment="CENTER">
+                <Label styleClass="hero-badge" text="✦  Experience AURA" />
+            </HBox>
+
+            <!-- Main title -->
+            <Label fx:id="heroTitle" styleClass="hero-title" text="AURA" />
+
+            <!-- Subtitle -->
+            <Label fx:id="heroSubtitle" styleClass="hero-subtitle" text="Assistant relationnel urbain adaptatif" />
+
+            <!-- Description -->
+            <Label fx:id="heroDescription" styleClass="hero-description" text="Votre compagnon intelligent qui s adapte a votre humeur,&#10;organise votre journee et vous connecte au monde." textAlignment="CENTER" wrapText="true" />
+
+            <!-- Tags -->
+            <HBox fx:id="tagsBox" alignment="CENTER" spacing="12">
+                <padding><Insets top="15" /></padding>
+                <Label styleClass="tag tag-teal" text="🤝 Votre ami" />
+                <Label styleClass="tag tag-purple" text="🧠 Votre coach" />
+                <Label styleClass="tag tag-coral" text="⚡ Votre assistant" />
+            </HBox>
+
+            <!-- CTA Button -->
+            <VBox fx:id="ctaBox" alignment="CENTER">
+                <padding><Insets top="35" /></padding>
+                <Button onAction="#handleGetStarted" styleClass="btn-hero" text="Commencer →" />
+            </VBox>
+
+        </VBox>
+
+        <!-- Bottom glow decoration -->
+        <HBox fx:id="footerBox" alignment="CENTER">
+            <padding><Insets bottom="30" /></padding>
+            <Label styleClass="footer-text" text="© 2025 AURA" />
+        </HBox>
+
+        <!-- New section: Web image + animation -->
+        <VBox fx:id="showcaseSection" alignment="CENTER" maxWidth="980" spacing="18" styleClass="glass-card">
+            <padding><Insets bottom="28" left="28" right="28" top="28" /></padding>
+            <Label styleClass="card-title" text="Experience visuelle" />
+            <Label styleClass="page-subtitle" text="Une image dynamique chargee depuis le web." />
+            <ImageView fx:id="homeHeroImage" fitHeight="420" fitWidth="900" preserveRatio="true" smooth="true" />
+        </VBox>
+
+        <!-- New section: extra content on scroll -->
+        <HBox fx:id="featuresSection" alignment="CENTER" maxWidth="1080" spacing="16">
+            <padding><Insets bottom="24" top="24" /></padding>
+
+            <VBox spacing="8" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+                <Label style="-fx-font-size: 14px;" styleClass="stat-card-label" text="✨ Animations fluides" />
+                <Label styleClass="welcome-desc" text="Transitions modernes et effets flottants pendant le defilement." wrapText="true" />
+            </VBox>
+            <VBox spacing="8" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+                <Label style="-fx-font-size: 14px;" styleClass="stat-card-label" text="📱 Blocs responsives" />
+                <Label styleClass="welcome-desc" text="Des sections supplementaires apparaissent naturellement sous l accueil." wrapText="true" />
+            </VBox>
+            <VBox spacing="8" styleClass="stat-card" HBox.hgrow="ALWAYS">
+                <padding><Insets bottom="18" left="18" right="18" top="18" /></padding>
+                <Label style="-fx-font-size: 14px;" styleClass="stat-card-label" text="🚀 Experience premium" />
+                <Label styleClass="welcome-desc" text="Visuels sombres, etats au survol et design coherent." wrapText="true" />
+            </VBox>
+        </HBox>
+
+        <!-- Full footer -->
+        <VBox alignment="CENTER" maxWidth="1100" spacing="8" styleClass="glass-card">
+            <padding><Insets bottom="20" left="24" right="24" top="20" /></padding>
+            <HBox alignment="CENTER" spacing="18">
+                <Label styleClass="logo-text" text="AURA" />
+                <Label styleClass="page-subtitle" text="•" />
+                <Label styleClass="page-subtitle" text="Confidentialite" />
+                <Label styleClass="page-subtitle" text="•" />
+                <Label styleClass="page-subtitle" text="Conditions" />
+                <Label styleClass="page-subtitle" text="•" />
+                <Label styleClass="page-subtitle" text="Assistance" />
+            </HBox>
+            <Label styleClass="welcome-desc" text="Concu pour une experience utilisateur adaptative et premium." />
+            <Label styleClass="footer-text" text="© 2026 AURA. Tous droits reserves." />
+        </VBox>
+
+        <Region minHeight="40" />
+    </VBox>
+    </content>
+    </ScrollPane>
+</StackPane>

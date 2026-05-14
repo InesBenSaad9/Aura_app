@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns:fx="http://javafx.com/fxml" fx:controller="tn.esprit.aura.controllers.UserFormDialogController"
+      spacing="12" styleClass="glass-card" stylesheets="@../styles/style.css">
+    <padding><Insets top="18" bottom="18" left="18" right="18"/></padding>
+
+    <Label fx:id="formTitleLabel" text="Formulaire utilisateur" styleClass="card-title" style="-fx-font-size: 18px;"/>
+    <Label fx:id="errorLabel" text="" styleClass="error-label" visible="false" managed="false"/>
+
+    <HBox spacing="10">
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="Prenom" styleClass="field-label"/>
+            <TextField fx:id="prenomField" styleClass="text-input"/>
+            <Label fx:id="prenomErrorLabel" text="" styleClass="error-label" visible="false" managed="false"/>
+        </VBox>
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="Nom" styleClass="field-label"/>
+            <TextField fx:id="nomField" styleClass="text-input"/>
+            <Label fx:id="nomErrorLabel" text="" styleClass="error-label" visible="false" managed="false"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="10">
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="Email" styleClass="field-label"/>
+            <TextField fx:id="emailField" styleClass="text-input"/>
+            <Label fx:id="emailErrorLabel" text="" styleClass="error-label" visible="false" managed="false"/>
+        </VBox>
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="Role" styleClass="field-label"/>
+            <ComboBox fx:id="roleBox" styleClass="combo-input" maxWidth="Infinity"/>
+            <Label fx:id="roleErrorLabel" text="" styleClass="error-label" visible="false" managed="false"/>
+        </VBox>
+    </HBox>
+
+    <HBox spacing="10">
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="Ville" styleClass="field-label"/>
+            <TextField fx:id="cityField" styleClass="text-input"/>
+            <Label fx:id="cityErrorLabel" text="" styleClass="error-label" visible="false" managed="false"/>
+        </VBox>
+        <VBox spacing="6" HBox.hgrow="ALWAYS">
+            <Label text="Telephone" styleClass="field-label"/>
+            <TextField fx:id="phoneField" styleClass="text-input"/>
+            <Label fx:id="phoneErrorLabel" text="" styleClass="error-label" visible="false" managed="false"/>
+        </VBox>
+    </HBox>
+
+    <VBox spacing="6">
+        <Label text="Mot de passe" styleClass="field-label"/>
+        <PasswordField fx:id="passwordField" styleClass="text-input"/>
+        <Label fx:id="passwordErrorLabel" text="" styleClass="error-label" visible="false" managed="false"/>
+    </VBox>
+
+    <HBox spacing="10" alignment="CENTER_RIGHT">
+        <Region HBox.hgrow="ALWAYS"/>
+        <Button text="Annuler" styleClass="btn-ghost" onAction="#handleCancel"/>
+        <Button text="Enregistrer l utilisateur" styleClass="btn-primary" onAction="#handleSave"/>
+    </HBox>
+</VBox>
