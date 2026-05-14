@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.views.MedicalListView"
+            style="-fx-background-color: #0d1117;">
+
+    <top>
+        <VBox style="-fx-padding: 32 32 24 32; -fx-background-color: #0d1117;">
+            <Label text="Suivi médical" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+
+            <!-- Alert box -->
+            <HBox fx:id="alertBox" spacing="12" alignment="CENTER_LEFT"
+                  style="-fx-background-color: #1c1f26; -fx-background-radius: 10; -fx-padding: 16; -fx-border-color: #f0a500; -fx-border-width: 1; -fx-border-radius: 10; -fx-margin: 16 0 0 0;">
+                <VBox.margin><Insets top="16"/></VBox.margin>
+                <Label text="⚠️" style="-fx-font-size: 20px;"/>
+                <VBox spacing="3">
+                    <Label text="Alerte bien-être" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 14px;"/>
+                    <Label text="Vous semblez stressé depuis 3 jours. Consultez un médecin pour un meilleur suivi."
+                           style="-fx-text-fill: #8b949e; -fx-font-size: 13px;" wrapText="true"/>
+                </VBox>
+            </HBox>
+
+            <!-- Search bar -->
+            <HBox spacing="10" style="-fx-padding: 20 0 0 0;">
+                <TextField fx:id="searchField"
+                           promptText="🔍  Rechercher un médecin par nom, spécialité, ville..."
+                           onKeyReleased="#handleSearch"
+                           style="-fx-background-color: #161b22; -fx-text-fill: white; -fx-prompt-text-fill: #484f58; -fx-border-color: #30363d; -fx-border-radius: 8; -fx-background-radius: 8; -fx-padding: 10 16; -fx-font-size: 14px;"
+                           prefWidth="400"/>
+                <Button text="Rechercher" onAction="#handleSearch"
+                        style="-fx-background-color: #00b4ab; -fx-text-fill: white; -fx-font-weight: bold; -fx-background-radius: 8; -fx-padding: 10 20; -fx-cursor: hand;"/>
+            </HBox>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #0d1117; -fx-background: #0d1117;"
+                    BorderPane.alignment="CENTER">
+            <VBox style="-fx-padding: 0 32 32 32; -fx-background-color: #0d1117;" spacing="32">
+
+                <!-- Médecins disponibles -->
+                <VBox spacing="16">
+                    <Label text="Médecins disponibles"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <FlowPane fx:id="doctorsContainer" hgap="20" vgap="20"/>
+                </VBox>
+
+                <!-- Mes Rendez-vous -->
+                <VBox spacing="16">
+                    <Label text="Mes Rendez-vous"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <VBox fx:id="appointmentsContainer" spacing="12"/>
+                </VBox>
+
+                <!-- Mes Médicaments -->
+                <VBox spacing="16">
+                    <Label text="Mes Médicaments"
+                           style="-fx-font-size: 20px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <VBox fx:id="prescriptionsContainer" spacing="12"/>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>
