@@ -605,30 +605,57 @@ public class EventDAO implements GenericDAO<Event, Integer>, EventSpecificDAO {
 
     private void ensureOptionalColumns() {
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("ALTER TABLE event ADD COLUMN recommendedMood VARCHAR(50) DEFAULT 'neutre'");
-        } catch (SQLException ignored) {
-            // Column already exists or current database user cannot alter schema.
+            // Create event table if not exists
+            statement.executeUpdate("""
+                    CREATE TABLE IF NOT EXISTS event (
+                        idEvent INT AUTO_INCREMENT PRIMARY KEY,
+                        title VARCHAR(255) NOT NULL,
+                        description TEXT,
+                        eventDate DATE NOT NULL,
+                        eventTime VARCHAR(50),
+                        location VARCHAR(255),
+                        capacity INT NOT NULL DEFAULT 10,
+                        idOrganizer INT DEFAULT 1,
+                        recommendedMood VARCHAR(50) DEFAULT 'neutre',
+                        imageUrl VARCHAR(1024),
+                        price DECIMAL(10,2) DEFAULT 0,
+                        paymentMethod VARCHAR(50) DEFAULT 'Gratuit',
+                        discountPercent INT DEFAULT 0
+                    )
+                    """);
+
+            // Create participation table if not exists
+            statement.executeUpdate("""
+                    CREATE TABLE IF NOT EXISTS participation (
+                        idEvent INT NOT NULL,
+                        idUser INT NOT NULL,
+                        registrationDate DATETIME DEFAULT CURRENT_TIMESTAMP,
+                        status VARCHAR(50) DEFAULT 'accepted',
+                        participationRole VARCHAR(50) DEFAULT 'participant',
+                        PRIMARY KEY (idEvent, idUser),
+                        FOREIGN KEY (idEvent) REFERENCES event(idEvent) ON DELETE CASCADE,
+                        FOREIGN KEY (idUser) REFERENCES utilisateurs(id) ON DELETE CASCADE
+                    )
+                    """);
+        } catch (SQLException e) {
+            System.err.println("Database initialization warning (tables): " + e.getMessage());
         }
+
         try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("ALTER TABLE event ADD COLUMN imageUrl VARCHAR(1024) NULL");
-        } catch (SQLException ignored) {
-            // Column already exists or current database user cannot alter schema.
-        }
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("ALTER TABLE event ADD COLUMN price DECIMAL(10,2) NOT NULL DEFAULT 0");
-        } catch (SQLException ignored) {
-            // Column already exists or current database user cannot alter schema.
-        }
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("ALTER TABLE event ADD COLUMN paymentMethod VARCHAR(50) NOT NULL DEFAULT 'Gratuit'");
-        } catch (SQLException ignored) {
-            // Column already exists or current database user cannot alter schema.
-        }
-        try (Statement statement = connection.createStatement()) {
-            statement.executeUpdate("ALTER TABLE event ADD COLUMN discountPercent INT NOT NULL DEFAULT 0");
-        } catch (SQLException ignored) {
-            // Column already exists or current database user cannot alter schema.
-        }
+            // Ensure all columns exist (for migration)
+            String[] alters = {
+                    "ALTER TABLE event ADD COLUMN IF NOT EXISTS recommendedMood VARCHAR(50) DEFAULT 'neutre'",
+                    "ALTER TABLE event ADD COLUMN IF NOT EXISTS imageUrl VARCHAR(1024) NULL",
+                    "ALTER TABLE event ADD COLUMN IF NOT EXISTS price DECIMAL(10,2) NOT NULL DEFAULT 0",
+                    "ALTER TABLE event ADD COLUMN IF NOT EXISTS paymentMethod VARCHAR(50) NOT NULL DEFAULT 'Gratuit'",
+                    "ALTER TABLE event ADD COLUMN IF NOT EXISTS discountPercent INT NOT NULL DEFAULT 0",
+                    "ALTER TABLE event ADD COLUMN IF NOT EXISTS idOrganizer INT DEFAULT 1"
+            };
+            for (String sql : alters) {
+                try { statement.executeUpdate(sql); } catch (SQLException ignored) {}
+            }
+        } catch (SQLException ignored) {}
+
         try (Statement statement = connection.createStatement()) {
             statement.executeUpdate("""
                     CREATE TABLE IF NOT EXISTS event_feedback (
