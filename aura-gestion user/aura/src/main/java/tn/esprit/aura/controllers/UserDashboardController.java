@@ -16,7 +16,7 @@ public class UserDashboardController {
     @FXML private StackPane userContentArea;
     @FXML private Button userBtnAnalysis;
     @FXML private Button userBtnProfile;
-    @FXML private Button userBtnActivities;
+
     @FXML private Button userBtnMedical;
     @FXML private Button userBtnMessages;
     @FXML private Button userBtnEvents;
@@ -62,7 +62,7 @@ public class UserDashboardController {
             e.printStackTrace();
         }
     }
-    @FXML private void handleActivities() { loadView("/tn/esprit/aura/views/dashboard.fxml"); setActiveButton(userBtnActivities); }
+
     @FXML private void handleMedical()    { loadView("/tn/esprit/aura/views/user_home.fxml"); setActiveButton(userBtnMedical); }
     @FXML private void handleMessages()   { loadView("/tn/esprit/aura/views/user_home.fxml"); setActiveButton(userBtnMessages); }
     @FXML private void handleEvents()     { loadView("/tn/esprit/aura/views/user_home.fxml"); setActiveButton(userBtnEvents); }
