@@ -350,7 +350,7 @@ public class UserEventDetailView extends BorderPane {
         JoinConfirmDialog popup = new JoinConfirmDialog(event, service, currentUserId, () -> {
             // Refresh: reload this detail view with fresh data
             service.getEventById(event.getIdEvent()).ifPresent(fresh -> {
-                StackPane contentArea = (StackPane) getScene().getRoot().lookup(".content-area");
+                StackPane contentArea = (StackPane) getScene().getRoot().lookup("#userContentArea");
                 if (contentArea != null) {
                     contentArea.getChildren().setAll(
                             new UserEventDetailView(fresh, service, currentUserId, onBack));
@@ -373,7 +373,7 @@ public class UserEventDetailView extends BorderPane {
             if (btn == ButtonType.OK) {
                 service.leaveEvent(event.getIdEvent(), currentUserId);
                 service.getEventById(event.getIdEvent()).ifPresent(fresh -> {
-                    StackPane contentArea = (StackPane) getScene().getRoot().lookup(".content-area");
+                    StackPane contentArea = (StackPane) getScene().getRoot().lookup("#userContentArea");
                     if (contentArea != null) {
                         contentArea.getChildren().setAll(
                                 new UserEventDetailView(fresh, service, currentUserId, onBack));
@@ -384,7 +384,7 @@ public class UserEventDetailView extends BorderPane {
     }
 
     private void goBack() {
-        StackPane contentArea = (StackPane) getScene().getRoot().lookup(".content-area");
+        StackPane contentArea = (StackPane) getScene().getRoot().lookup("#userContentArea");
         if (contentArea != null) {
             UserEventsView listView = new UserEventsView();
             contentArea.getChildren().setAll(listView);

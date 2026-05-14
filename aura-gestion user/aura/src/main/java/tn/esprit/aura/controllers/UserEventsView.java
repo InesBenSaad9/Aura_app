@@ -311,8 +311,7 @@ public class UserEventsView extends BorderPane {
         service.getEventById(ev.getIdEvent()).ifPresent(fresh -> {
             UserEventDetailView detail = new UserEventDetailView(fresh, service, currentUserId, this::loadEvents);
             // Swap center content with detail view
-            getScene().getRoot().lookup(".content-area");
-            StackPane contentArea = (StackPane) getScene().getRoot().lookup(".content-area");
+            StackPane contentArea = (StackPane) getScene().getRoot().lookup("#userContentArea");
             if (contentArea != null) {
                 contentArea.getChildren().setAll(detail);
             }
