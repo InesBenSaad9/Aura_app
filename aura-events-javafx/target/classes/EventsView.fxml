@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="org.example.ui.events.EventsViewController"
+            style="-fx-background-color: #0A0C0F;">
+
+    <top>
+        <VBox spacing="16" style="-fx-background-color: #0A0C0F; -fx-padding: 32 32 0 32;">
+
+            <!-- Titre + bouton crer -->
+            <HBox alignment="CENTER_LEFT">
+                <Label text="Evenements"
+                       style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <Button fx:id="createBtn" text="Nouvel evenement"
+                        onAction="#onCreateEvent"
+                        style="-fx-background-color: #1BBFA8; -fx-text-fill: white;
+                               -fx-font-weight: bold; -fx-font-size: 13px;
+                               -fx-padding: 10 20 10 20; -fx-background-radius: 8;
+                               -fx-cursor: hand;"/>
+            </HBox>
+
+            <!-- Barre de recherche -->
+            <TextField fx:id="searchField"
+                       promptText="Rechercher un evenement..."
+                       maxWidth="360"
+                       style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                              -fx-border-radius: 8; -fx-background-radius: 8;
+                              -fx-text-fill: #F0F2F5; -fx-prompt-text-fill: #5A6070;
+                              -fx-padding: 10 16 10 16; -fx-font-size: 13px;"/>
+
+            <!-- Mood filter pills -->
+            <HBox fx:id="pillsBox" spacing="8" alignment="CENTER_LEFT">
+                <ToggleButton fx:id="pillAll"    text="Tous"    selected="true"
+                              onAction="#onFilter" userData="all"
+                              style="-fx-background-color: #1BBFA822; -fx-border-color: #1BBFA8;
+                                     -fx-border-radius: 20; -fx-background-radius: 20;
+                                     -fx-text-fill: #1BBFA8; -fx-font-weight: bold;
+                                     -fx-font-size: 12px; -fx-padding: 6 16 6 16; -fx-cursor: hand;"/>
+                <ToggleButton fx:id="pillFocus"  text="Focus"   onAction="#onFilter" userData="focus"
+                              style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                     -fx-border-radius: 20; -fx-background-radius: 20;
+                                     -fx-text-fill: #8A95A3; -fx-font-size: 12px;
+                                     -fx-padding: 6 16 6 16; -fx-cursor: hand;"/>
+                <ToggleButton fx:id="pillEnergy" text="Energy"  onAction="#onFilter" userData="energy"
+                              style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                     -fx-border-radius: 20; -fx-background-radius: 20;
+                                     -fx-text-fill: #8A95A3; -fx-font-size: 12px;
+                                     -fx-padding: 6 16 6 16; -fx-cursor: hand;"/>
+                <ToggleButton fx:id="pillRelax"  text="Relax"   onAction="#onFilter" userData="relax"
+                              style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                     -fx-border-radius: 20; -fx-background-radius: 20;
+                                     -fx-text-fill: #8A95A3; -fx-font-size: 12px;
+                                     -fx-padding: 6 16 6 16; -fx-cursor: hand;"/>
+                <ToggleButton fx:id="pillCalme"  text="Calme"   onAction="#onFilter" userData="calme"
+                              style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                     -fx-border-radius: 20; -fx-background-radius: 20;
+                                     -fx-text-fill: #8A95A3; -fx-font-size: 12px;
+                                     -fx-padding: 6 16 6 16; -fx-cursor: hand;"/>
+                <ToggleButton fx:id="pillJoyeux" text="Happy"   onAction="#onFilter" userData="joyeux"
+                              style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                     -fx-border-radius: 20; -fx-background-radius: 20;
+                                     -fx-text-fill: #8A95A3; -fx-font-size: 12px;
+                                     -fx-padding: 6 16 6 16; -fx-cursor: hand;"/>
+            </HBox>
+
+            <Separator style="-fx-background-color: #1C2028; -fx-opacity: 0.5;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fx:id="scrollPane" fitToWidth="true" hbarPolicy="NEVER"
+                    style="-fx-background: #0A0C0F; -fx-background-color: #0A0C0F;
+                           -fx-border-color: transparent;">
+            <FlowPane fx:id="eventsFlow" hgap="20" vgap="20"
+                      style="-fx-background-color: transparent; -fx-padding: 24 32 32 32;"/>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

@@ -1,0 +1,16 @@
+org\example\ui\MainLayout$Role.class
+org\example\services\EventService$ParticipationStatus.class
+org\example\services\EventService$ParticipationTicket.class
+org\example\dao\EventDAO$ColumnInfo.class
+org\example\services\EventService$FeedbackStats.class
+org\example\ui\events\JoinConfirmDialog.class
+org\example\services\EventService$ParticipantRequest.class
+org\example\services\EventService$ParticipationDecision.class
+org\example\dao\EventDAO$FeedbackRow.class
+org\example\ui\events\UserEventsView.class
+org\example\services\EventService$EventAvailability.class
+org\example\dao\EventDAO$OrganizerRow.class
+org\example\services\EventService$EventOrganizer.class
+org\example\services\EventService$EventFeedback.class
+org\example\ui\events\UserEventDetailView.class
+org\example\dao\EventDAO$ParticipationRow.class
