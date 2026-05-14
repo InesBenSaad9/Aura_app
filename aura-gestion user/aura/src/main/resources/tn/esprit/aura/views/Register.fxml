@@ -70,6 +70,11 @@
                         <TextField fx:id="emailField" promptText="you@example.com" styleClass="text-input" />
                         <Label fx:id="emailError" managed="false" styleClass="error-label" visible="false" />
                     </VBox>
+                    <VBox spacing="4">
+                        <Label styleClass="field-label" text="Role" />
+                        <ComboBox fx:id="roleComboBox" maxWidth="Infinity" promptText="Choisir un role" styleClass="combo-input" />
+                        <Label fx:id="roleError" managed="false" styleClass="error-label" visible="false" />
+                    </VBox>
 
                     <HBox alignment="CENTER_RIGHT" spacing="10" style="-fx-padding: 10 0 0 0;">
                         <Button onAction="#handleNextToStep2" styleClass="btn-primary" text="Suivant →" />

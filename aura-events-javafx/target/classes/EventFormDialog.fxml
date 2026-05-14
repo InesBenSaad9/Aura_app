@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.SpinnerValueFactory?>
+
+<VBox xmlns="http://javafx.com/javafx/17"
+      xmlns:fx="http://javafx.com/fxml/1"
+      fx:controller="org.example.ui.events.EventFormController"
+      stylesheets="@event-form.css"
+      style="-fx-background-color: #0A0C0F;"
+      spacing="0" minWidth="520">
+
+    <!-- Header -->
+    <HBox alignment="CENTER_LEFT" spacing="12"
+          style="-fx-background-color: #12151A; -fx-padding: 14 24 14 24;
+                 -fx-border-color: #1C2028; -fx-border-width: 0 0 1 0;">
+        <Label fx:id="formTitle" text="Nouvel evenement"
+               style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+    </HBox>
+
+    <!-- Corps scrollable -->
+    <ScrollPane fitToWidth="true" hbarPolicy="NEVER" VBox.vgrow="ALWAYS"
+                style="-fx-background: #0A0C0F; -fx-background-color: #0A0C0F;
+                       -fx-border-color: transparent;">
+        <VBox spacing="14" style="-fx-background-color: #0A0C0F; -fx-padding: 16 28 16 28;">
+
+            <!-- Titre -->
+            <VBox spacing="6">
+                <Label text="Titre *"
+                       style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                <TextField fx:id="titleField" promptText="ex: Session de meditation du matin"
+                           style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                  -fx-border-radius: 8; -fx-background-radius: 8;
+                                  -fx-text-fill: #F0F2F5; -fx-prompt-text-fill: #5A6070;
+                                  -fx-padding: 10 14 10 14; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <!-- Description -->
+            <VBox spacing="6">
+                <Label text="Description"
+                       style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                <TextArea fx:id="descField" promptText="Decrivez votre evenement..."
+                          prefRowCount="2" maxHeight="74" wrapText="true"
+                          style="-fx-background-color: white; -fx-control-inner-background: white; -fx-border-color: #252830;
+                                 -fx-border-radius: 8; -fx-background-radius: 8;
+                                 -fx-text-fill: black; -fx-prompt-text-fill: #4B5563;
+                                 -fx-padding: 10 14 10 14; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <!-- Image URL -->
+            <VBox spacing="6">
+                <Label text="Image (URL ou fichier local)"
+                       style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                <HBox spacing="10" alignment="CENTER_LEFT">
+                    <TextField fx:id="imageUrlField"
+                               promptText="https://... ou cliquez sur Parcourir"
+                               HBox.hgrow="ALWAYS"
+                               style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                      -fx-border-radius: 8; -fx-background-radius: 8;
+                                      -fx-text-fill: #F0F2F5; -fx-prompt-text-fill: #5A6070;
+                                      -fx-padding: 10 14 10 14; -fx-font-size: 13px;"/>
+                    <Button text="Parcourir" onAction="#onBrowseImage"
+                            style="-fx-background-color: transparent; -fx-border-color: #252830;
+                                   -fx-border-radius: 8; -fx-background-radius: 8;
+                                   -fx-text-fill: #D0D5DD; -fx-font-size: 13px;
+                                   -fx-padding: 9 16 9 16; -fx-cursor: hand;"/>
+                </HBox>
+
+                <!-- Apercu image -->
+                <StackPane fx:id="imagePreviewPane" prefHeight="90" maxHeight="90"
+                           style="-fx-background-color: #1C2028; -fx-background-radius: 8;
+                                  -fx-border-color: #252830; -fx-border-radius: 8;">
+                    <ImageView fx:id="imagePreview" fitWidth="460" fitHeight="90"
+                               preserveRatio="false" smooth="true"/>
+                    <Label fx:id="imagePlaceholder" text="Apercu de l image ici"
+                           style="-fx-font-size: 12px; -fx-text-fill: #5A6070;"/>
+                </StackPane>
+            </VBox>
+
+            <!-- Lieu -->
+            <VBox spacing="6">
+                <Label text="Lieu *"
+                       style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                <TextField fx:id="locationField" promptText="ex: Parc Central, Tunis"
+                           style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                  -fx-border-radius: 8; -fx-background-radius: 8;
+                                  -fx-text-fill: #F0F2F5; -fx-prompt-text-fill: #5A6070;
+                                  -fx-padding: 10 14 10 14; -fx-font-size: 13px;"/>
+            </VBox>
+
+            <!-- Date + Heure -->
+            <HBox spacing="16">
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Date *"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                    <DatePicker fx:id="datePicker" maxWidth="Infinity"
+                                styleClass="event-date-picker"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Heure * (HH:mm)"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                    <TextField fx:id="timeField" promptText="18:00" prefWidth="110"
+                               style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                      -fx-border-radius: 8; -fx-background-radius: 8;
+                                      -fx-text-fill: #F0F2F5; -fx-prompt-text-fill: #5A6070;
+                                      -fx-padding: 10 14 10 14; -fx-font-size: 13px;"/>
+                </VBox>
+            </HBox>
+
+            <!-- Capacite + Humeur -->
+            <HBox spacing="16">
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Capacite max"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                    <Spinner fx:id="capacitySpinner" editable="true" maxWidth="Infinity">
+                        <valueFactory>
+                            <SpinnerValueFactory.IntegerSpinnerValueFactory min="1" max="500" initialValue="20"/>
+                        </valueFactory>
+                    </Spinner>
+                </VBox>
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Humeur recommandee"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                    <ComboBox fx:id="moodCombo" maxWidth="Infinity"/>
+                </VBox>
+            </HBox>
+
+            <!-- Prix + Paiement + Reduction -->
+            <HBox spacing="16">
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Prix"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                    <TextField fx:id="priceField" promptText="0 = gratuit"
+                               style="-fx-background-color: #1C2028; -fx-border-color: #252830;
+                                      -fx-border-radius: 8; -fx-background-radius: 8;
+                                      -fx-text-fill: #F0F2F5; -fx-prompt-text-fill: #5A6070;
+                                      -fx-padding: 10 14 10 14; -fx-font-size: 13px;"/>
+                </VBox>
+                <VBox spacing="6" HBox.hgrow="ALWAYS">
+                    <Label text="Paiement"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                    <ComboBox fx:id="paymentCombo" maxWidth="Infinity"/>
+                </VBox>
+                <VBox spacing="6">
+                    <Label text="Reduction %"
+                           style="-fx-font-size: 12px; -fx-font-weight: bold; -fx-text-fill: #8A95A3;"/>
+                    <Spinner fx:id="discountSpinner" editable="true" prefWidth="110">
+                        <valueFactory>
+                            <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="100" initialValue="0"/>
+                        </valueFactory>
+                    </Spinner>
+                </VBox>
+            </HBox>
+
+            <!-- Message d'erreur -->
+            <Label fx:id="errorLabel" wrapText="true"
+                   style="-fx-text-fill: #E85D3A; -fx-font-size: 12px; -fx-min-height: 16;"/>
+
+        </VBox>
+    </ScrollPane>
+
+    <!-- Footer -->
+    <HBox spacing="12" alignment="CENTER_RIGHT"
+          style="-fx-background-color: #12151A; -fx-padding: 10 24 10 24;
+                 -fx-border-color: #1C2028; -fx-border-width: 1 0 0 0;">
+        <Button text="Annuler" onAction="#onCancel"
+                style="-fx-background-color: #252830; -fx-text-fill: #D0D5DD;
+                       -fx-font-size: 13px; -fx-padding: 10 22 10 22;
+                       -fx-background-radius: 8; -fx-cursor: hand;"/>
+        <Button fx:id="saveBtn" text="Creer l evenement" onAction="#onSave"
+                style="-fx-background-color: #1BBFA8; -fx-text-fill: white;
+                       -fx-font-weight: bold; -fx-font-size: 13px;
+                       -fx-padding: 10 22 10 22; -fx-background-radius: 8; -fx-cursor: hand;"/>
+    </HBox>
+
+</VBox>

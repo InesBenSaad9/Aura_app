@@ -33,9 +33,11 @@ public class RegisterController {
     @FXML private TextField prenomField;
     @FXML private TextField nomField;
     @FXML private TextField emailField;
+    @FXML private ComboBox<String> roleComboBox;
     @FXML private Label prenomError;
     @FXML private Label nomError;
     @FXML private Label emailError;
+    @FXML private Label roleError;
 
     @FXML private PasswordField passwordField;
     @FXML private PasswordField confirmPasswordField;
@@ -60,6 +62,7 @@ public class RegisterController {
     @FXML
     public void initialize() {
         genreComboBox.getItems().addAll("Homme", "Femme", "Autre");
+        roleComboBox.getItems().addAll("utilisateur", "medecin", "organizateur d'evenement");
         resetErrors();
     }
 
@@ -176,6 +179,12 @@ public class RegisterController {
                 globalErrorLabel.setText("Erreur de base de donnees pendant la verification de l email.");
             }
         }
+        
+        if (roleComboBox.getValue() == null) {
+            showFieldError(roleError, "Le role est obligatoire.");
+            valid = false;
+        }
+
         return valid;
     }
 
@@ -265,7 +274,7 @@ public class RegisterController {
             user.setPrenom(prenomField.getText().trim());
             user.setNom(nomField.getText().trim());
             user.setEmail(emailField.getText().trim());
-            user.setRole("USER");
+            user.setRole(roleComboBox.getValue());
             user.setMotDePasse(passwordField.getText().trim());
             user.setTelephone(phoneField.getText().trim());
             user.setDateNaissance(dobPicker.getValue());
@@ -304,6 +313,7 @@ public class RegisterController {
         hideFieldError(prenomError);
         hideFieldError(nomError);
         hideFieldError(emailError);
+        hideFieldError(roleError);
         hideFieldError(passwordError);
         hideFieldError(confirmPasswordError);
         hideFieldError(phoneError);

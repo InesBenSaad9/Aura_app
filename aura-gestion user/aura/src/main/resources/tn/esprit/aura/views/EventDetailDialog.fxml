@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="tn.esprit.aura.controllers.EventDetailController"
+            style="-fx-background-color: #0A0C0F;"
+            minWidth="620" maxWidth="720"
+            prefHeight="760" maxHeight="760">
+
+    <!-- Image + overlay header -->
+    <top>
+        <StackPane fx:id="imagePane" prefHeight="170" maxHeight="170"
+                   style="-fx-background-color: #1C2028;">
+
+            <ImageView fx:id="eventImage"
+                       fitWidth="720" fitHeight="170"
+                       preserveRatio="false" smooth="true"/>
+
+            <!-- Gradient overlay avec titre et badges -->
+            <VBox alignment="BOTTOM_LEFT"
+                  style="-fx-background-color: linear-gradient(to top, #0A0C0Ff0 0%, transparent 55%);
+                         -fx-padding: 0 24 14 24; -fx-min-width: 720;">
+                <HBox spacing="8" alignment="CENTER_LEFT" style="-fx-padding: 0 0 6 0;">
+                    <Label fx:id="moodBadge"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold;
+                                  -fx-padding: 4 12 4 12; -fx-background-radius: 20;"/>
+                    <Label fx:id="statusBadge"
+                           style="-fx-font-size: 11px;
+                                  -fx-padding: 4 12 4 12; -fx-background-radius: 20;"/>
+                </HBox>
+                <Label fx:id="titleLabel" wrapText="true"
+                       style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: white;
+                              -fx-effect: dropshadow(gaussian, black, 8, 0.6, 0, 1);"/>
+            </VBox>
+
+        </StackPane>
+    </top>
+
+    <!-- Corps scrollable -->
+    <center>
+        <ScrollPane fitToWidth="true" hbarPolicy="NEVER"
+                    style="-fx-background: #0A0C0F; -fx-background-color: #0A0C0F;
+                           -fx-border-color: transparent;">
+            <VBox spacing="16" style="-fx-background-color: #0A0C0F; -fx-padding: 18 28 18 28;">
+
+                <!-- Grid infos -->
+                <GridPane hgap="28" vgap="12">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="180" prefWidth="220"/>
+                        <ColumnConstraints hgrow="ALWAYS"/>
+                    </columnConstraints>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                        <Label text="DATE"
+                               style="-fx-font-size: 10px; -fx-font-weight: bold;
+                                      -fx-text-fill: #5A6070;"/>
+                        <Label fx:id="dateValue"
+                               style="-fx-font-size: 14px; -fx-text-fill: #F0F2F5;"/>
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="0">
+                        <Label text="HEURE"
+                               style="-fx-font-size: 10px; -fx-font-weight: bold;
+                                      -fx-text-fill: #5A6070;"/>
+                        <Label fx:id="timeValue"
+                               style="-fx-font-size: 14px; -fx-text-fill: #F0F2F5;"/>
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                        <Label text="LIEU"
+                               style="-fx-font-size: 10px; -fx-font-weight: bold;
+                                      -fx-text-fill: #5A6070;"/>
+                        <Label fx:id="locationValue" wrapText="true"
+                               style="-fx-font-size: 14px; -fx-text-fill: #F0F2F5;"/>
+                    </VBox>
+
+                    <VBox spacing="5" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                        <Label text="PARTICIPANTS"
+                               style="-fx-font-size: 10px; -fx-font-weight: bold;
+                                      -fx-text-fill: #5A6070;"/>
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+                            <ProgressBar fx:id="participantsBar" prefWidth="130" prefHeight="6"
+                                         style="-fx-accent: #1BBFA8;"/>
+                            <Label fx:id="participantsValue"
+                                   style="-fx-font-size: 13px; -fx-text-fill: #F0F2F5;"/>
+                        </HBox>
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                        <Label text="PRIX"
+                               style="-fx-font-size: 10px; -fx-font-weight: bold;
+                                      -fx-text-fill: #5A6070;"/>
+                        <Label fx:id="priceValue"
+                               style="-fx-font-size: 14px; -fx-text-fill: #F0F2F5;"/>
+                    </VBox>
+
+                    <VBox spacing="4" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <Label text="PAIEMENT / REDUCTION"
+                               style="-fx-font-size: 10px; -fx-font-weight: bold;
+                                      -fx-text-fill: #5A6070;"/>
+                        <Label fx:id="paymentValue"
+                               style="-fx-font-size: 14px; -fx-text-fill: #F0F2F5;"/>
+                    </VBox>
+                </GridPane>
+
+                <Separator style="-fx-background-color: #1C2028;"/>
+
+                <!-- Description -->
+                <VBox spacing="8">
+                    <Label text="DESCRIPTION"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold;
+                                  -fx-text-fill: #5A6070;"/>
+                    <Label fx:id="descriptionLabel" wrapText="true"
+                           style="-fx-font-size: 14px; -fx-text-fill: #D0D5DD;
+                                  -fx-line-spacing: 4;"/>
+                </VBox>
+
+                <Separator style="-fx-background-color: #1C2028;"/>
+
+                <!-- Organisateur -->
+                <VBox spacing="5">
+                    <Label text="ORGANISATEUR"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold;
+                                  -fx-text-fill: #5A6070;"/>
+                    <Label fx:id="organizerLabel" wrapText="true"
+                           style="-fx-font-size: 14px; -fx-text-fill: #F0F2F5;"/>
+                </VBox>
+
+                <Separator style="-fx-background-color: #1C2028;"/>
+
+                <!-- Participants -->
+                <VBox spacing="8">
+                    <Label text="PARTICIPANTS"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold;
+                                  -fx-text-fill: #5A6070;"/>
+                    <VBox fx:id="participantsList" spacing="8"/>
+                </VBox>
+
+                <Separator style="-fx-background-color: #1C2028;"/>
+
+                <!-- Revenue dashboard -->
+                <VBox spacing="10">
+                    <Label text="STATISTIQUES REVENUS"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold;
+                                  -fx-text-fill: #5A6070;"/>
+                    <GridPane hgap="12" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <VBox spacing="4" GridPane.columnIndex="0" style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 12;">
+                            <Label text="TICKET" style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="revenueTicketLabel" style="-fx-font-size: 18px; -fx-text-fill: #FBBF24; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1" style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 12;">
+                            <Label text="CONFIRMES" style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="revenueParticipantsLabel" style="-fx-font-size: 18px; -fx-text-fill: #F0F2F5; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="2" style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 12;">
+                            <Label text="REVENU" style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="revenueTotalLabel" style="-fx-font-size: 18px; -fx-text-fill: #1BBFA8; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="3" style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 12;">
+                            <Label text="REDUCTION" style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="revenueDiscountLabel" style="-fx-font-size: 18px; -fx-text-fill: #E85D3A; -fx-font-weight: bold;"/>
+                        </VBox>
+                    </GridPane>
+                    <HBox spacing="12" alignment="CENTER_LEFT">
+                        <StackPane fx:id="revenueBarChartBox"
+                                   prefWidth="260" prefHeight="230"
+                                   style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 8;"/>
+                        <StackPane fx:id="revenuePieChartBox"
+                                   prefWidth="240" prefHeight="230"
+                                   style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 8;"/>
+                        <StackPane fx:id="revenueLineChartBox" HBox.hgrow="ALWAYS"
+                                   prefHeight="230"
+                                   style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 8;"/>
+                    </HBox>
+                </VBox>
+
+                <Separator style="-fx-background-color: #1C2028;"/>
+
+                <!-- Feedback dashboard -->
+                <VBox spacing="10">
+                    <Label text="STATISTIQUES FEEDBACK"
+                           style="-fx-font-size: 11px; -fx-font-weight: bold;
+                                  -fx-text-fill: #5A6070;"/>
+                    <GridPane hgap="12" vgap="12">
+                        <columnConstraints>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                            <ColumnConstraints hgrow="ALWAYS"/>
+                        </columnConstraints>
+                        <VBox spacing="4" GridPane.columnIndex="0" style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 12;">
+                            <Label text="MOYENNE /5" style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="feedbackAverageLabel" style="-fx-font-size: 20px; -fx-text-fill: #1BBFA8; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="1" style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 12;">
+                            <Label text="TOTAL" style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="feedbackTotalLabel" style="-fx-font-size: 20px; -fx-text-fill: #F0F2F5; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="2" style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 12;">
+                            <Label text="POSITIFS" style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="feedbackPositiveLabel" style="-fx-font-size: 20px; -fx-text-fill: #1BBFA8; -fx-font-weight: bold;"/>
+                        </VBox>
+                        <VBox spacing="4" GridPane.columnIndex="3" style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 12;">
+                            <Label text="NEGATIFS" style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="feedbackNegativeLabel" style="-fx-font-size: 20px; -fx-text-fill: #E85D3A; -fx-font-weight: bold;"/>
+                        </VBox>
+                    </GridPane>
+                    <HBox spacing="14" alignment="CENTER_LEFT">
+                        <StackPane fx:id="feedbackChartBox"
+                                   prefWidth="260" prefHeight="220"
+                                   style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 8;"/>
+                        <VBox spacing="10" HBox.hgrow="ALWAYS"
+                              style="-fx-background-color: #12151A; -fx-background-radius: 8; -fx-padding: 14;">
+                            <Label text="ANALYSE"
+                                   style="-fx-font-size: 10px; -fx-text-fill: #5A6070; -fx-font-weight: bold;"/>
+                            <Label fx:id="feedbackAnalysisLabel" wrapText="true"
+                                   style="-fx-font-size: 13px; -fx-text-fill: #D0D5DD; -fx-line-spacing: 3;"/>
+                        </VBox>
+                    </HBox>
+                    <VBox fx:id="feedbackList" spacing="8"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+
+    <!-- Footer actions -->
+    <bottom>
+        <HBox spacing="12" alignment="CENTER_LEFT"
+              style="-fx-background-color: #12151A; -fx-padding: 16 24 16 24;
+                 -fx-border-color: #252830; -fx-border-width: 1 0 0 0;">
+
+            <Region HBox.hgrow="ALWAYS"/>
+
+            <Button fx:id="mapsBtn" text="Maps" onAction="#onOpenMaps"
+                    style="-fx-background-color: #2563EB22; -fx-border-color: #2563EB;
+                       -fx-border-radius: 8; -fx-background-radius: 8;
+                       -fx-text-fill: #60A5FA; -fx-font-size: 13px; -fx-font-weight: bold;
+                       -fx-padding: 9 20 9 20; -fx-cursor: hand;"/>
+
+            <Button fx:id="editBtn" text="Modifier" onAction="#onEdit"
+                    style="-fx-background-color: #6B5FD422; -fx-border-color: #6B5FD4;
+                       -fx-border-radius: 8; -fx-background-radius: 8;
+                       -fx-text-fill: #6B5FD4; -fx-font-size: 13px; -fx-font-weight: bold;
+                       -fx-padding: 9 20 9 20; -fx-cursor: hand;"/>
+
+            <Button fx:id="deleteBtn" text="Supprimer" onAction="#onDelete"
+                    style="-fx-background-color: #E85D3A22; -fx-border-color: #E85D3A;
+                       -fx-border-radius: 8; -fx-background-radius: 8;
+                       -fx-text-fill: #E85D3A; -fx-font-size: 13px;
+                       -fx-padding: 9 20 9 20; -fx-cursor: hand;"/>
+
+            <Button text="Fermer" onAction="#onClose"
+                    style="-fx-background-color: #252830; -fx-text-fill: #D0D5DD;
+                       -fx-font-size: 13px; -fx-padding: 10 22 10 22;
+                       -fx-background-radius: 8; -fx-cursor: hand;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>

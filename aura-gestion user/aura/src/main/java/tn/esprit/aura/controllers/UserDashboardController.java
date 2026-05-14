@@ -65,7 +65,20 @@ public class UserDashboardController {
 
     @FXML private void handleMedical()    { loadView("/tn/esprit/aura/views/user_home.fxml"); setActiveButton(userBtnMedical); }
     @FXML private void handleMessages()   { loadView("/tn/esprit/aura/views/user_home.fxml"); setActiveButton(userBtnMessages); }
-    @FXML private void handleEvents()     { loadView("/tn/esprit/aura/views/user_home.fxml"); setActiveButton(userBtnEvents); }
+    @FXML private void handleEvents() {
+        String role = "";
+        if (SessionManager.isLoggedIn()) {
+            role = SessionManager.getCurrentUser().getRole();
+        }
+        
+        if ("organizateur d'evenement".equalsIgnoreCase(role)) {
+            loadView("/tn/esprit/aura/views/EventsView.fxml");
+        } else {
+            tn.esprit.aura.controllers.UserEventsView userEventsView = new tn.esprit.aura.controllers.UserEventsView();
+            userContentArea.getChildren().setAll(userEventsView);
+        }
+        setActiveButton(userBtnEvents);
+    }
     @FXML private void handleSettings()   { loadView("/tn/esprit/aura/views/settings.fxml"); }
 
     @FXML
