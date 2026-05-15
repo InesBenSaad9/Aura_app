@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.aura.controllers.doctor.DoctorPatientsController"
+            style="-fx-background-color: #0d1117;">
+    <top>
+        <VBox style="-fx-padding: 32 32 24 32; -fx-background-color: #0d1117;">
+            <Label text="Mes Patients" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+        </VBox>
+    </top>
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #0d1117; -fx-background: #0d1117; -fx-border-color: transparent;">
+            <VBox fx:id="patientsContainer" style="-fx-padding: 0 32 32 32;" spacing="16"/>
+        </ScrollPane>
+    </center>
+</BorderPane>

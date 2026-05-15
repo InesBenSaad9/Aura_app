@@ -404,11 +404,9 @@ public class AIAnalysisController {
     private String getMoodColor(String mood) {
         if (mood == null) return "#1BBFA8";
         return switch (mood.toLowerCase().trim()) {
-            case "énergisé", "energise", "focalisé" -> "#1BBFA8";
-            case "calme"                             -> "#1BBFA8";
-            case "stressé",  "stresse"               -> "#E85D3A";
-            case "fatigué",  "fatigue"               -> "#6B5FD4";
-            default                                  -> "#1BBFA8";
+            case "stressé",  "stresse" -> "#E85D3A";
+            case "fatigué",  "fatigue" -> "#6B5FD4";
+            default                    -> "#1BBFA8";
         };
     }
 
@@ -437,10 +435,10 @@ public class AIAnalysisController {
     private EtatEmotionnel mapThemeToEtat(AdaptiveWorkspaceManager.Theme theme) {
         if (theme == null) return EtatEmotionnel.CALME;
         return switch (theme) {
-            case STRESSE  -> EtatEmotionnel.STRESSE;
-            case FATIGUE  -> EtatEmotionnel.FATIGUE;
-            case CALME    -> EtatEmotionnel.CALME;
-            case ENERGISE -> EtatEmotionnel.ENERGISE;
+            case INITIAL, CALME -> EtatEmotionnel.CALME;
+            case STRESSE        -> EtatEmotionnel.STRESSE;
+            case FATIGUE        -> EtatEmotionnel.FATIGUE;
+            case ENERGISE       -> EtatEmotionnel.ENERGISE;
         };
     }
 

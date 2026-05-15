@@ -6,6 +6,7 @@ import tn.esprit.aura.entities.Mood;
 import tn.esprit.aura.entities.Task;
 import tn.esprit.aura.services.VoiceAnalyzer;
 import tn.esprit.aura.services.WhisperService;
+import tn.esprit.aura.utils.AppThemeManager;
 import tn.esprit.aura.utils.SessionManager;
 import javafx.animation.*;
 import javafx.application.Platform;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 public class DashboardController {
 
-    @FXML private Label userName;
+    @FXML private Label nom;
     @FXML private Label orbText1;
     @FXML private Label orbText2;
     @FXML private Circle orbCircle;
@@ -57,7 +58,7 @@ public class DashboardController {
         taskPriorityBox.getItems().addAll("haute", "moyenne", "basse");
         taskPriorityBox.setValue("moyenne");
         if (SessionManager.isLoggedIn())
-            userName.setText(SessionManager.getCurrentUser().getNom());
+            nom.setText(SessionManager.getCurrentUser().getNom());
         animateOrb();
         refreshTaskList();
     }
@@ -141,6 +142,7 @@ public class DashboardController {
             case "focalisé" -> { orbCircle.setFill(Color.web("#6B5FD4")); orbText1.setText("Tu es focalisé."); orbText2.setText("Continue comme ça 🎯"); }
             default         -> { orbCircle.setFill(Color.web("#6B5FD4")); orbText1.setText("Tu es calme"); orbText2.setText("& détendu 😌"); }
         }
+        AppThemeManager.applyMoodTheme(mood);
     }
 
     private void updateBadges(String mood) {

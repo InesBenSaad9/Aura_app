@@ -395,7 +395,7 @@
 /* ═══════════════════════════════════════
    SIDEBAR
    ═══════════════════════════════════════ */
-.sidebar {
+.user-sidebar {
     -fx-background-color: #0D1014;
     -fx-border-color: rgba(27,191,168,0.1);
     -fx-border-width: 0 0.5 0 0;
@@ -436,7 +436,7 @@
     -fx-text-fill: #F0F4F8;
 }
 
-.sidebar-btn-active {
+.user-sidebar-btn-active {
     -fx-background-color: rgba(27,191,168,0.12) !important;
     -fx-text-fill: #1BBFA8 !important;
     -fx-border-color: rgba(27,191,168,0.3);
@@ -978,4 +978,54 @@
 
 .sidebar-logout-btn:hover {
     -fx-background-color: rgba(255,98,59,0.08);
+}
+
+/* ---------------------------------------
+   MOOD-BASED THEMES (ADAPTIVE WORKSPACE)
+   --------------------------------------- */
+.mood-stresse {
+    -fx-accent: #E85D3A;
+}
+.mood-stresse .user-sidebar {
+    -fx-background-color: #1A0D0A;
+    -fx-border-color: rgba(232, 93, 58, 0.2);
+}
+.mood-stresse .user-sidebar-btn-active {
+    -fx-background-color: rgba(232, 93, 58, 0.12) !important;
+    -fx-text-fill: #E85D3A !important;
+    -fx-border-color: #E85D3A;
+}
+
+.mood-fatigue {
+    -fx-accent: #4A4A8A;
+}
+.mood-fatigue .user-sidebar {
+    -fx-background-color: #0A0A1A;
+    -fx-border-color: rgba(74, 74, 138, 0.2);
+}
+.mood-fatigue .user-sidebar-btn-active {
+    -fx-background-color: rgba(74, 74, 138, 0.12) !important;
+    -fx-text-fill: #A8A8FF !important;
+    -fx-border-color: #6B5FD4;
+}
+
+.mood-energise {
+    -fx-accent: #1BBFA8;
+}
+.mood-energise .user-sidebar {
+    -fx-background-color: #0A1A18;
+    -fx-border-color: rgba(27, 191, 168, 0.2);
+}
+
+.mood-focalise {
+    -fx-accent: #6B5FD4;
+}
+.mood-focalise .user-sidebar {
+    -fx-background-color: #0E0A1A;
+    -fx-border-color: rgba(107, 95, 212, 0.2);
+}
+.mood-focalise .user-sidebar-btn-active {
+    -fx-background-color: rgba(107, 95, 212, 0.12) !important;
+    -fx-text-fill: #C4BEFF !important;
+    -fx-border-color: #6B5FD4;
 }

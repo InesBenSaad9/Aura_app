@@ -16,6 +16,12 @@ public class MainApp extends Application {
         // Start local web server for QR codes
         tn.esprit.aura.utils.LocalWebServerService.getInstance().startServer();
 
+        // Initialize Google Calendar (in background to avoid blocking UI)
+        new Thread(() -> tn.esprit.aura.utils.GoogleCalendarService.getInstance().init()).start();
+
+        // Initialize Twilio
+        tn.esprit.aura.utils.TwilioService.getInstance().init();
+
         // Set up the primary stage
         primaryStage.setTitle("AURA — Adaptive Urban Relationship Assistant");
         primaryStage.setMinWidth(1100);

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.aura.controllers.patient.PatientFollowUpView"
+            style="-fx-background-color: #0d1117;">
+
+    <top>
+        <VBox style="-fx-padding: 32 32 20 32; -fx-background-color: #0d1117;" spacing="6">
+            <Label text="Suivi de santé"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="Votre tableau de bord de bien-être"
+                   style="-fx-font-size: 13px; -fx-text-fill: #6e7681;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: #0d1117; -fx-background: #0d1117;">
+            <VBox style="-fx-padding: 0 32 32 32;" spacing="20">
+
+                <!-- Wellbeing Alert Card -->
+                <HBox spacing="14" alignment="CENTER_LEFT"
+                      style="-fx-background-color: #1a1a2e; -fx-background-radius: 12;
+                             -fx-padding: 18; -fx-border-color: #f0a500;
+                             -fx-border-width: 1; -fx-border-radius: 12;">
+                    <Label text="⚠️" style="-fx-font-size: 22px;"/>
+                    <VBox spacing="4">
+                        <Label text="Alerte bien-être"
+                               style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 15px;"/>
+                        <Label text="Vous semblez stressé depuis 3 jours. Consultez un médecin pour un meilleur suivi."
+                               style="-fx-text-fill: #8b949e; -fx-font-size: 13px;" wrapText="true"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Stats row -->
+                <HBox spacing="16">
+                    <!-- Mood Card -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="8" alignment="CENTER"
+                          style="-fx-background-color: #161b22; -fx-background-radius: 12;
+                                 -fx-padding: 24; -fx-border-color: #30363d;
+                                 -fx-border-width: 1; -fx-border-radius: 12;">
+                        <Label text="😔" style="-fx-font-size: 36px;"/>
+                        <Label text="Humeur" style="-fx-text-fill: #8b949e; -fx-font-size: 12px;"/>
+                        <Label text="Stressé" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    </VBox>
+                    <!-- Sleep Card -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="8" alignment="CENTER"
+                          style="-fx-background-color: #161b22; -fx-background-radius: 12;
+                                 -fx-padding: 24; -fx-border-color: #30363d;
+                                 -fx-border-width: 1; -fx-border-radius: 12;">
+                        <Label text="🌙" style="-fx-font-size: 36px;"/>
+                        <Label text="Sommeil" style="-fx-text-fill: #8b949e; -fx-font-size: 12px;"/>
+                        <Label text="6h / nuit" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    </VBox>
+                    <!-- Activity Card -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="8" alignment="CENTER"
+                          style="-fx-background-color: #161b22; -fx-background-radius: 12;
+                                 -fx-padding: 24; -fx-border-color: #30363d;
+                                 -fx-border-width: 1; -fx-border-radius: 12;">
+                        <Label text="🏃" style="-fx-font-size: 36px;"/>
+                        <Label text="Activité" style="-fx-text-fill: #8b949e; -fx-font-size: 12px;"/>
+                        <Label text="3 244 pas" style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    </VBox>
+                    <!-- Sessions Card -->
+                    <VBox HBox.hgrow="ALWAYS" spacing="8" alignment="CENTER"
+                          style="-fx-background-color: #161b22; -fx-background-radius: 12;
+                                 -fx-padding: 24; -fx-border-color: #30363d;
+                                 -fx-border-width: 1; -fx-border-radius: 12;">
+                        <Label text="🩺" style="-fx-font-size: 36px;"/>
+                        <Label text="Sessions" style="-fx-text-fill: #8b949e; -fx-font-size: 12px;"/>
+                        <Label fx:id="sessionCountLabel" text="0 séances"
+                               style="-fx-text-fill: white; -fx-font-weight: bold; -fx-font-size: 16px;"/>
+                    </VBox>
+                </HBox>
+
+                <!-- Sessions history -->
+                <VBox spacing="12">
+                    <Label text="Historique des séances"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <VBox fx:id="sessionsContainer" spacing="10"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

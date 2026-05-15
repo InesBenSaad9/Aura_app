@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DBConnection {
     private static final String URL = "jdbc:mysql://localhost:3306/aura_db";
-    private static final String USERNAME = "root";
+    private static final String nom = "root";
     private static final String PASSWORD = "";
 
     private static DBConnection instance;
@@ -14,7 +14,7 @@ public class DBConnection {
 
     private DBConnection() {
         try {
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            connection = DriverManager.getConnection(URL, nom, PASSWORD);
             System.out.println("Connection established to DB: " + URL);
         } catch (SQLException e) {
             System.err.println("Database connection failed: " + e.getMessage());

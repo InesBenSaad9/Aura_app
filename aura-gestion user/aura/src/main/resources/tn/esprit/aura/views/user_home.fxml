@@ -17,7 +17,7 @@
     </HBox>
 
     <!-- Bienvenue section -->
-    <VBox spacing="10" styleClass="welcome-card" style="-fx-background-color: linear-gradient(to right, #1BBFA8, #159986);">
+    <VBox fx:id="welcomeCard" spacing="10" styleClass="welcome-card" style="-fx-background-color: linear-gradient(to right, #1BBFA8, #159986);">
         <padding><Insets bottom="32" left="32" right="32" top="32" /></padding>
         <Label fx:id="welcomeNameLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;" text="Bonjour, utilisateur !" />
         <Label style="-fx-font-size: 14px; -fx-text-fill: rgba(255,255,255,0.9);" text="Bienvenue dans votre tableau de bord personnel AURA. Vous pouvez y consulter votre profil et acceder aux parametres de votre compte." wrapText="true" />

@@ -3,6 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Region?>
@@ -10,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<BorderPane prefHeight="800" prefWidth="1280" styleClass="root-pane" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.aura.controllers.UserDashboardController">
+<BorderPane fx:id="dashboardRoot" prefHeight="800" prefWidth="1280" styleClass="root-pane" stylesheets="@../styles/style.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tn.esprit.aura.controllers.UserDashboardController">
 
     <left>
         <VBox fx:id="userSidebar" maxWidth="200" minWidth="200" prefWidth="200" style="-fx-background-color: #111418; -fx-border-width: 0;">
 
             <HBox alignment="CENTER_LEFT" spacing="12" style="-fx-padding: 28 16;">
-                <Circle fill="#1BBFA8" radius="20" />
+                <Circle fx:id="auraLogoCircle" fill="#1BBFA8" radius="20" />
                 <VBox spacing="2">
                     <Label style="-fx-text-fill: white; -fx-font-size: 18; -fx-font-weight: bold;" text="AURA" />
                     <Label style="-fx-text-fill: #A8B4C0; -fx-font-size: 10;" text="AI Life Companion" />
@@ -24,7 +25,7 @@
             </HBox>
 
             <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 16; -fx-background-color: rgba(27,191,168,0.05);">
-                <Circle fill="#1BBFA8" radius="20" />
+                <Circle fx:id="userStatusCircle" fill="#1BBFA8" radius="20" />
                 <VBox spacing="2">
                     <Label fx:id="userSidebarNameLabel" style="-fx-text-fill: white; -fx-font-size: 14; -fx-font-weight: bold;" text="Ines" />
                     <Label style="-fx-text-fill: #1BBFA8; -fx-font-size: 10; -fx-font-weight: bold;" text="ACTIVE" />
@@ -36,13 +37,18 @@
             <VBox spacing="4" style="-fx-padding: 0 8;" VBox.vgrow="ALWAYS">
                 <Button fx:id="userBtnTasks" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleTasks" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Taches" />
                 <Button fx:id="userBtnAnalysis" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleAnalysis" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="AI Analysis" />
+                <Button fx:id="userBtnActivities" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleAnalysis" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Activities" />
+                
+                <!-- Doctor Specific -->
+                <Button fx:id="doctorBtnDemandes" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleMedical" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Demandes" visible="false" managed="false"/>
+                <Button fx:id="doctorBtnPatients" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleDoctorPatients" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Patients" visible="false" managed="false"/>
+                <Button fx:id="doctorBtnPrescriptions" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleDoctorPrescriptions" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Prescriptions" visible="false" managed="false"/>
 
                 <Button fx:id="userBtnMedical" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleMedical" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Medical" />
                 <Button fx:id="userBtnMessages" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleMessages" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Messages" />
                 <Button fx:id="userBtnEvents" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleEvents" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Evenement" />
                 <Button fx:id="userBtnProfile" alignment="CENTER_LEFT" maxWidth="Infinity" onAction="#handleProfile" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 14; -fx-alignment: CENTER_LEFT; -fx-padding: 12 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Profile" />
             </VBox>
-
 
             <VBox spacing="4" style="-fx-padding: 8;">
                 <Button alignment="CENTER_LEFT" maxWidth="Infinity" style="-fx-background-color: transparent; -fx-text-fill: #A8B4C0; -fx-font-size: 13; -fx-alignment: CENTER_LEFT; -fx-padding: 10 16; -fx-background-radius: 10; -fx-cursor: hand;" text="Light Mode" />
@@ -54,7 +60,7 @@
 
     <center>
         <VBox styleClass="main-content-area">
-            <HBox alignment="CENTER_LEFT" spacing="16" styleClass="topbar">
+            <HBox fx:id="topbar" alignment="CENTER_LEFT" spacing="16" styleClass="topbar">
                 <padding><Insets bottom="14" left="24" right="24" top="14" /></padding>
                 <Label styleClass="topbar-title" text="Tableau de bord utilisateur" />
                 <Region HBox.hgrow="ALWAYS" />

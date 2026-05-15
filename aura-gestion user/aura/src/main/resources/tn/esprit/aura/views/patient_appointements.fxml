@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.aura.controllers.patient.PatientAppointmentsView"
+            style="-fx-background-color: #0d1117;">
+
+    <top>
+        <VBox style="-fx-padding: 32 32 20 32; -fx-background-color: #0d1117;" spacing="6">
+            <Label text="Mes Rendez-vous"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="Gérez vos rendez-vous médicaux"
+                   style="-fx-font-size: 13px; -fx-text-fill: #6e7681;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: #0d1117; -fx-background: #0d1117;">
+            <VBox style="-fx-padding: 0 32 32 32;" spacing="12">
+
+                <!-- Status Filter Tabs -->
+                <HBox spacing="10" style="-fx-padding: 0 0 8 0;">
+                    <Button fx:id="btnAll" text="Tous" onAction="#filterAll"
+                            style="-fx-background-color: #00b4ab; -fx-text-fill: white; -fx-font-weight: bold;
+                                   -fx-background-radius: 20; -fx-padding: 6 18; -fx-cursor: hand; -fx-font-size: 13px;"/>
+                    <Button fx:id="btnConfirmed" text="Confirmés" onAction="#filterConfirmed"
+                            style="-fx-background-color: #21262d; -fx-text-fill: #8b949e; -fx-font-size: 13px;
+                                   -fx-background-radius: 20; -fx-padding: 6 18; -fx-cursor: hand;"/>
+                    <Button fx:id="btnPending" text="En attente" onAction="#filterPending"
+                            style="-fx-background-color: #21262d; -fx-text-fill: #8b949e; -fx-font-size: 13px;
+                                   -fx-background-radius: 20; -fx-padding: 6 18; -fx-cursor: hand;"/>
+                    <Button fx:id="btnCancelled" text="Annulés" onAction="#filterCancelled"
+                            style="-fx-background-color: #21262d; -fx-text-fill: #8b949e; -fx-font-size: 13px;
+                                   -fx-background-radius: 20; -fx-padding: 6 18; -fx-cursor: hand;"/>
+                </HBox>
+
+                <!-- Appointments List -->
+                <VBox fx:id="appointmentsContainer" spacing="12"/>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

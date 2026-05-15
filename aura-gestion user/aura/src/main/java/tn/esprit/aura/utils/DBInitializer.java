@@ -56,9 +56,86 @@ public class DBInitializer {
                 // Some MySQL versions/permissions may reject MODIFY; code-level normalization still prevents truncation.
             }
 
-            System.out.println("Table utilisateurs initialized successfully.");
+            // Medical Tables
+            stmt.execute("""
+                    CREATE TABLE IF NOT EXISTS docteurs (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        nom VARCHAR(255),
+                        email VARCHAR(255) UNIQUE,
+                        password VARCHAR(255),
+                        specialite VARCHAR(255),
+                        ville VARCHAR(255),
+                        telephone VARCHAR(20),
+                        rating DOUBLE DEFAULT 4.5
+                    )
+                    """);
+
+            stmt.execute("""
+                    CREATE TABLE IF NOT EXISTS appointments (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        patient_id INT,
+                        docteur_id INT,
+                        date_time DATETIME,
+                        status VARCHAR(50),
+                        FOREIGN KEY (patient_id) REFERENCES utilisateurs(id),
+                        FOREIGN KEY (docteur_id) REFERENCES docteurs(id)
+                    )
+                    """);
+
+            stmt.execute("""
+                    CREATE TABLE IF NOT EXISTS appointment_requests (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        patient_id INT,
+                        docteur_id INT,
+                        status VARCHAR(50),
+                        created_at DATETIME,
+                        appointment_date DATETIME,
+                        FOREIGN KEY (patient_id) REFERENCES utilisateurs(id),
+                        FOREIGN KEY (docteur_id) REFERENCES docteurs(id)
+                    )
+                    """);
+
+            stmt.execute("""
+                    CREATE TABLE IF NOT EXISTS prescriptions (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        id_user INT,
+                        patient_id INT,
+                        docteur_id INT,
+                        medicament VARCHAR(255),
+                        dosage VARCHAR(255),
+                        instructions TEXT,
+                        date_creation DATE,
+                        FOREIGN KEY (patient_id) REFERENCES utilisateurs(id),
+                        FOREIGN KEY (docteur_id) REFERENCES docteurs(id)
+                    )
+                    """);
+
+            stmt.execute("""
+                    CREATE TABLE IF NOT EXISTS messages (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        sender_id INT,
+                        sender_role VARCHAR(50),
+                        receiver_id INT,
+                        content TEXT,
+                        sent_at DATETIME DEFAULT CURRENT_TIMESTAMP
+                    )
+                    """);
+
+            stmt.execute("""
+                    CREATE TABLE IF NOT EXISTS therapy_sessions (
+                        id INT AUTO_INCREMENT PRIMARY KEY,
+                        patient_id INT,
+                        doctor_id INT,
+                        session_date DATETIME,
+                        notes TEXT,
+                        FOREIGN KEY (patient_id) REFERENCES utilisateurs(id),
+                        FOREIGN KEY (doctor_id) REFERENCES docteurs(id)
+                    )
+                    """);
+
+            System.out.println("All tables initialized successfully.");
         } catch (SQLException e) {
-            System.err.println("Erreur initializing utilisateurs table: " + e.getMessage());
+            System.err.println("Error initializing database: " + e.getMessage());
         }
     }
 }

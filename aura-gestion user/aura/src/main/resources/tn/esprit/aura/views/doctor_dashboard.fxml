@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.aura.controllers.doctor.DoctorDashboard"
+            style="-fx-background-color: #0d1117;">
+
+
+
+    <center>
+        <ScrollPane fitToWidth="true" style="-fx-background-color: #0d1117; -fx-background: #0d1117; -fx-border-color: transparent;">
+            <VBox style="-fx-padding: 32;" spacing="24">
+                <Label fx:id="welcomeLabel" text="Bienvenue"
+                       style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                
+                <VBox spacing="16">
+                    <Label text="Demandes de Séance"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <VBox fx:id="requestsContainer" spacing="10">
+                        <!-- Les cartes de demandes seront injectées ici -->
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

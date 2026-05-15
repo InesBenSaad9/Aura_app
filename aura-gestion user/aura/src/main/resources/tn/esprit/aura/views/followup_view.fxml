@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="tn.esprit.aura.controllers.FollowUpView"
+            style="-fx-background-color: #0d1117;">
+
+    <top>
+        <VBox style="-fx-padding: 32 32 20 32; -fx-background-color: #0d1117;" spacing="6">
+            <Label text="Suivi" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="Historique de vos séances de thérapie"
+                   style="-fx-font-size: 13px; -fx-text-fill: #6e7681;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: #0d1117; -fx-background: #0d1117;">
+            <VBox style="-fx-padding: 0 32 32 32;" spacing="12">
+                <VBox fx:id="sessionsContainer" spacing="10"/>
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

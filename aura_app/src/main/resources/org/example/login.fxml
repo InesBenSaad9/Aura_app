@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<StackPane xmlns:fx="http://javafx.com/fxml"
+           fx:id="rootPane"
+           fx:controller="org.example.ui.views.LoginView"
+           style="-fx-background-color: #0d1117;">
+
+    <VBox alignment="CENTER" spacing="0" maxWidth="420">
+
+        <!-- Logo + Brand -->
+        <VBox alignment="CENTER" spacing="8" style="-fx-padding: 0 0 40 0;">
+            <Label text="🧠" style="-fx-font-size: 48px;"/>
+            <Label text="AURA" style="-fx-font-size: 32px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="AI Life Companion" style="-fx-font-size: 13px; -fx-text-fill: #6e7681;"/>
+        </VBox>
+
+        <!-- Card -->
+        <VBox spacing="20" style="-fx-background-color: #161b22; -fx-background-radius: 16; -fx-padding: 40; -fx-border-color: #30363d; -fx-border-radius: 16; -fx-border-width: 1;">
+
+            <Label text="Choisissez votre espace" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="Sélectionnez votre rôle pour accéder à l'application"
+                   style="-fx-font-size: 13px; -fx-text-fill: #6e7681;" wrapText="true"/>
+
+            <!-- Bouton Patient -->
+            <Button text="👤  Espace Patient" onAction="#goToPatient"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: #00b4ab; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 16; -fx-cursor: hand;"/>
+
+            <!-- Bouton Docteur -->
+            <Button text="🩺  Espace Docteur" onAction="#goToDoctor"
+                    maxWidth="Infinity"
+                    style="-fx-background-color: #1f6feb; -fx-text-fill: white; -fx-font-size: 15px; -fx-font-weight: bold; -fx-background-radius: 10; -fx-padding: 16; -fx-cursor: hand;"/>
+
+        </VBox>
+    </VBox>
+</StackPane>

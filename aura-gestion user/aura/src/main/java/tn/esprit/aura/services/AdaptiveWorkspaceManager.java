@@ -1,7 +1,7 @@
 package tn.esprit.aura.services;
 
 import javafx.application.Platform;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.Button;
 import javafx.scene.media.AudioClip;
@@ -23,7 +23,7 @@ public class AdaptiveWorkspaceManager {
         return instance;
     }
 
-    public enum Theme { ENERGISE, FATIGUE, CALME, STRESSE }
+    public enum Theme { INITIAL, ENERGISE, FATIGUE, CALME, STRESSE }
 
     public static class Palette {
         public final String background, sidebar, accent, accentSoft, accentSecondary;
@@ -61,18 +61,18 @@ public class AdaptiveWorkspaceManager {
             "#100D18", "#160F22", "#C8B4E8", "rgba(200,180,232,0.12)", "#F4B8C8",
             "#EDE8F4", "#A090C0", "#1A1230", "rgba(200,180,232,0.25)", "rgba(200,180,232,0.3)", "Bloom 🌿");
 
-    private Theme   themeActuel     = Theme.CALME;
+    private Theme   themeActuel     = Theme.INITIAL;
     private Palette paletteActuelle = PALETTE_INITIALE;
     private String  humeurActuelle  = "initial";
 
-    private HBox         rootHBox;
+    private Region       rootRegion;
     private VBox         sidebar;
     private Button       activeButton;
     private List<Button> navButtons = new ArrayList<>();
     private List<Runnable> listeners = new ArrayList<>();
 
-    public void register(HBox rootHBox, VBox sidebar, List<Button> navButtons) {
-        this.rootHBox   = rootHBox;
+    public void register(Region rootRegion, VBox sidebar, List<Button> navButtons) {
+        this.rootRegion = rootRegion;
         this.sidebar    = sidebar;
         this.navButtons = navButtons;
     }
@@ -87,6 +87,7 @@ public class AdaptiveWorkspaceManager {
         humeurActuelle = humeur;
 
         themeActuel = switch (humeur) {
+            case "initial"                          -> Theme.INITIAL;
             case "énergisé", "energisé", "energise" -> Theme.ENERGISE;
             case "fatigué",  "fatigue"              -> Theme.FATIGUE;
             case "stressé",  "stresse"              -> Theme.STRESSE;
@@ -94,6 +95,7 @@ public class AdaptiveWorkspaceManager {
         };
 
         paletteActuelle = switch (themeActuel) {
+            case INITIAL  -> PALETTE_INITIALE;
             case ENERGISE -> PALETTE_ENERGISE;
             case FATIGUE  -> PALETTE_FATIGUE;
             case STRESSE  -> PALETTE_STRESSE;
@@ -114,9 +116,9 @@ public class AdaptiveWorkspaceManager {
         appliquerDepuisHumeur(humeur);
     }
 
-    private void appliquerPaletteUI() {
-        if (rootHBox == null) return;
-        rootHBox.setStyle("-fx-background-color: " + paletteActuelle.background + ";");
+    public void appliquerPaletteUI() {
+        if (rootRegion == null) return;
+        rootRegion.setStyle("-fx-background-color: " + paletteActuelle.background + ";");
         if (sidebar != null)
             sidebar.setStyle("-fx-background-color: " + paletteActuelle.sidebar + "; -fx-border-width: 0;");
         for (Button btn : navButtons) {
@@ -145,11 +147,13 @@ public class AdaptiveWorkspaceManager {
     private void jouerSon(String humeur) {
         try {
             String soundFile = switch (humeur) {
+                case "initial"              -> null;
                 case "énergisé", "energisé" -> "/sounds/boost_chime.mp3";
                 case "fatigué",  "fatigue"  -> "/sounds/soft_chime.mp3";
                 case "stressé",  "stresse"  -> "/sounds/zen_chime.mp3";
                 default                     -> "/sounds/calm_chime.mp3";
             };
+            if (soundFile == null) return;
             var url = getClass().getResource(soundFile);
             if (url != null) {
                 AudioClip clip = new AudioClip(url.toString());

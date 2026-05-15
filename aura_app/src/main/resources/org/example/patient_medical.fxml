@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="org.example.ui.views.patient.PatientMedicalView"
+            style="-fx-background-color: #0d1117;">
+
+    <top>
+        <VBox style="-fx-padding: 32 32 20 32; -fx-background-color: #0d1117;" spacing="6">
+            <Label text="Dossier Médical"
+                   style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+            <Label text="Votre historique médical complet"
+                   style="-fx-font-size: 13px; -fx-text-fill: #6e7681;"/>
+        </VBox>
+    </top>
+
+    <center>
+        <ScrollPane fitToWidth="true"
+                    style="-fx-background-color: #0d1117; -fx-background: #0d1117;">
+            <VBox style="-fx-padding: 0 32 32 32;" spacing="20">
+
+                <!-- Medical Info Card -->
+                <VBox spacing="16"
+                      style="-fx-background-color: #161b22; -fx-background-radius: 12;
+                             -fx-padding: 24; -fx-border-color: #30363d;
+                             -fx-border-width: 1; -fx-border-radius: 12;">
+                    <Label text="Informations personnelles"
+                           style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;"/>
+                    <Separator style="-fx-background-color: #21262d;"/>
+                    <GridPane hgap="20" vgap="12">
+                        <Label text="Groupe sanguin :" GridPane.columnIndex="0" GridPane.rowIndex="0"
+                               style="-fx-text-fill: #8b949e; -fx-font-size: 13px;"/>
+                        <Label text="A+" GridPane.columnIndex="1" GridPane.rowIndex="0"
+                               style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                        <Label text="Taille :" GridPane.columnIndex="0" GridPane.rowIndex="1"
+                               style="-fx-text-fill: #8b949e; -fx-font-size: 13px;"/>
+                        <Label text="175 cm" GridPane.columnIndex="1" GridPane.rowIndex="1"
+                               style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                        <Label text="Poids :" GridPane.columnIndex="0" GridPane.rowIndex="2"
+                               style="-fx-text-fill: #8b949e; -fx-font-size: 13px;"/>
+                        <Label text="70 kg" GridPane.columnIndex="1" GridPane.rowIndex="2"
+                               style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                        <Label text="Allergies :" GridPane.columnIndex="0" GridPane.rowIndex="3"
+                               style="-fx-text-fill: #8b949e; -fx-font-size: 13px;"/>
+                        <Label text="Aucune connue" GridPane.columnIndex="1" GridPane.rowIndex="3"
+                               style="-fx-text-fill: white; -fx-font-size: 13px;"/>
+                    </GridPane>
+                </VBox>
+
+                <!-- Prescriptions section -->
+                <VBox spacing="12">
+                    <Label text="Prescriptions actives"
+                           style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: white;"/>
+                    <VBox fx:id="prescriptionsContainer" spacing="10"/>
+                </VBox>
+
+            </VBox>
+        </ScrollPane>
+    </center>
+</BorderPane>

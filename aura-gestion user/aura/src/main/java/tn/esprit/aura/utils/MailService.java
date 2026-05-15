@@ -48,7 +48,7 @@ public class MailService {
         Transport.send(message);
     }
 
-    public static void sendWelcomeEmail(String recipientEmail, String userName) throws MessagingException {
+    public static void sendWelcomeEmail(String recipientEmail, String nom) throws MessagingException {
         Properties properties = new Properties();
         properties.put("mail.smtp.auth", "true");
         properties.put("mail.smtp.starttls.enable", "true");
@@ -76,7 +76,7 @@ public class MailService {
                 "        <h1 style='color: #ffffff; margin: 0; font-size: 32px; letter-spacing: 2px; text-transform: uppercase;'>AURA</h1>" +
                 "    </div>" +
                 "    <div style='padding: 40px;'>" +
-                "        <h2 style='color: #1BBFA8; margin-top: 0;'>Bienvenue, " + userName + "! 🚀</h2>" +
+                "        <h2 style='color: #1BBFA8; margin-top: 0;'>Bienvenue, " + nom + "! 🚀</h2>" +
                 "        <p style='font-size: 16px; line-height: 1.6; color: #B0BCC8;'>Nous sommes ravis de vous accueillir dans la communaute AURA. Votre compte a ete cree avec succes.</p>" +
                 "        <div style='margin: 30px 0; padding: 20px; background-color: #0A0C0F; border-radius: 12px; border-left: 4px solid #1BBFA8;'>" +
                 "            <p style='margin: 0; font-style: italic; color: #F0F4F8;'>\"AURA est votre acces personnel a une experience simple et securisee.\"</p>" +
